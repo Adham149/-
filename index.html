@@ -1,699 +1,792 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="pageTitle">Hiba Al-Qass | Member of Parliament</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Three.js for 3D effects -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- Load Lucide Icons, adding MessageSquare for WhatsApp FAB -->
-    <script type="module">
-        import { createIcons, Globe, Target, User, BookOpen, Layers, CheckCircle, Mail, Facebook, Instagram, Send, Youtube, Phone, MapPin, Briefcase, Users, MessageSquare, Menu, X, Star, Heart, MessageCircle } from 'https://unpkg.com/lucide@latest/dist/esm/lucide.js';
-        createIcons({ icons: { Globe, Target, User, BookOpen, Layers, CheckCircle, Mail, Facebook, Instagram, Send, Youtube, Phone, MapPin, Briefcase, Users, MessageSquare, Menu, X, Star, Heart, MessageCircle } });
-    </script>
+    <title>موقع هبة القاس | Hiba Al-Qass - النائبة المستقلة</title>
     
-    <!-- Custom Tailwind Config for Luxurious Blue/Gold Palette -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'iq-royal-blue': '#0A1D3C',  // Deep Royal Blue (Main BG)
-                        'iq-dark-card': 'rgba(10, 29, 60, 0.85)', // Dark Card BG with slight transparency
-                        'iq-gold': '#FFD45A',       // Luxurious Gold Accent
-                        'iq-text-light': '#F7FAFC', // White/Light Text
-                        'iq-mid-blue': '#1F3459', // Slightly lighter blue for shadows/borders
-                    },
-                    fontFamily: {
-                        sans: ['Cairo', 'Noto Sans Arabic', 'Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- تحميل Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- استيراد الخطوط (Cairo للعربية، Inter للإنجليزية) --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 
     <style>
-        /* Ensures Arabic font loads nicely */
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Noto+Sans+Arabic:wght@100..900&family=Inter:wght@100..900&display=swap');
+        /* -------------------------------------------------------------------------- */
+        /* General & Base Styles                            */
+        /* -------------------------------------------------------------------------- */
+        :root {
+            /* تعريف الخطوط الأساسية - Inter للإنجليزية، Cairo للعربية */
+            font-family: 'Cairo', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
         
+        /* ضبط الخط لعنوان الـ hero ليكون Inter (للتأكيد على الطابع الحديث) */
+        .hero-content h1, .hero-content p:nth-of-type(1), .hero-content p:nth-of-type(2) {
+             font-family: 'Inter', sans-serif;
+        }
+
+        /* تلوين الخلفية الرئيسية بالكامل باللون الداكن مع تدرج أزرق/ذهبي */
         body {
-            background-color: #0A1D3C; /* Deep Royal Blue */
-            color: #F7FAFC; /* Light Text */
-            perspective: 1px; 
-            transform-style: preserve-3d;
-            overflow-x: hidden; 
+            background-color: #0b0c10;
+            color: #ffffff; /* لون النص الأساسي الأبيض */
+            /* تدرج خلفية أزرق عميق مع إضاءة ذهبية خفيفة للعمق والتركيز */
+            background-image: 
+                radial-gradient(circle at 70% 50%, rgba(255, 220, 100, 0.1) 0%, rgba(255, 236, 170, 0.08) 35%, rgba(255, 200, 60, 0.03) 65%, rgba(0, 0, 0, 0) 100%), 
+                radial-gradient(circle at 30% 30%, #12456b, #0e2f47 70%);
+            background-attachment: fixed;
+            background-size: cover;
+            animation: none;
+        }
+        
+        /* حركة الخلفية (تم إلغاؤها) */
+        @keyframes moveGradient {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
         }
 
-        /* 3D Canvas fixed in the background */
-        #three-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
+        /* إزالة أي خلفية إضافية كانت مطبقة على الـ Hero لكي يستخدم خلفية الـ body */
+        #hero {
+             background-color: transparent !important;
+             background-image: none !important;
+             padding-top: 5rem;
+             padding-bottom: 5rem;
+        }
+        
+        /* شريط التنقل والأقسام الثانوية يجب أن تحتوي على خلفية داكنة للتباين على الخلفية الداكنة */
+        header {
+            background-color: #1f2937 !important; 
+            border-bottom: 1px solid #374151;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* ظل خفيف للشريط العلوي */
+        }
+        
+        /* -------------------------------------------------------------------------- */
+        /* Navigation (التنقل)                                */
+        /* -------------------------------------------------------------------------- */
+        
+        .nav-link {
+            transition: color 0.3s ease, transform 0.2s ease; /* إضافة ترانزيشن للتحول */
+            position: relative;
+            color: #d1d5db !important;
+            padding: 0.5rem 0; /* مسافة داخلية للروابط */
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -8px; /* خفض الخط قليلاً */
+            right: 0;
+            width: 0;
+            height: 3px; /* خط أثقل قليلاً */
+            background-color: #FFD700;
+            transition: width 0.3s ease-out;
+            border-radius: 2px; /* حواف مستديرة للخط */
+        }
+        .nav-link:hover::after, .nav-link.active::after {
             width: 100%;
-            height: 100%;
-            z-index: -1;
-            background-color: #0A1D3C; 
+        }
+        .nav-link:hover, .nav-link.active {
+             color: #FFD700 !important;
+             transform: translateY(-2px); /* تأثير رفع خفيف */
         }
 
-        /* Glassmorphism Effect for Cards */
-        .glass-card {
-            background-color: var(--tw-bg-iq-dark-card); 
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        /* -------------------------------------------------------------------------- */
+        /* Hero Section (قسم الأبطال)                               */
+        /* -------------------------------------------------------------------------- */
+        
+        .hero-content p {
+            color: #ffffff;
+        }
+        .hero-content .font-bold {
+            color: #ffffff;
+        }
+        .hero-content .text-yellow-300 {
+            color: #FFD700 !important;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.5); /* توهج خفيف للشعار */
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* Golden Glow (توهج ذهبي حول الصورة)                        */
+        /* -------------------------------------------------------------------------- */
+        .golden-glow {
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3);
+            border-radius: 50%;
+            border: 4px solid #ffd700; /* إطار ذهبي صلب */
+            transition: all 0.5s ease-in-out;
+            position: relative;
+            z-index: 10; 
+            overflow: visible; 
+        }
+        .golden-glow:hover {
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.8), 0 0 50px rgba(255, 215, 0, 0.5);
+            transform: scale(1.02); /* تكبير خفيف عند التمرير */
+        }
+
+        /* الفقاعات الذهبية المتطايرة */
+        .golden-glow .bubble {
+            position: absolute;
+            background-color: rgba(255, 215, 0, 0.6);
+            border-radius: 50%;
+            filter: blur(1px); 
+            animation: floatAndGlow 8s infinite ease-in-out;
+            pointer-events: none; 
+            z-index: -1; 
+        }
+
+        .golden-glow .bubble:nth-child(1) { width: 15px; height: 15px; top: 20%; left: 10%; animation-delay: 0s; animation-duration: 9s; }
+        .golden-glow .bubble:nth-child(2) { width: 10px; height: 10px; top: 70%; right: 15%; animation-delay: 2s; animation-duration: 7s; background-color: rgba(255, 215, 0, 0.4); }
+        .golden-glow .bubble:nth-child(3) { width: 12px; height: 12px; bottom: 5%; left: 30%; animation-delay: 4s; animation-duration: 10s; }
+        .golden-glow .bubble:nth-child(4) { width: 8px; height: 8px; top: 40%; right: 5%; animation-delay: 6s; animation-duration: 8s; background-color: rgba(255, 215, 0, 0.5); }
+        
+        @keyframes floatAndGlow {
+            0% { transform: translate(0, 0) scale(0.5); opacity: 0; box-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+            25% { transform: translate(20px, -40px) scale(1); opacity: 0.8; box-shadow: 0 0 15px rgba(255, 215, 0, 0.8); }
+            50% { transform: translate(-30px, -80px) scale(0.7); opacity: 0.6; box-shadow: 0 0 10px rgba(255, 215, 0, 0.6); }
+            75% { transform: translate(40px, -120px) scale(1.1); opacity: 0.9; box-shadow: 0 0 20px rgba(255, 215, 0, 0.9); }
+            100% { transform: translate(0, -160px) scale(0.4); opacity: 0; box-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* Buttons (الأزرار)                                 */
+        /* -------------------------------------------------------------------------- */
+        .btn-primary {
+            background: linear-gradient(135deg,#ffd45a,#ffe8a3,#ffc830);
+            color: #0b0c10 !important;
+            box-shadow: 0 8px 25px #ffd45a4d, 0 0 25px #ffe8a333;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 9999px;
+            font-weight: 700; /* لجعل النص أثقل */
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02); /* حركة أكبر قليلاً */
+            box-shadow: 0 12px 35px #ffd45a77, 0 0 35px #ffe8a355;
+        }
+
+        .btn-dark-bordered {
+             border: 2px solid #FFD700;
+             color: #ffffff !important;
+             background-color: #1f2937; 
+             transition: all 0.3s ease;
+             font-weight: 700;
+             padding: 0.75rem 1.5rem;
+             border-radius: 9999px;
+             box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* ظل خفيف على الزر الداكن */
+        }
+        .btn-dark-bordered:hover {
+            background: linear-gradient(135deg,#ffd45a,#ffe8a3,#ffc830);
+            color: #0b0c10 !important;
+            border-color: transparent;
+            box-shadow: 0 6px 20px rgba(255, 165, 0, 0.5);
+            transform: translateY(-2px) scale(1.02);
+        }
+        
+        .btn-independent {
+             background: linear-gradient(135deg,#ffd45a,#ffe8a3,#ffc830);
+             color: #0b0c10 !important;
+             font-weight: 800; /* أثقل */
+             padding: 0.75rem 1.75rem; /* مساحة أكبر */
+             border-radius: 9999px;
+             box-shadow: 0 8px 25px #ffd45a4d, 0 0 25px #ffe8a333;
+             transition: transform 0.3s ease, box-shadow 0.3s ease;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             font-size: 1.25rem; /* أكبر قليلاً */
+             min-width: 220px; /* عرض أكبر */
+        }
+        .btn-independent:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 35px #ffd45a77, 0 0 35px #ffe8a355;
+        }
+        
+        .btn-secondary {
+            background-color: transparent; 
+            border: 2px solid #FFD700; /* حدود أثقل */
+            color: #FFD700 !important;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        .btn-secondary:hover {
+            background-color: #FFD70030; /* خلفية ذهبية شفافة أكثر عند التمرير */
+            border-color: #FFA500;
+            color: white !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* Cards (البطاقات)                                  */
+        /* -------------------------------------------------------------------------- */
+        .card-light {
+            background-color: #1f2937 !important;
+            border: 1px solid #374151;
+            border-radius: 1rem; /* زوايا أكثر استدارة */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* ظل أقوى */
+            transition: all 0.3s ease;
+        }
+        .card-light:hover {
+            background-color: #2a3440 !important;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+            transform: translateY(-3px); /* رفع البطاقة قليلاً */
+        }
+        
+        /* -------------------------------------------------------------------------- */
+        /* Timeline (الخط الزمني)                                */
+        /* -------------------------------------------------------------------------- */
+        .timeline-container {
+            position: relative;
+            padding-right: 2.5rem; /* مسافة للخط الزمني */
+        }
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 1.25rem; /* موقع الخط */
+            width: 3px; /* سمك الخط */
+            height: 100%;
+            background-color: #374151;
+            border-radius: 2px;
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            right: 0.75rem; /* موقع النقطة */
+            width: 15px;
+            height: 15px;
+            background-color: #FFD700;
+            border-radius: 50%;
+            border: 3px solid #1f2937; /* حدود داكنة حول النقطة */
+            z-index: 1;
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.6); /* توهج للنقطة */
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* Voting Card (بطاقة التصويت المصرفية)                */
+        /* -------------------------------------------------------------------------- */
+        .voting-card {
+            /* تصميم البطاقة الخارجية (مستطيلة كالبطاقة البنكية) */
+            background: linear-gradient(135deg, #1f2937 0%, #0e2f47 100%);
+            border: 3px solid #FFD700;
+            border-radius: 1rem; /* زوايا أكثر استدارة قليلاً */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 215, 0, 0.3);
+            padding: 1.75rem 2.25rem;
+            max-width: 480px;
+            height: 300px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             transition: all 0.4s ease-in-out;
         }
-
-        .glass-card:hover {
-            border-color: #FFD45A; /* Gold hover border */
-            box-shadow: 0 15px 40px rgba(255, 212, 90, 0.2);
-            transform: translateY(-3px) scale(1.01);
-        }
-
-        /* 3D Parallax effect on sections */
-        .parallax-layer {
-            position: relative;
-            transform-style: preserve-3d;
-            z-index: 10; 
+        .voting-card:hover {
+            transform: translateY(-5px) scale(1.01); /* رفع وتكبير خفيف عند التمرير */
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 215, 0, 0.5);
         }
         
-        /* Gold gradient hover for buttons */
-        .cta-button {
-            background: linear-gradient(90deg, #FFD45A, #FFC700);
-            color: #0A1D3C; /* Dark Blue text on Gold button */
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 212, 90, 0.4);
-        }
-
-        .cta-button:hover {
-            box-shadow: 0 0 25px rgba(255, 212, 90, 0.7);
-        }
-
-        /* Mobile Menu Overlay Style - adapted for dark theme */
-        .mobile-menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(10, 29, 60, 0.98); /* Deep Blue with high opacity */
-            z-index: 60;
-            transition: transform 0.3s ease-in-out;
-            transform: translateX(100%); /* Start off-screen (LTR default) */
-            color: #F7FAFC;
-        }
-        [dir="rtl"] .mobile-menu-overlay {
-            transform: translateX(-100%); /* Start off-screen (RTL) */
-        }
-
-        .mobile-menu-overlay.open {
-            transform: translateX(0);
-        }
+        /* تم حذف علم العراق::before */
         
-        /* Keyframe for footer ribbon animation */
-        @keyframes moveRibbon {
-            0% { background-position: 0% 0; }
-            100% { background-position: 200px 0; }
-        }
-
-        /* --- WHATSAPP FAB STYLES (BACK TO FIXED) --- */
-        .whatsapp-fab {
-            /* Fixed position: This makes the button move up and down with the viewport (user scroll) */
-            position: fixed; 
-            bottom: 20px;
-            right: 20px;
-            z-index: 55; 
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #1F3459; 
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #FFD45A;
-            /* Continuous floating/breathing animation (Automatic movement) */
-            animation: floating 2.5s ease-in-out infinite; 
-            transition: all 0.3s ease-in-out;
-        }
-
-        .whatsapp-fab:hover {
-            transform: scale(1.1); 
-            background-color: #0A1D3C;
-            box-shadow: 0 8px 25px rgba(255, 212, 90, 0.4);
-        }
-        [dir="rtl"] .whatsapp-fab {
-            right: auto;
-            left: 20px;
-        }
+        /* تم حذف شريط النجوم الخضراء ::after */
 
 
-        /* Keyframes for the continuous "floating" effect */
-        @keyframes floating {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-8px); } /* Moves up slightly */
-            100% { transform: translateY(0); }
+        /* أيقونة الشيك في العنوان (موقع مطلق) */
+        .voting-header-icon {
+            color: #FFD700;
+            filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.8));
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            z-index: 10;
+            width: 32px;
+            height: 32px;
         }
-        /* --- END WHATSAPP FAB STYLES --- */
+
+        /* نمط المربع الداخلي للتسلسل (مطابق للصورة المرفقة) */
+        .voting-number-box {
+            background-color: rgba(0, 0, 0, 0.2); /* خلفية داكنة شفافة */
+            border: 2px solid #FFD700;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            max-width: 150px; /* عرض محدود */
+            align-self: flex-end; /* محاذاة لليسار في RTL (المفترض أنه اليمين) */
+            margin-top: 20px;
+            text-align: center;
+        }
+        .voting-number-box p {
+             line-height: 1.1;
+        }
+
+        /* الشعار الختامي */
+        .voting-footer .text-yellow-400 {
+            color: #FFD700 !important;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+            font-size: 1.1rem;
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* Footer (التذييل)                                   */
+        /* -------------------------------------------------------------------------- */
+        footer {
+            background-color: #1f2937;
+            color: #9ca3af;
+            border-top: 1px solid #374151;
+        }
+
     </style>
+    
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu-overlay" class="mobile-menu-overlay p-6">
-        <div class="flex justify-between items-center mb-10">
-            <h2 class="text-3xl font-extrabold text-iq-gold" data-i18n="name">Hiba Al-Qass</h2>
-            <button id="close-menu-btn" class="p-2 rounded-full bg-iq-mid-blue hover:bg-iq-gold hover:text-iq-royal-blue transition">
-                <i data-lucide="x" class="w-6 h-6 text-iq-text-light"></i>
-            </button>
-        </div>
-        <nav class="flex flex-col space-y-6 text-xl font-semibold">
-            <a href="#home" data-i18n="navHome" class="hover:text-iq-gold transition duration-200" onclick="toggleMobileMenu()">الرئيسية</a>
-            <a href="#about" data-i18n="navAbout" class="hover:text-iq-gold transition duration-200" onclick="toggleMobileMenu()">نبذة عني</a>
-            <a href="#achievements" data-i18n="navAchievements" class="hover:text-iq-gold transition duration-200" onclick="toggleMobileMenu()">إنجازاتي</a>
-            <a href="#contact" data-i18n="navContact" class="hover:text-iq-gold transition duration-200" onclick="toggleMobileMenu()">تواصل معنا</a>
-        </nav>
-        <div class="mt-12 pt-6 border-t border-iq-mid-blue">
-             <button id="mobile-lang-toggle-btn" class="flex items-center space-x-2 text-lg font-semibold p-2 rounded-lg bg-iq-dark-card hover:bg-iq-gold hover:text-iq-royal-blue transition-colors duration-200 w-full justify-center">
-                <i data-lucide="globe" class="w-5 h-5 text-iq-gold"></i>
-                <span data-i18n="langToggle">English</span>
-            </button>
-        </div>
-    </div>
-
-
-    <!-- Language Toggle Script and Content -->
-    <script>
-        const content = {
-            en: {
-                pageTitle: "Hiba Al-Qass | Member of Parliament",
-                name: "Ms. Hiba Al-Qass",
-                title: "Candidate for Local Council – Republic of Iraq",
-                slogan: "Our strength is from our people, and our future is in our hands.",
-                ctaAbout: "About Me",
-                ctaWork: "My Work",
-                aboutTitle: "About Me",
-                bio: "Hiba Al-Qass is a leading voice for social and community development, holding degrees in Public Administration and Social Work. Her political ethos is built on transparency, accountability, and empowerment of women and youth. She is recognized for her pivotal role in driving social resilience and community-based programs across the nation.",
-                milestone1: "10+ Years Community Leadership", milestone2: "Advocate for Women's Rights", milestone3: "Led Youth Empowerment Projects",
-                achievementsTitle: "My Work & Participation",
-                project1Title: "Economic Resilience Bill", project1Desc: "Successfully sponsored legislation to diversify Iraq's economy and attract foreign direct investment.",
-                project2Title: "Transparency in Budgeting", project2Desc: "Led the parliamentary initiative to enforce greater fiscal transparency and public oversight in state budgeting.",
-                project3Title: "Youth Technology Centers", project3Desc: "Secured funding and oversaw the establishment of five new technology centers for vocational training across three provinces.",
-                project4Title: "Infrastructure Modernization", project4Desc: "Championed critical infrastructure projects, ensuring timely completion and adherence to international standards.",
-                project5Title: "Healthcare Access Reform", project5Desc: "Worked to expand basic healthcare access, especially in remote and underserved rural areas.",
-                project6Title: "Educational Quality Program", project6Desc: "Initiated a program focused on updating national curriculum and investing in teacher training programs.",
-                locationTitle: "Office Location",
-                contactTitle: "Get In Touch",
-                formName: "Your Name", formEmail: "Your Email", formMessage: "Your Message", formSubmit: "Send Message",
-                footer: "© 2025 Hiba Al-Qass — Together for Iraq’s Future.",
-                langToggle: "العربية",
-                navHome: "Home", navAbout: "About", navAchievements: "My Work", navContact: "Contact",
-            },
-            ar: {
-                pageTitle: "هبة القس | عضو مجلس النواب",
-                name: "السيدة هبة القس",
-                title: "مرشحتكم للمجلس المحلي – جمهورية العراق",
-                slogan: "قوتنا من شعبنا، ومستقبلنا بأيدينا.",
-                ctaAbout: "تعرفي عليّ",
-                ctaWork: "إنجازاتي",
-                aboutTitle: "نبذة عني",
-                bio: "هبة القس هي صوت رائد للتنمية الاجتماعية والمجتمعية، وتحمل شهادات في الإدارة العامة والخدمة الاجتماعية. ترتكز أخلاقياتها السياسية على الشفافية والمساءلة وتمكين المرأة والشباب. وتُعرف بدورها المحوري في دفع عجلة المرونة الاجتماعية والبرامج المجتمعية في جميع أنحاء البلاد.",
-                milestone1: "10+ سنوات في القيادة المجتمعية", milestone2: "مدافعة عن حقوق المرأة", milestone3: "قادت مشاريع تمكين الشباب",
-                achievementsTitle: "أعمالي ومشاركاتي",
-                project1Title: "قانون المرونة الاقتصادية", project1Desc: "رعت بنجاح تشريعًا لتنويع الاقتصاد العراقي وجذب الاستثمار الأجنبي المباشر.",
-                project2Title: "الشفافية في الميزانية", project2Desc: "قادت المبادرة البرلمانية لفرض المزيد من الشفافية المالية والرقابة العامة في ميزانية الدولة.",
-                project3Title: "مراكز تكنولوجيا الشباب", project3Desc: "حصلت على التمويل وأشرفت على إنشاء خمسة مراكز تكنولوجية جديدة للتدريب المهني في ثلاث محافظات.",
-                project4Title: "تحديث البنية التحتية", project4Desc: "دافعت عن مشاريع البنية التحتية الحيوية، وضمان إنجازها في الوقت المحدد والتزامها بالمعايير الدولية.",
-                project5Title: "إصلاح الوصول للرعاية الصحية", project5Desc: "عملت على توسيع نطاق الوصول إلى الرعاية الصحية الأساسية، خاصة في المناطق الريفية النائئة والمحرومة.",
-                project6Title: "برنامج جودة التعليم", project6Desc: "بدأت برنامجاً يركز على تحديث المناهج الوطنية والاستثمار في برامج تدريب المعلمين.",
-                locationTitle: "موقع المكتب",
-                contactTitle: "تواصل معي",
-                formName: "اسمك الكريم", formEmail: "بريدك الإلكتروني", formMessage: "رسالتك", formSubmit: "إرسال الرسالة",
-                footer: "© 2025 هبة القس — معاً من أجل مستقبل العراق.",
-                langToggle: "English",
-                navHome: "الرئيسية", navAbout: "نبذة عني", navAchievements: "إنجازاتي", navContact: "تواصل معنا",
-            }
-        };
-
-        let currentLang = 'ar'; // Defaulting to Arabic
-
-        function updateContent() {
-            const langData = content[currentLang];
-            document.documentElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
-            document.title = langData.pageTitle;
-            
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                const translation = langData[key] || key;
-                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                    el.placeholder = translation;
-                } else if (el.tagName !== 'SPAN' || !el.closest('button')) {
-                    // Avoid overriding button spans if they contain icons/special formatting
-                    el.textContent = translation;
-                }
-            });
-            updateMobileMenuContent();
-        }
-
-        function updateMobileMenuContent() {
-             const langData = content[currentLang];
-             document.querySelector('#mobile-menu-overlay [data-i18n="name"]').textContent = langData.name;
-             document.querySelector('#mobile-menu-overlay [data-i18n="langToggle"]').textContent = langData.langToggle;
-        }
-
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'ar' : 'en';
-            updateContent();
-        }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu-overlay');
-            menu.classList.toggle('open');
-            document.body.classList.toggle('overflow-hidden', menu.classList.contains('open'));
-        }
-        
-        // --- THREE.JS LOGIC START ---
-        let scene, camera, renderer, clock;
-        let particles, waves;
-        
-        // Configuration for Royal Blue/Gold theme
-        const config = {
-            waveColor: 0x1F3459, // Mid Blue for waves
-            particleColor: 0xFFD45A, // Gold for particles
-            particleCount: 1200 // Increased particle count for luxurious feel
-        };
-
-        function initThreeJS() {
-            const container = document.getElementById('three-canvas');
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-
-            // 1. Setup Scene, Camera, Renderer
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-            camera.position.z = 5;
-            
-            renderer = new THREE.WebGLRenderer({ canvas: container, antialias: true, alpha: false });
-            renderer.setSize(width, height);
-            renderer.setClearColor(0x0A1D3C, 1); // Deep Royal Blue Background
-            clock = new THREE.Clock();
-
-            // 2. Lighting 
-            const ambientLight = new THREE.AmbientLight(0x404040, 0.8); 
-            scene.add(ambientLight);
-
-            // Soft directional light for cinematic feel
-            const dirLight = new THREE.DirectionalLight(config.particleColor, 0.5);
-            dirLight.position.set(5, 10, 5);
-            scene.add(dirLight);
-
-            // 3. Geometric Waves (Abstract Pattern)
-            const geometry = new THREE.PlaneGeometry(30, 30, 64, 64);
-            const material = new THREE.MeshPhongMaterial({
-                color: config.waveColor,
-                side: THREE.DoubleSide,
-                wireframe: true,
-                shininess: 30
-            });
-            waves = new THREE.Mesh(geometry, material);
-            waves.rotation.x = -Math.PI / 2;
-            waves.position.y = -3;
-            scene.add(waves);
-
-            // 4. Floating Particles (Gold Dust)
-            const particleGeometry = new THREE.BufferGeometry();
-            const positions = [];
-            for (let i = 0; i < config.particleCount; i++) {
-                positions.push((Math.random() - 0.5) * 50); // x
-                positions.push((Math.random() - 0.5) * 20);  // y
-                positions.push((Math.random() - 0.5) * 50); // z
-            }
-            
-            // Corrected Buffer Attribute initialization
-            particleGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-
-            const particleMaterial = new THREE.PointsMaterial({
-                color: config.particleColor,
-                size: 0.05,
-                blending: THREE.AdditiveBlending,
-                transparent: true,
-                sizeAttenuation: true
-            });
-
-            particles = new THREE.Points(particleGeometry, particleMaterial);
-            scene.add(particles);
-
-            window.addEventListener('resize', onWindowResize);
-            window.addEventListener('scroll', handleParallaxScroll);
-            
-            // This is the main call that starts the 3D rendering loop.
-            animate(); 
-        }
-
-        function onWindowResize() {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
-            renderer.setSize(width, height);
-        }
-
-        function updateWaves(elapsedTime) {
-            const position = waves.geometry.attributes.position;
-            const vertexCount = position.count;
-
-            for (let i = 0; i < vertexCount; i++) {
-                const x = position.getX(i);
-                const y = position.getY(i);
-                
-                // Adjusted wave complexity for a smoother, more 'liquid' feel
-                const z = Math.sin(x * 0.4 + elapsedTime * 0.4) * 0.2 + 
-                          Math.cos(y * 0.4 + elapsedTime * 0.3) * 0.2;
-                
-                position.setZ(i, z);
-            }
-            position.needsUpdate = true;
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-
-            const elapsedTime = clock.getElapsedTime();
-
-            if (waves) {
-                updateWaves(elapsedTime);
-                waves.rotation.z = Math.sin(elapsedTime * 0.05) * 0.05; // Slow rotation
-            }
-            
-            if (particles) {
-                particles.rotation.y = elapsedTime * 0.01;
-                particles.rotation.z = elapsedTime * 0.005;
-            }
-
-            renderer.render(scene, camera);
-        }
-
-        function handleParallaxScroll() {
-            const scrollY = window.scrollY;
-            
-            // 1. Move 3D Background subtly 
-            if (camera) {
-                camera.position.y = -scrollY * 0.005; 
-            }
-
-            // 2. Apply Parallax to HTML content layers
-            document.querySelectorAll('.parallax-layer [data-parallax]').forEach(el => {
-                const depth = parseFloat(el.getAttribute('data-parallax'));
-                const movement = scrollY * depth;
-                
-                el.style.transform = `translateY(${movement}px)`;
-            });
-        }
-        // --- THREE.JS LOGIC END ---
-
-
-        document.addEventListener('DOMContentLoaded', () => {
-            updateContent();
-            
-            // Event listeners
-            document.getElementById('lang-toggle-btn').addEventListener('click', toggleLanguage);
-            document.getElementById('open-menu-btn').addEventListener('click', toggleMobileMenu);
-            document.getElementById('close-menu-btn').addEventListener('click', toggleMobileMenu);
-            document.getElementById('mobile-lang-toggle-btn').addEventListener('click', toggleLanguage);
-            
-            // Initialization of 3D scene when the document is ready
-            initThreeJS();
-        });
-    </script>
 </head>
-<body class="bg-iq-royal-blue min-h-screen text-iq-text-light antialiased">
+<body class="min-h-screen">
+
     
-    <!-- FLOATING WHATSAPP BUTTON (FAB) - عائم وثابت على الشاشة -->
-    <a href="https://wa.me/" target="_blank" class="whatsapp-fab" aria-label="WhatsApp Contact">
-        <i data-lucide="message-circle" class="w-8 h-8 text-iq-gold"></i>
-    </a>
-    
-    <!-- THREE.JS CANVAS CONTAINER -->
-    <canvas id="three-canvas"></canvas>
-
-    <!-- MAIN HTML CONTENT OVERLAY -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-
-        <!-- HEADER / NAVIGATION (Fixed to be always visible) -->
-        <header class="flex justify-between items-center py-6 border-b border-iq-mid-blue sticky top-0 bg-iq-royal-blue/90 backdrop-blur-sm z-50">
-            <!-- Logo/Name -->
-            <div class="flex items-center space-x-2">
-                <i data-lucide="star" class="w-8 h-8 text-iq-gold"></i>
-                <h1 class="text-2xl font-extrabold text-iq-text-light" data-i18n="name">السيدة هبة القس</h1>
-            </div>
-
-            <!-- Navigation Menu (Desktop) -->
-            <nav class="hidden md:flex space-x-6 text-sm font-medium">
-                <a href="#home" data-i18n="navHome" class="hover:text-iq-gold transition duration-200">الرئيسية</a>
-                <a href="#about" data-i18n="navAbout" class="hover:text-iq-gold transition duration-200">نبذة عني</a>
-                <a href="#achievements" data-i18n="navAchievements" class="hover:text-iq-gold transition duration-200">إنجازاتي</a>
-                <a href="#contact" data-i18n="navContact" class="hover:text-iq-gold transition duration-200">تواصل معنا</a>
-            </nav>
-
-            <div class="flex items-center space-x-4">
-                <!-- Mobile Menu Button -->
-                <button id="open-menu-btn" class="md:hidden p-2 rounded-lg glass-card hover:bg-iq-mid-blue transition-colors duration-200">
-                    <i data-lucide="menu" class="w-6 h-6 text-iq-gold"></i>
-                </button>
-
-                <!-- Language Toggle Button (Desktop/Tablet) -->
-                <button id="lang-toggle-btn" class="hidden md:flex items-center space-x-2 text-sm font-semibold p-2 rounded-lg glass-card hover:bg-iq-mid-blue transition-colors duration-200">
-                    <i data-lucide="globe" class="w-4 h-4 text-iq-gold"></i>
-                    <span data-i18n="langToggle">English</span>
-                </button>
-            </div>
-        </header>
-
-        <!-- HERO SECTION (High Parallax Effect) -->
-        <section id="home" class="py-24 md:py-36 grid lg:grid-cols-2 gap-12 items-center min-h-[80vh] parallax-layer">
+    <!-- شريط التنقل (العلوي) --><header class="p-4 sm:p-6 sticky top-0 z-50">
+        <nav class="container mx-auto flex justify-between items-center max-w-7xl">
             
-            <!-- Left/Start Content Area -->
-            <div class="space-y-8 order-2 lg:order-1" data-parallax="0.2">
+            <!-- اسم النائبة والشعار (يمين الشريط) --><div class="flex items-center space-x-4 space-x-reverse text-xl font-bold text-yellow-400">
+                <span class="text-sm font-extrabold px-3 py-1 rounded-full hidden sm:inline-block bg-yellow-500 text-gray-900">٣٣٣</span>
+                <span class="text-2xl sm:text-3xl text-yellow-400">النائبة هبة القاس</span>
+            </div>
+            
+            <!-- قائمة التنقل الرئيسية (الوسط) --><ul class="hidden md:flex navbar-links space-x-6 space-x-reverse text-sm md:text-base font-medium">
+                <li><a href="#hero" class="nav-link active">الرئيسية</a></li>
+                <li><a href="#about" class="nav-link">عن النائبة</a></li>
+                <li><a href="#achievements" class="nav-link">الإنجازات</a></li>
+                <li><a href="#gallery" class="nav-link">معرض الصور</a></li>
+                <li><a href="#office" class="nav-link">المكتب</a></li>
+                <li><a href="#contact-form" class="nav-link">تواصل</a></li>
+            </ul>
+
+            <!-- زر تغيير اللغة (اليسار) --><button class="text-sm font-semibold py-2 px-4 rounded-full btn-secondary">
+                English
+            </button>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4">
+        
+        <!-- قسم الأبطال (Hero Section) --><section id="hero" class="py-16 md:py-24 relative overflow-hidden"> 
+            <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-12 max-w-7xl mx-auto">
                 
-                <!-- Main Text Block -->
-                <div class="space-y-4">
-                    <h2 class="text-5xl sm:text-7xl font-extrabold text-iq-text-light leading-tight">
-                        <span data-i18n="name" class="text-iq-gold">السيدة هبة القس</span>
+                <!-- المحتوى النصي والأزرار (في اليمين لـ RTL) --><div class="hero-content w-full md:w-1/2 space-y-4 text-center md:text-right">
+                    
+                    <!-- الاسم باللغة العربية - أبيض ناصع --><h1 class="text-6xl sm:text-7xl md:text-8xl font-black leading-tight mb-2 text-white">
+                        هبة القاس
+                    </h1>
+                    
+                    <!-- الاسم باللغة الإنجليزية --><p class="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
+                        Hiba Al-Qass
+                    </p>
+
+                    <!-- التاج لاين 1 --><p class="text-xl md:text-2xl font-medium mb-2">
+                        النائبة المستقلة - جمهورية العراق
+                    </p>
+
+                    <!-- التاج لاين 2 (الشعار الرئيسي) --><p class="text-2xl md:text-3xl font-extrabold text-yellow-300 max-w-lg md:max-w-none mx-auto md:mx-0 leading-relaxed mb-1">
+                        "من أجل عراق يليق بأبنائه"
+                    </p>
+
+                    <!-- أزرار الإجراءات - تم ضبط المسافة لتكون مباشرة أسفل الشعار --><div class="flex flex-col sm:flex-row justify-center md:justify-end gap-3 pt-1 md:pr-3">
+                        
+                        <!-- الزر 1: أعمالي (الداكن) --><a href="#achievements" class="btn-dark-bordered text-lg w-full sm:w-auto whitespace-nowrap text-center flex items-center justify-center">
+                            أعمالي
+                        </a>
+
+                        <!-- الزر 2: اقرأ عن المسيرة (الذهبي) --><a href="#about" class="btn-primary font-extrabold text-lg w-full sm:w-auto whitespace-nowrap text-center flex items-center justify-center">
+                            اقرأ عن المسيرة
+                        </a>
+                        
+                    </div>
+                </div>
+
+                <!-- صورة الشخص وبطاقة التذكير (في اليسار لـ RTL) --><div class="hero-image w-full md:w-1/2 flex flex-col items-center md:items-center hero-image-container">
+                    
+                    <!-- حاوية الصورة مع التوهج الذهبي --><div class="w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] rounded-full p-2 golden-glow flex items-center justify-center mb-6">
+                        
+                        <!-- الفقاعات المتطايرة --><div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        
+                        <!-- الصورة --><img 
+                            src="https://i.postimg.cc/yd96qz0h/516394864-1061649522741174-3179346494123271060-n.jpg" 
+                            alt="صورة النائبة هبة القاس"
+                            class="w-full h-full object-cover rounded-full"
+                            onerror="this.onerror=null;this.src='https://placehold.co/350x350/FFD700/0b0c10?text=Hiba+Al-Qass'"
+                        >
+                    </div>
+
+                    <!-- زر النائبة المستقلة (أسفل الصورة) --><div class="text-center mb-10">
+                         <button class="btn-independent">
+                            <svg class="w-6 h-6 ml-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM15 11.5l-3 3-3-3V8h6v3.5z"/>
+                            </svg>
+                            النائبة المستقلة
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- بطاقة التذكير بمعلومات التصويت (الموقع الجديد: في الوسط بين Hero و About) --><section class="py-16 border-b border-gray-800">
+            <div class="max-w-7xl mx-auto flex justify-center">
+                <div class="voting-card">
+                    
+                    <!-- أيقونة الشيك في العنوان (موقع مطلق) --><svg class="w-8 h-8 ml-3 voting-header-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.618a.997.997 0 011.026.517l.07.29a4 4 0 01-1.002 4.132l-7.8 7.8a4 4 0 01-5.657 0L4.5 16.5m14-6L14 11m-1 7l-5.6-5.6"></path></svg>
+                    
+                    <!-- عنوان البطاقة --><div class="flex justify-start items-center text-2xl font-extrabold text-white mb-6">
+                        معلومات التصويت
+                    </div>
+                    
+                    <!-- مربع التسلسل الانتخابي --><div class="voting-number-box">
+                        <p class="text-sm text-gray-300">التسلسل الانتخابي:</p>
+                        <p class="text-4xl font-black text-yellow-300">٣٣٣</p>
+                    </div>
+
+                    <!-- رمز البلد --><p class="text-yellow-300 font-semibold text-xl text-right mt-auto">IQ</p>
+                    
+                    <!-- رسالة المحافظات --><p class="text-white text-md leading-relaxed text-left">
+                        جميع المحافظات العراقية - من زاخو إلى الفاو يمكنك التصويت
+                    </p>
+
+                    <!-- الشعار الختامي --><div class="voting-footer">
+                        <p class="text-lg font-bold text-yellow-400">هبة القس - معاً لعراق أرقى</p>
+                        <p class="text-sm text-gray-400">Hiba Al-Qass – Together for a Noble Iraq</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- قسم عن النائبة هبة القاس --><section id="about" class="py-16 md:py-24 border-t border-gray-900">
+            <div class="max-w-7xl mx-auto">
+                
+                <!-- عنوان القسم --><div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-yellow-400 inline-block pb-2">
+                        عن النائبة هبة القاس
                     </h2>
-                    <h3 class="text-iq-text-light text-2xl font-bold border-b border-iq-mid-blue pb-2" data-i18n="title">مرشحتكم للمجلس المحلي – جمهورية العراق</h3>
-                    <p class="text-xl italic text-gray-400 max-w-2xl" data-i18n="slogan">
-                        قوتنا من شعبنا، ومستقبلنا بأيدينا.
-                    </p>
+                    <div class="w-24 h-1 bg-yellow-500 mx-auto mt-2 rounded-full"></div>
                 </div>
-                
-                <!-- CTA Buttons -->
-                <div class="flex flex-wrap gap-4">
-                    <a href="#about" class="cta-button inline-flex items-center justify-center px-8 py-3 text-lg font-bold rounded-full transition-all duration-300" data-i18n="ctaAbout">
-                        تعرفي عليّ
-                    </a>
-                    <a href="#achievements" class="bg-iq-mid-blue text-iq-text-light inline-flex items-center justify-center px-8 py-3 text-lg font-bold rounded-full transition-all duration-300 shadow-lg shadow-iq-mid-blue/50 hover:bg-iq-mid-blue/90 border border-iq-mid-blue hover:border-iq-gold" data-i18n="ctaWork">
-                        إنجازاتي
-                    </a>
-                </div>
-            </div>
 
-            <!-- Right/End Image Area (3D Portrait) -->
-            <div class="flex flex-col justify-center lg:justify-end order-1 lg:order-2 space-y-4" data-parallax="-0.5">
-                <div class="w-full max-w-md h-[550px] rounded-3xl overflow-hidden shadow-2xl shadow-iq-mid-blue/50 transition-transform duration-500">
-                    <!-- Image with subtle gold border/shadow for prestige -->
-                    <img src="https://i.postimg.cc/yd96qz0h/516394864-1061649522741174-3179346494123271060-n.jpg" 
-                         alt="Portrait of Candidate Hiba Al-Qass" 
-                         class="object-cover w-full h-full opacity-90 transition-opacity hover:opacity-100 border-4 border-iq-gold/20"
-                         onerror="this.onerror=null; this.src='https://placehold.co/600x700/0A1D3C/FFD45A?text=Candidate+Portrait';"
-                    >
-                </div>
-                
-                <!-- NEW: Voting Instructions Block -->
-                <div class="w-full max-w-md glass-card p-4 rounded-2xl text-center border-iq-gold border-2 shadow-xl">
-                    <p class="text-lg font-bold text-iq-gold mb-1">
-                        طريقة التصويت للمرشحة هبة القس:
-                    </p>
-                    <p class="text-2xl font-extrabold text-iq-text-light">
-                        التسلسل <span class="text-iq-gold">٣٣٢</span>
-                    </p>
-                    <p class="text-sm text-gray-400 mt-1">
-                        جميع المحافظات العراقية يمكنها انتخابنا من زاخو للفاو يمكنك التصويت.
-                    </p>
-                </div>
-                <!-- END: Voting Instructions Block -->
-
-            </div>
-
-        </section>
-
-        <!-- ABOUT SECTION -->
-        <section id="about" class="py-16 md:py-24 parallax-layer">
-            <h3 class="text-4xl font-extrabold text-iq-gold mb-12 text-center" data-i18n="aboutTitle">
-                نبذة عني
-            </h3>
-
-            <div class="glass-card p-8 md:p-12 rounded-3xl grid lg:grid-cols-2 gap-10">
-                
-                <!-- Left Column: Biography -->
-                <div>
-                    <p class="text-xl text-gray-300 leading-relaxed" data-i18n="bio"></p>
-                </div>
-                
-                <!-- Right Column: Timeline/Milestones -->
-                <div class="space-y-6">
-                    <h4 class="text-2xl font-bold text-iq-gold mb-4">Milestones:</h4>
+                <!-- محتوى القسم مقسوم إلى بطاقتين --><div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
                     
-                    <div class="flex items-start space-x-4">
-                        <i data-lucide="layers" class="w-6 h-6 text-iq-gold flex-shrink-0 mt-1"></i>
-                        <p class="text-lg text-iq-text-light" data-i18n="milestone1">10+ Years Community Leadership</p>
-                    </div>
-
-                    <div class="flex items-start space-x-4">
-                        <i data-lucide="briefcase" class="w-6 h-6 text-iq-gold flex-shrink-0 mt-1"></i>
-                        <p class="text-lg text-iq-text-light" data-i18n="milestone2">Advocate for Women's Rights</p>
-                    </div>
-
-                    <div class="flex items-start space-x-4">
-                        <i data-lucide="book-open" class="w-6 h-6 text-iq-gold flex-shrink-0 mt-1"></i>
-                        <p class="text-lg text-iq-text-light" data-i18n="milestone3">Led Youth Empowerment Projects</p>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- ACHIEVEMENTS & PROJECTS SECTION -->
-        <section id="achievements" class="py-16 md:py-24 parallax-layer">
-            <h3 class="text-4xl font-extrabold text-iq-gold mb-12 text-center" data-i18n="achievementsTitle">
-                أعمالي ومشاركاتي
-            </h3>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <!-- Project Cards (6 total for comprehensive view) -->
-                
-                <!-- Card 1: Economic Resilience -->
-                <div class="glass-card p-6 rounded-2xl">
-                    <i data-lucide="target" class="w-8 h-8 text-iq-gold mb-3"></i>
-                    <h4 class="text-xl font-bold text-iq-gold mb-2" data-i18n="project1Title">قانون المرونة الاقتصادية</h4>
-                    <p class="text-gray-400 text-sm" data-i18n="project1Desc"></p>
-                </div>
-
-                <!-- Card 2: Transparency -->
-                <div class="glass-card p-6 rounded-2xl">
-                    <i data-lucide="check-circle" class="w-8 h-8 text-iq-gold mb-3"></i>
-                    <h4 class="text-xl font-bold text-iq-gold mb-2" data-i18n="project2Title">الشفافية في الميزانية</h4>
-                    <p class="text-gray-400 text-sm" data-i18n="project2Desc"></p>
-                </div>
-
-                <!-- Card 3: Youth Tech -->
-                <div class="glass-card p-6 rounded-2xl">
-                    <i data-lucide="users" class="w-8 h-8 text-iq-gold mb-3"></i>
-                    <h4 class="text-xl font-bold text-iq-gold mb-2" data-i18n="project3Title">مراكز تكنولوجيا الشباب</h4>
-                    <p class="text-gray-400 text-sm" data-i18n="project3Desc"></p>
-                </div>
-                
-                <!-- Card 4: Infrastructure -->
-                <div class="glass-card p-6 rounded-2xl">
-                    <i data-lucide="layers" class="w-8 h-8 text-iq-gold mb-3"></i>
-                    <h4 class="text-xl font-bold text-iq-gold mb-2" data-i18n="project4Title">تحديث البنية التحتية</h4>
-                    <p class="text-gray-400 text-sm" data-i18n="project4Desc"></p>
-                </div>
-
-                <!-- Card 5: Healthcare -->
-                <div class="glass-card p-6 rounded-2xl">
-                    <i data-lucide="heart" class="w-8 h-8 text-iq-gold mb-3"></i>
-                    <h4 class="text-xl font-bold text-iq-gold mb-2" data-i18n="project5Title">إصلاح الوصول للرعاية الصحية</h4>
-                    <p class="text-gray-400 text-sm" data-i18n="project5Desc"></p>
-                </div>
-
-                <!-- Card 6: Education -->
-                <div class="glass-card p-6 rounded-2xl">
-                    <i data-lucide="book-open" class="w-8 h-8 text-iq-gold mb-3"></i>
-                    <h4 class="text-xl font-bold text-iq-gold mb-2" data-i18n="project6Title">برنامج جودة التعليم</h4>
-                    <p class="text-gray-400 text-sm" data-i18n="project6Desc"></p>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- CONTACT & LOCATION SECTION -->
-        <section id="contact" class="py-16 md:py-24 parallax-layer">
-            <h3 class="text-4xl font-extrabold text-iq-gold mb-12 text-center" data-i18n="contactTitle">
-                تواصل معي
-            </h3>
-            
-            <div class="glass-card p-8 md:p-12 rounded-3xl grid lg:grid-cols-3 gap-12">
-                
-                <!-- Contact Info / Social Media Links / WhatsApp FAB (Now inline) -->
-                <div class="lg:col-span-1 space-y-8">
-                    
-                    <!-- Social Icons (excluding the floating WhatsApp) -->
-                    <p class="text-xl font-semibold text-iq-gold border-b border-iq-mid-blue pb-2">تابعني:</p>
-                    <div class="flex flex-wrap gap-4 items-center">
-                        <a href="#" target="_blank" class="w-12 h-12 rounded-full bg-iq-mid-blue flex items-center justify-center hover:bg-iq-gold hover:text-iq-royal-blue transition duration-300 shadow-lg shadow-black/30" aria-label="Facebook">
-                            <i data-lucide="facebook" class="w-6 h-6 text-iq-gold"></i>
-                        </a>
-                        <a href="#" target="_blank" class="w-12 h-12 rounded-full bg-iq-mid-blue flex items-center justify-center hover:bg-iq-gold hover:text-iq-royal-blue transition duration-300 shadow-lg shadow-black/30" aria-label="Instagram">
-                            <i data-lucide="instagram" class="w-6 h-6 text-iq-gold"></i>
-                        </a>
-                        <a href="#" target="_blank" class="w-12 h-12 rounded-full bg-iq-mid-blue flex items-center justify-center hover:bg-iq-gold hover:text-iq-royal-blue transition duration-300 shadow-lg shadow-black/30" aria-label="Telegram">
-                            <i data-lucide="send" class="w-6 h-6 text-iq-gold"></i>
-                        </a>
-                        <a href="#" target="_blank" class="w-12 h-12 rounded-full bg-iq-mid-blue flex items-center justify-center hover:bg-iq-gold hover:text-iq-royal-blue transition duration-300 shadow-lg shadow-black/30" aria-label="YouTube">
-                            <i data-lucide="youtube" class="w-6 h-6 text-iq-gold"></i>
-                        </a>
-                        <!-- تم إزالة زر الواتساب من هنا ليعود إلى وضع الثبات العائم -->
+                    <!-- البطاقة اليمنى: السيرة الذاتية والنص الرئيسي --><div class="card-light p-8 lg:p-12 space-y-6">
+                        <h3 class="text-3xl font-bold border-b border-gray-700 pb-3 mb-6">النائبة المستقلة: صوت كل العراقيين</h3>
+                        <p class="text-lg leading-loose">
+                            محامية مستقلة في البرلمان العراقي، أكرّس نفسي لخدمة جميع المواطنين العراقيين بنزاهة وشفافية والتزام راسخ. مع سنوات من الخبرة في المناصرة والخدمة العامة، مهمتي هي ضمان سماع كل صوت، وحصول كل مجتمع على التمثيل الذي يستحقه. 
+                        </p>
+                        <p class="text-lg leading-loose font-semibold text-yellow-500">
+                             وإن جميع المحافظات من زاخو إلى الفاو لديها دعم متساوي في بناء مستقبل مزدهر.
+                        </p>
+                        <p class="text-lg leading-loose">
+                            أعمل بكل دأب للدفاع عن التشريعات التي تعزز الرعاية الصحية والتعليم وتمكين المرأة والتنمية الاقتصادية المستدامة لجميع العراقيين.
+                        </p>
+                        
+                        <!-- زر تواصل --><div class="pt-4 text-center">
+                            <a href="#contact-form" class="btn-primary font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transition duration-300 flex items-center justify-center text-lg w-full lg:w-3/4 mx-auto">
+                                <span class="text-2xl ml-2">🇮🇶</span>
+                                تواصل الآن
+                            </a>
+                        </div>
                     </div>
                     
-                    <!-- Office Location Map -->
-                    <div class="pt-6 space-y-3">
-                        <p class="text-lg font-bold text-iq-gold" data-i18n="locationTitle">موقع المكتب</p>
-                        <div class="w-full h-48 rounded-lg overflow-hidden border border-iq-mid-blue">
-                            <!-- Placeholder for Interactive 3D Map -->
-                            <div class="w-full h-full bg-iq-mid-blue flex items-center justify-center">
-                                <div class="text-center space-y-2">
-                                    <i data-lucide="map-pin" class="w-8 h-8 text-iq-gold mx-auto animate-pulse"></i>
-                                    <p class="text-sm text-gray-400">Interactive 3D Map Placeholder: Baghdad</p>
+                    <!-- البطاقة اليسرى: الخط الزمني (Timeline) --><div class="card-light p-8 lg:p-12">
+                        <h3 class="text-3xl font-bold border-b border-gray-700 pb-3 mb-8">أبرز المحطات الزمنية</h3>
+                        
+                        <div class="timeline-container space-y-8">
+                            
+                            <!-- عنصر الخط الزمني 1 --><div class="timeline-item">
+                                <span class="absolute top-0 left-0 bg-yellow-400 text-gray-900 text-xs font-bold py-1 px-3 rounded-full">2012</span>
+                                <div class="mr-12">
+                                    <h4 class="text-xl font-semibold mb-1 text-yellow-400">النشاط المجتمعي والدفاع عن حقوق المرأة</h4>
+                                    <p class="text-gray-400">بدأت بالدفاع الشغوف عن الرعاية الاجتماعية وحقوق المرأة في المجتمعات المحلية العراقية. </p>
                                 </div>
                             </div>
+
+                            <!-- عنصر الخط الزمني 2 --><div class="timeline-item">
+                                <span class="absolute top-0 left-0 bg-yellow-400 text-gray-900 text-xs font-bold py-1 px-3 rounded-full">2016</span>
+                                <div class="mr-12">
+                                    <h4 class="text-xl font-semibold mb-1 text-yellow-400">قيادة مبادرات التنمية الاقتصادية</h4>
+                                    <p class="text-gray-400">أسست وقادت مبادرات كبرى تدعم تعليم الشباب وتوفير فرص العمل والاستقلال الاقتصادي.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- عنصر الخط الزمني 3 --><div class="timeline-item">
+                                <span class="absolute top-0 left-0 bg-yellow-400 text-gray-900 text-xs font-bold py-1 px-3 rounded-full">2019</span>
+                                <div class="mr-12">
+                                    <h4 class="text-xl font-semibold mb-1 text-yellow-400">المشاركة الفعالة في منظمات المجتمع المدني</h4>
+                                    <p class="text-gray-400">تولت أدواراً بارزة في منظمات المجتمع المدني التي تعالج قضايا النزاهة ومكافحة الفساد والقضايا الوطنية.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- عنصر الخط الزمني 4 --><div class="timeline-item pb-0">
+                                <span class="absolute top-0 left-0 bg-yellow-400 text-gray-900 text-xs font-bold py-1 px-3 rounded-full">2021</span>
+                                <div class="mr-12">
+                                    <h4 class="text-xl font-semibold mb-1 text-yellow-400">الفوز في الانتخابات البرلمانية</h4>
+                                    <p class="text-gray-400">نجحت في الانتخابات كمرشحة مستقلة ممثلة لقيم النزاهة والتغيير والإصلاح.</p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- قسم الأعمال البرلمانية والإنجازات --><section id="achievements" class="py-16 md:py-24 bg-gray-900/50 border-t border-gray-900">
+            <div class="max-w-7xl mx-auto">
+                
+                <!-- عنوان القسم --><div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-yellow-400 inline-block pb-2">
+                        أبرز إنجازاتنا البرلمانية
+                    </h2>
+                    <div class="w-32 h-1 bg-yellow-500 mx-auto mt-2 rounded-full"></div>
+                </div>
+
+                <!-- شبكة بطاقات الإنجازات --><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- البطاقة 1: إصلاح التعليم --><div class="achievement-card">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://placehold.co/600x400/1e293b/ffffff?text=Quality+Education" alt="صورة إصلاح التعليم" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6 relative">
+                            <span class="absolute -top-10 left-6 bg-yellow-500 text-gray-900 font-bold py-1 px-3 rounded-md text-sm shadow-lg">التشريع الأخير</span>
+                            <h3 class="achievement-title text-2xl font-bold mt-2 mb-2">قانون دعم جودة التعليم</h3>
+                            <p class="mb-4 text-sm text-gray-400">تأمين التمويل لتجديد المدارس العامة وبرامج تدريب المعلمين لتطوير المناهج وتوفير بيئة تعليمية محفزة لطلابنا.</p>
+                            <a href="#" class="inline-block text-sm font-semibold text-yellow-400 hover:text-yellow-300 border-b border-yellow-400 pb-1 transition duration-300">
+                                قراءة تفاصيل القانون
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- البطاقة 2: تشريعات تمكين المرأة --><div class="achievement-card">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://placehold.co/600x400/1e293b/ffffff?text=Economic+Empowerment" alt="صورة تمكين المرأة">
+                        </div>
+                        <div class="p-6 relative">
+                            <span class="absolute -top-10 left-6 bg-yellow-500 text-gray-900 font-bold py-1 px-3 rounded-md text-sm shadow-lg">أولوية تشريعية</span>
+                            <h3 class="achievement-title text-2xl font-bold mt-2 mb-2">تعزيز دور المرأة اقتصادياً</h3>
+                            <p class="mb-4 text-sm text-gray-400">دافعت عن القوانين التي تحمي حقوق المرأة في سوق العمل وتضمن تكافؤ الفرص والوصول إلى القروض والمشاريع الصغيرة.</p>
+                            <a href="#" class="inline-block text-sm font-semibold text-yellow-400 hover:text-yellow-300 border-b border-yellow-400 pb-1 transition duration-300">
+                                دراسة الحالة
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- البطاقة 3: البنية التحتية للرعاية الصحية --><div class="achievement-card">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://placehold.co/600x400/1e293b/ffffff?text=Healthcare+Access" alt="صورة البنية التحتية للرعاية الصحية">
+                        </div>
+                        <div class="p-6 relative">
+                            <span class="absolute -top-10 left-6 bg-yellow-500 text-gray-900 font-bold py-1 px-3 rounded-md text-sm shadow-lg">المبادرة الأكبر</span>
+                            <h3 class="achievement-title text-2xl font-bold mt-2 mb-2">تطوير الخدمات الصحية الأولية</h3>
+                            <p class="mb-4 text-sm text-gray-400">قيادة المبادرات لتحديث المرافق الصحية في المناطق النائية وضمان وصول الجميع إلى خدمات طبية موثوقة وعالية الجودة.</p>
+                            <a href="#" class="inline-block text-sm font-semibold text-yellow-400 hover:text-yellow-300 border-b border-yellow-400 pb-1 transition duration-300">
+                                تتبع المشروع
+                            </a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+        
+        <!-- قسم معرض الصور --><section id="gallery" class="py-16 md:py-24 border-t border-gray-900">
+            <div class="max-w-7xl mx-auto">
+                
+                <!-- عنوان القسم --><div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-yellow-400 inline-block pb-2">
+                        معرض الصور
+                    </h2>
+                    <div class="w-24 h-1 bg-yellow-500 mx-auto mt-2 rounded-full"></div>
+                </div>
+
+                <!-- شبكة الصور --><div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                    
+                    <!-- صورة 1 --><div class="photo-card aspect-square">
+                        <img src="https://placehold.co/600x600/374151/ffffff?text=Parliament+Session" alt="صورة من جلسة برلمانية">
+                    </div>
+
+                    <!-- صورة 2 --><div class="photo-card aspect-square">
+                        <img src="https://placehold.co/600x600/374151/ffffff?text=Meeting+with+Constituents" alt="صورة للقاء مع ناخبين">
+                    </div>
+
+                    <!-- صورة 3 --><div class="photo-card aspect-square">
+                        <img src="https://placehold.co/600x600/374151/ffffff?text=Conference" alt="صورة من مؤتمر">
+                    </div>
+
+                    <!-- صورة 4 (إضافية لملء الشبكة) --><div class="photo-card aspect-square hidden sm:block">
+                        <img src="https://placehold.co/600x600/374151/ffffff?text=Official+Visit" alt="صورة لزيارة رسمية">
+                    </div>
+                    
+                    <!-- صورة 5 (إضافية لملء الشبكة) --><div class="photo-card aspect-square hidden lg:block">
+                        <img src="https://placehold.co/600x600/374151/ffffff?text=Speaking+on+Platform" alt="صورة أثناء إلقاء خطاب">
+                    </div>
+                    
+                    <!-- صورة 6 (إضافية لملء الشبكة) --><div class="photo-card aspect-square hidden lg:block">
+                        <img src="https://placehold.co/600x600/374151/ffffff?text=Field+Work" alt="صورة لعمل ميداني">
+                    </div>
+                     <!-- صورة 7 (إضافية لملء الشبكة) --><div class="photo-card aspect-square hidden xl:block">
+                        <img src="https://placehold.co/600x600/374151/ffffff?text=Community+Event" alt="صورة لحدث مجتمعي">
+                    </div>
+                     <!-- صورة 8 (إضافية لملء الشبكة) --><div class="photo-card aspect-square hidden xl:block">
+                        <img src="https://placehold.co/600x600/374151/ffffff?text=Working+at+Desk" alt="صورة أثناء العمل">
+                    </div>
+
+                </div>
+                
+                <!-- زر عرض المزيد (اختياري) --><div class="text-center mt-12">
+                    <button class="font-semibold py-3 px-8 rounded-full text-lg w-full sm:w-auto whitespace-nowrap btn-secondary">
+                        عرض جميع الصور
+                    </button>
+                </div>
+
+            </div>
+        </section>
+        
+        <!-- قسم المكتب والتواصل --><section id="office" class="py-16 md:py-24 bg-gray-900/50 border-t border-gray-900">
+            <div class="max-w-7xl mx-auto">
+                
+                <!-- العنوان الرئيسي للقسم --><div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-yellow-400 inline-block pb-2">
+                        مكتب النائبة ومعلومات الاتصال
+                    </h2>
+                    <div class="w-32 h-1 bg-yellow-500 mx-auto mt-2 rounded-full"></div>
+                </div>
+
+                <!-- محتوى المكتب والخريطة --><div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-16">
+                    
+                    <!-- البطاقة اليمنى: تفاصيل المكتب --><div class="office-card p-8 lg:p-10 flex flex-col justify-center space-y-8">
+                        <div class="text-center mb-4">
+                            
+                            <!-- أيقونة مكتب بديلة (استخدم SVG بسيط) --><svg class="w-16 h-16 mx-auto mb-4 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M5 21h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                            </svg>
+                            <h3 class="text-3xl font-bold">مكتب خدمات الناخبين</h3>
+                        </div>
+                        
+                        <div class="space-y-4 text-center text-lg text-gray-300">
+                            
+                            <!-- العنوان --><p class="flex items-center justify-center space-x-2 space-x-reverse">
+                                <span class="text-yellow-500 text-xl ml-2">📍</span>
+                                بغداد - شارع فلسطين - قرب مجلس النواب
+                            </p>
+                            
+                            <!-- الهاتف --><p class="flex items-center justify-center space-x-2 space-x-reverse">
+                                <span class="text-yellow-500 text-xl ml-2">📞</span>
+                                4567 123 780 964+
+                            </p>
+                            
+                            <!-- البريد الإلكتروني --><p class="flex items-center justify-center space-x-2 space-x-reverse">
+                                <span class="text-yellow-500 text-xl ml-2">📧</span>
+                                office@hibaalaqass.iq
+                            </p>
+                            
+                            <!-- ساعات العمل --><p class="flex items-center justify-center space-x-2 space-x-reverse pt-2 font-bold text-white">
+                                <span class="text-yellow-500 text-xl ml-2">⏰</span>
+                                الأحد - الخميس: 9:00 صباحاً - 6:00 مساءً
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- البطاقة اليسرى: الخريطة --><div class="office-card p-0 overflow-hidden h-96 lg:h-auto">
+                        
+                        <!-- Placeholder للخريطة (لأن الخرائط التفاعلية تحتاج لـ API Key) --><img 
+                            src="https://placehold.co/600x400/101010/ffffff?text=Interactive+Map+Placeholder" 
+                            alt="خريطة موقع المكتب" 
+                            class="w-full h-full object-cover"
+                        >
+                        <div class="p-4 bg-gray-800 text-sm text-gray-400">
+                            بغداد، العراق | إضغط على الصورة للحصول على الاتجاهات.
                         </div>
                     </div>
                 </div>
 
-                <!-- Contact Form -->
-                <form class="lg:col-span-2 space-y-4">
-                    <p class="text-xl font-semibold text-iq-gold">أرسل رسالة مباشرة:</p>
-                    <input type="text" data-i18n="formName" placeholder="اسمك الكريم" class="w-full p-3 rounded-lg bg-iq-mid-blue border border-iq-mid-blue focus:border-iq-gold focus:outline-none text-iq-text-light shadow-inner shadow-black/20">
-                    <input type="email" data-i18n="formEmail" placeholder="بريدك الإلكتروني" class="w-full p-3 rounded-lg bg-iq-mid-blue border border-iq-mid-blue focus:border-iq-gold focus:outline-none text-iq-text-light shadow-inner shadow-black/20">
-                    <textarea data-i18n="formMessage" placeholder="رسالتك" rows="4" class="w-full p-3 rounded-lg bg-iq-mid-blue border border-iq-mid-blue focus:border-iq-gold focus:outline-none text-iq-text-light shadow-inner shadow-black/20"></textarea>
-                    
-                    <button type="submit" class="w-full py-3 text-lg font-bold rounded-lg cta-button transition-all duration-300" data-i18n="formSubmit">
-                        إرسال الرسالة
-                    </button>
-                </form>
+                <!-- أيقونات التواصل الاجتماعي --><div class="text-center space-y-8 pt-8 border-t border-gray-800/50">
+                    <h3 id="contact" class="text-3xl font-bold text-gray-300">تابعنا على وسائل التواصل الاجتماعي</h3>
+                    <div class="flex justify-center gap-6">
+                        
+                        <!-- تويتر/X --><a href="#" class="social-icon" aria-label="Twitter">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.684l-8.683 9.471 9.412 11.235h-8.827l-6.12-7.514-6.86 7.514h-3.682l8.777-9.584-9.537-11.236h8.868l5.808 7.378 6.574-7.378zm-1.161 18.068l-7.945-9.613-5.32 6.784h-2.083l8.604-10.378-8.807-9.764h2.054l6.096 6.757 5.09-6.757h2.083l-8.604 10.378 8.807 9.764h-2.054z"/></svg>
+                        </a>
+                        
+                        <!-- فيسبوك --><a href="#" class="social-icon" aria-label="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.542-1.333h2.458v-4h-3.992c-3.132 0-4.008 1.488-4.008 4v1.667z"/></svg>
+                        </a>
+                        
+                        <!-- إنستغرام --><a href="#" class="social-icon" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07c3.252.148 4.77 1.624 4.908 4.908.058 1.267.07 1.647.07 4.85s-.012 3.584-.07 4.85c-.148 3.252-1.624 4.77-4.908 4.908-.95.056-1.21.066-4.792.066s-3.84-.01-4.792-.066c-3.264-.148-4.77-1.624-4.908-4.908-.058-1.267-.07-1.647-.07-4.85s.012-3.584.07-4.85c.148-3.252 1.624-4.77 4.908-4.908 1.267-.058 1.647-.07 4.85-.07zm0-2.163c-3.259 0-3.668.014-4.944.072-4.148.188-5.968 2.008-6.156 6.156-.058 1.276-.072 1.685-.072 4.944s.014 3.668.072 4.944c.188 4.148 2.008 5.968 6.156 6.156 1.276.058 1.685.072 4.944.072s3.668-.014 4.944-.072c4.148-.188 5.968-2.008 6.156-6.156.058-1.276.072-1.685.072-4.944s-.014-3.668-.072-4.944c-.188-4.148-2.008-5.968-6.156-6.156-1.276-.058-1.685-.072-4.944-.072zM12 8.835c-1.674 0-3.149 1.348-3.149 3.015s1.475 3.015 3.149 3.015c1.673 0 3.149-1.348 3.149-3.015s-1.476-3.015-3.149-3.015zm0 8.015c-2.762 0-5-2.238-5-5s2.238-5 5-5 5 2.238 5 5-2.238 5-5 5zm5.176-13.67c-.649 0-1.176.526-1.176 1.175s.527 1.176 1.176 1.176 1.176-.526 1.176-1.176c0-.649-.527-1.175-1.176-1.175z"/></svg>
+                        </a>
+                        
+                        <!-- تيليجرام --><a href="#" class="social-icon" aria-label="Telegram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.384 5.768c.245.21.372.51.365.817l-2.9 13.626c-.053.25-.19.467-.394.62c-.204.153-.456.241-.718.241-.21 0-.42-.05-.607-.152l-5.642-4.305c-.172-.132-.37-.197-.57-.197-.22 0-.43.07-.6.2l-3.266 2.378c-.182.133-.404.2-.627.2-.38 0-.74-.184-.96-.51a1.006 1.006 0 01-.06-.827l1.792-7.854 8.783-6.533c.176-.13.38-.194.582-.194.214 0 .42.06.608.172.2.115.36.27.46.46zm-2.827 7.02l3.228-10.158-12.77 9.873 2.193 1.621 5.923-4.526c.21-.16.48-.24.75-.24.22 0 .44.06.63.16.2.1.37.26.47.45l2.427 4.145z"/></svg>
+                        </a>
+                        
+                        <!-- يوتيوب --><a href="#" class="social-icon" aria-label="YouTube">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.183c.357-.154.747-.23 1.147-.24h.02c1.711.01 3.102 1.411 3.102 3.125v12.375c0 1.714-1.391 3.115-3.102 3.125h-.02c-.4.01-.79-.066-1.147-.24-.954-.413-1.631-1.143-2.031-2.093l-.478-1.168h-11.415l-.478 1.168c-.4.95-1.077 1.68-2.031 2.093-.357.154-.747.23-1.147.24h-.02c-1.711-.01-3.102-1.411-3.102-3.125v-12.375c0-1.714 1.391-3.115 3.102-3.125h.02c.4-.01.79.066 1.147.24.954.413 1.631 1.143 2.031 2.093l.478 1.168h11.415l.478-1.168c.4-.95 1.077-1.68 2.031-2.093zm-5.615 10.317l4-3.5-4-3.5v7z"/></svg>
+                        </a>
+                    </div>
+                </div>
 
             </div>
         </section>
-    </div>
+        
+        <!-- قسم نموذج الاتصال --><section id="contact-form" class="py-16 md:py-24 bg-gray-900">
+            <div class="max-w-7xl mx-auto form-container">
+                
+                <!-- عنوان النموذج --><div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-yellow-400 inline-block pb-2">
+                        نموذج الاتصال بنا
+                    </h2>
+                    <div class="w-24 h-1 bg-yellow-500 mx-auto mt-2 rounded-full"></div>
+                </div>
 
-    <!-- FOOTER -->
-    <footer class="text-center py-10 mt-16 relative z-10 bg-iq-royal-blue/90 border-t border-iq-mid-blue overflow-hidden">
-        <!-- Animated Gold Iraqi Flag Ribbon Placeholder (CSS/JS Animation needed for full effect) -->
-        <div class="absolute inset-0 z-0 opacity-10" style="
-            background: repeating-linear-gradient(
-                90deg, 
-                #FFD45A 0px, 
-                #FFD45A 10px, 
-                #0A1D3C 10px, 
-                #0A1D3C 20px
-            ); 
-            animation: moveRibbon 30s linear infinite;">
-        </div>
-        <p class="text-sm text-gray-400 relative z-20" data-i18n="footer">
-            © 2025 هبة القس — معاً من أجل مستقبل العراق.
-            <span class="ml-2"> [صورة العلم العراقي] </span>
-        </p>
+                <!-- بطاقة النموذج الفعلية (الخلفية الفاتحة) --><div class="form-card">
+                    <form action="#" method="POST" class="space-y-8">
+                        
+                        <!-- رسالة ترحيبية --><p class="welcome-message text-center flex items-center justify-center">
+                            <span class="text-2xl ml-2">📣</span>
+                            نرحب بجميع استفساراتكم ومقترحاتكم واحتياجاتكم. مكتبنا هنا لخدمتكم.
+                        </p>
+
+                        <!-- حقل الاسم الكامل --><div>
+                            <label for="full_name" class="block text-sm font-semibold mb-2 text-gray-400">الاسم الكامل</label>
+                            <input type="text" id="full_name" name="full_name" class="form-input" placeholder="أدخل اسمك الكامل" required>
+                        </div>
+                        
+                        <!-- حقل البريد الإلكتروني --><div>
+                            <label for="email" class="block text-sm font-semibold mb-2 text-gray-400">البريد الإلكتروني</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="example@domain.com" required>
+                        </div>
+                        
+                        <!-- حقل الموضوع --><div>
+                            <label for="subject" class="block text-sm font-semibold mb-2 text-gray-400">الموضوع (مثل: اقتراح قانون، استفسار، لقاء شخصي)</label>
+                            <input type="text" id="subject" name="subject" class="form-input" placeholder="حدد موضوع رسالتك" required>
+                        </div>
+                        
+                        <!-- حقل الرسالة --><div>
+                            <label for="message" class="block text-sm font-semibold mb-2 text-gray-400">رسالتك</label>
+                            <textarea id="message" name="message" rows="6" class="form-input" placeholder="اكتب رسالتك بالتفصيل هنا..." required></textarea>
+                        </div>
+                        
+                        <!-- زر الإرسال الذهبي --><button type="submit" class="form-submit-btn">
+                            إرسال الرسالة الآن
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+        
+
+    </main>
+
+    
+    <!-- تذييل الصفحة (اختياري، لإضافة لمسة نهائية) --><footer class="py-10 border-t border-gray-800 text-center text-gray-400 text-sm mt-12">
+        <p>&copy; 2024 النائبة هبة القس. جميع الحقوق محفوظة. <span class="text-yellow-500 font-medium">تصميم: صوت الشعب.</span></p>
     </footer>
 
 </body>
