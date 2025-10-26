@@ -7,7 +7,8 @@
     
     <!-- تحميل Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- استيراد خطوط Google --><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <!-- استيراد خطوط Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Changa:wght@400;700&display=swap" rel="stylesheet">
 
@@ -15,74 +16,74 @@
         /* -------------------------------------------------------------------------- */
         /* GENERAL STYLES (الأنماط العامة) */
         /* -------------------------------------------------------------------------- */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Cairo', sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+        }
+
         body {
-            font-family: 'Cairo', sans-serif;
-            /* تدرج خلفي عميق: أزرق غامق يميل للأسود في الأسفل */
-            background: linear-gradient(165deg, #0a1d3c 0%, #1a2f4f 60%, #08101a 100%);
+            /* التدرج الجديد المطلوب */
+            background: linear-gradient(90deg, hsla(213, 77%, 14%, 1) 0%, hsla(202, 27%, 45%, 1) 100%);
+            
             color: #ffffff;
             min-height: 100vh;
             background-attachment: fixed;
             overflow-x: hidden;
             position: relative;
+            padding-top: 0;
+            padding-bottom: 0;
         }
         
-        /* تأثير التوهج للخط الذهبي (Neon Gold Text) */
+        /* تأثير الوهج للخط الذهبي (Neon Gold Text) */
         .text-neon-gold {
-            color: #FFD700;
-            text-shadow: 
-                0 0 8px rgba(255, 215, 0, 0.7), /* توهج أساسي */
-                0 0 15px rgba(255, 215, 0, 0.5), /* توهج ثانوي */
-                0 0 25px rgba(255, 215, 0, 0.3); /* توهج خفيف بعيد */
+            color: #ffd45a; /* تم التحديث */
         }
         .text-neon-gold-quote {
-            color: #FFD700;
-            text-shadow: 
-                0 0 5px rgba(255, 215, 0, 0.6), 
-                0 0 10px rgba(255, 215, 0, 0.4);
+            color: #ffd45a; /* تم التحديث */
         }
 
         /* -------------------------------------------------------------------------- */
         /* GOLDEN PARTICLES (الفقاعات الذهبية المتحركة) */
         /* -------------------------------------------------------------------------- */
+        
         .golden-particles-container {
-            position: fixed;
+            position: fixed; /* تحديد الموقع بالنسبة للنافذة بالكامل */
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 0; /* خلف كل المحتوى */
             pointer-events: none;
+            overflow: hidden; 
         }
 
         .golden-particle {
             position: absolute;
-            background-color: rgba(255, 215, 0, 0.5); /* ذهبي شفاف */
+            background-color: rgba(255, 212, 90, 0.5); /* تم التحديث */
             border-radius: 50%;
-            box-shadow: 0 0 8px 1px rgba(255, 215, 0, 0.6); /* توهج خارجي ناعم */
-            animation: float-up infinite ease-in;
+            box-shadow: 0 0 8px 1px rgba(255, 212, 90, 0.6); /* تم التحديث */
+            animation: float-up infinite linear; /* استخدام linear لسرعة تصاعد ثابتة */
             opacity: 0; /* تبدأ مخفية */
         }
 
         @keyframes float-up {
+            /* حركة طويلة وبطيئة جداً تصل إلى ما بعد الهيدر العلوي */
             0% { 
-                transform: translateY(100vh) translateX(0); 
+                /* يبدأ من الموقع الذي يحدده JS (عند البطاقة) */
+                transform: translateY(0) translateX(0); 
                 opacity: 0.1;
             }
-            25% { 
-                opacity: 0.5; 
-                transform: translateY(75vh) translateX(10px);
-            }
             50% { 
+                 /* تحافظ على أقصى قدر من الشفافية لأطول فترة */
                 opacity: 0.8; 
-                transform: translateY(50vh) translateX(-10px);
-            }
-            75% { 
-                opacity: 0.5; 
-                transform: translateY(25vh) translateX(5px);
+                transform: translateY(-500px) translateX(0); 
             }
             100% { 
-                transform: translateY(-100px) translateX(0); /* تخرج من الشاشة */
-                opacity: 0; /* تتلاشى في الأعلى */
+                /* تصعد 1000 بكسل وتتلاشى */
+                transform: translateY(-1000px) translateX(0); 
+                opacity: 0; 
             }
         }
         
@@ -90,7 +91,8 @@
         /* NAVIGATION BAR (الشريط العلوي) */
         /* -------------------------------------------------------------------------- */
         header {
-            background-color: rgba(10, 29, 60, 0.9); /* خلفية داكنة شبه شفافة */
+            /* تمت إعادة قيم الشفافية إلى قيمة عالية */
+            background-color: rgba(10, 29, 60, 0.95); 
             backdrop-filter: blur(5px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
@@ -99,6 +101,7 @@
         main {
             position: relative;
             z-index: 10; /* يجب أن يكون فوق الفقاعات */
+            width: 100%; 
         }
 
         .nav-link {
@@ -107,19 +110,19 @@
             color: #d1d5db; /* أبيض رمادي لعناصر القائمة */
         }
         .nav-link:hover, .nav-link.active {
-            color: #FFD700;
+            color: #ffd45a; /* تم التحديث */
         }
         
         /* زر الرقم الدائري "333" */
         .btn-circle {
-            background-image: linear-gradient(45deg, #FFD700, #FFE8A3, #FFD700);
+            background-image: linear-gradient(45deg, #ffd45a, #ffe8a3, #ffd45a); /* تم التحديث */
             color: #0a1d3c;
             font-family: 'Inter', sans-serif; /* خط متين للرقم */
             font-weight: 900;
             border-radius: 50%;
             width: 40px;
             height: 40px;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 10px rgba(255, 212, 90, 0.5); /* تم التحديث */
             transition: all 0.3s ease;
             font-size: 1.1rem;
             display: flex;
@@ -129,9 +132,9 @@
         
         /* زر اللغة "English" */
         .btn-language {
-            background-color: rgba(255, 215, 0, 0.1);
-            border: 1px solid #FFD700;
-            color: #FFD700;
+            background-color: rgba(255, 212, 90, 0.1); /* تم التحديث */
+            border: 1px solid #ffd45a; /* تم التحديث */
+            color: #ffd45a; /* تم التحديث */
             font-family: 'Inter', sans-serif;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -139,9 +142,9 @@
             border-radius: 9999px;
         }
         .btn-language:hover {
-            background-color: #FFD700;
+            background-color: #ffd45a; /* تم التحديث */
             color: #0a1d3c;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 10px rgba(255, 212, 90, 0.5); /* تم التحديث */
         }
 
         /* -------------------------------------------------------------------------- */
@@ -176,20 +179,26 @@
         }
         #mobile-menu ul a:hover {
             background-color: #1f2937;
-            color: #FFD700 !important;
+            color: #ffd45a !important; /* تم التحديث */
         }
         
         /* -------------------------------------------------------------------------- */
         /* PROFILE SECTION (قسم البروفايل) */
         /* -------------------------------------------------------------------------- */
+        /* يجب أن يكون القسم بوضع نسبي حتى تكون الفقاعات مطلقة بالنسبة له */
+        #hero {
+            position: relative; 
+            overflow: hidden; /* لمنع الفقاعات من الخروج */
+        }
+        
         /* حاوية الصورة (الإطار الذهبي) */
         .profile-image-container {
             width: 350px; /* تم تكبير الحجم إلى 350px */
             height: 350px; /* تم تكبير الحجم إلى 350px */
             border-radius: 50%;
             padding: 5px; 
-            background: linear-gradient(45deg, #FFD700, #FFE8A3, #FFD700);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+            background: linear-gradient(45deg, #ffd45a, #ffe8a3, #ffd45a); /* تم التحديث */
+            box-shadow: 0 0 20px rgba(255, 212, 90, 0.7); /* تم التحديث */
             transition: all 0.5s ease-in-out;
             position: relative;
             z-index: 50; /* فوق الفقاعات */
@@ -216,13 +225,13 @@
         
         /* زر "النائبة المستقلة" أسفل الصورة */
         .btn-independent {
-            background-image: linear-gradient(45deg, #FFD700, #FFE8A3);
+            background-image: linear-gradient(45deg, #ffd45a, #ffe8a3); /* تم التحديث */
             color: #0a1d3c;
             font-family: 'Cairo', sans-serif;
             font-weight: 700;
             border-radius: 9999px;
             padding: 0.6rem 1.25rem;
-            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 4px 10px rgba(255, 212, 90, 0.4); /* تم التحديث */
             transition: all 0.3s ease;
             font-size: 1.1rem;
             display: inline-flex;
@@ -235,46 +244,47 @@
         /* -------------------------------------------------------------------------- */
         
         .btn-action-primary { /* الزر الذهبي: "عن النائبة" */
-            background-image: linear-gradient(45deg, #FFD700, #FFE8A3, #FFD700);
+            background-image: linear-gradient(45deg, #ffd45a, #ffe8a3, #ffd45a); /* تم التحديث */
             color: #0a1d3c;
             font-family: 'Cairo', sans-serif;
             font-weight: 800;
             border-radius: 9999px;
             padding: 1rem 2.5rem;
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 8px 20px rgba(255, 212, 90, 0.5); /* تم التحديث */
             transition: all 0.3s ease;
         }
         .btn-action-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(255, 215, 0, 0.7);
+            box-shadow: 0 12px 30px rgba(255, 212, 90, 0.7); /* تم التحديث */
         }
 
         .btn-action-secondary { /* الزر الشفاف: "أعمالي" */
             background-color: transparent;
-            border: 2px solid #FFD700;
-            color: #FFD700;
+            border: 2px solid #ffd45a; /* تم التحديث */
+            color: #ffd45a; /* تم التحديث */
             font-family: 'Cairo', sans-serif;
             font-weight: 800;
             border-radius: 9999px;
             padding: 1rem 2.5rem;
             transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 10px rgba(255, 212, 90, 0.3); /* تم التحديث */
         }
         .btn-action-secondary:hover {
-            background-color: rgba(255, 215, 0, 0.1);
-            color: #FFE8A3;
+            background-color: rgba(255, 212, 90, 0.1); /* تم التحديث */
+            color: #ffe8a3; /* تم التحديث */
             transform: translateY(-2px);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 15px rgba(255, 212, 90, 0.5); /* تم التحديث */
         }
 
         /* -------------------------------------------------------------------------- */
         /* VOTING CARD (بطاقة التصويت المصرفية) -- الشكل الداكن الأصلي */
         /* -------------------------------------------------------------------------- */
         .voting-card {
-            background: linear-gradient(135deg, #1f2937 0%, #0e2f47 100%); /* الخلفية الداكنة الأصلية */
-            border: 3px solid #FFD700; /* الحدود الذهبية الأصلية */
+            /* إعادة التدرج إلى ألوان داكنة معتمة */
+            background: linear-gradient(135deg, #1f2937 0%, #0e2f47 100%); 
+            border: 3px solid #ffd45a; /* تم التحديث */
             border-radius: 1rem;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 212, 90, 0.3); /* تم التحديث */
             padding: 1.75rem 2.25rem;
             max-width: 480px;
             height: 300px;
@@ -292,7 +302,7 @@
         }
         .voting-card:hover {
             transform: translateY(-5px) scale(1.01);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 212, 90, 0.5); /* تم التحديث */
         }
         .voting-card .header-icons-group {
              display: flex;
@@ -304,14 +314,14 @@
              z-index: 10;
         }
         .voting-header-icon {
-            color: #FFD700; /* لون الأيقونة ذهبي */
-            filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.8));
+            color: #ffd45a; /* تم التحديث */
+            filter: drop-shadow(0 0 5px rgba(255, 212, 90, 0.8)); /* تم التحديث */
             width: 32px;
             height: 32px;
         }
         .voting-number-box {
             background: linear-gradient(135deg, #374151 0%, #2a3440 100%); /* خلفية داكنة متدرجة */
-            border: 2px solid #FFD700; /* حدود ذهبية */
+            border: 2px solid #ffd45a; /* تم التحديث */
             border-radius: 0.5rem;
             padding: 0.5rem 1rem;
             max-width: 150px;
@@ -320,13 +330,10 @@
             text-align: center;
         }
         .voting-number-box p {
-              line-height: 1.1;
-        }
-        .voting-number-box .text-sm {
-            color: #d1d5db; /* نص رمادي فاتح (لإعادة استخدام Tailwind class في HTML) */
+             line-height: 1.1;
         }
         .voting-number-box .text-4xl {
-            color: #FFD700; /* نص ذهبي (لإعادة استخدام Tailwind class في HTML) */
+            color: #ffd45a; /* تم التحديث */
         }
         /* -------------------------------------------------------------------------- */
         /* FLAG & FLAG SHINE (العلم العراقي وتأثير التلألؤ) */
@@ -344,18 +351,18 @@
             transform: rotateY(15deg);
         }
         .flag-small-card .stripe {
-              height: 33.33%;
-              display: flex;
-              justify-content: center;
-              align-items: center;
+             height: 33.33%;
+             display: flex;
+             justify-content: center;
+             align-items: center;
         }
         .flag-small-card .red { background-color: #ce1126; }
         .flag-small-card .white { background-color: #ffffff; }
         .flag-small-card .black { background-color: #000000; }
         .flag-small-card .kufic-text {
-              font-family: 'Changa', sans-serif;
-              font-size: 0.8rem;
-              color: #00843D;
+             font-family: 'Changa', sans-serif;
+             font-size: 0.8rem;
+             color: #00843D;
         }
         
         @keyframes shineAnim {
@@ -373,8 +380,8 @@
         
         /* الشعار الختامي */
         .voting-footer .text-yellow-400 {
-            color: #FFD700 !important;
-            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+            color: #ffd45a !important; /* تم التحديث */
+            text-shadow: 0 0 8px rgba(255, 212, 90, 0.6); /* تم التحديث */
             font-size: 1.1rem;
         }
 
@@ -386,8 +393,8 @@
             width: 80%; /* عرض مناسب */
             max-width: 1024px;
             margin: 0 auto;
-            background: linear-gradient(to right, transparent, #FFD700, transparent);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+            background: linear-gradient(to right, transparent, #ffd45a, transparent); /* تم التحديث */
+            box-shadow: 0 0 15px rgba(255, 212, 90, 0.7); /* تم التحديث */
             border-radius: 2px;
             /* استخدام الهوامش السلبية لدمج الفاصل بين مساحات الأقسام */
             margin-top: -60px;
@@ -400,14 +407,16 @@
         /* ABOUT SECTION (قسم عن النائبة) */
         /* -------------------------------------------------------------------------- */
         .card-light {
-            background-color: rgba(10, 29, 60, 0.6) !important;
+            /* إلغاء الشفافية - إعادة لون الخلفية الداكنة شبه المعتمة */
+            background-color: rgba(10, 29, 60, 0.9) !important;
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 1rem;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             transition: all 0.3s ease;
         }
         .card-light:hover {
-            background-color: rgba(15, 40, 75, 0.7) !important;
+            /* لون أغمق قليلاً عند التمرير */
+            background-color: rgba(10, 29, 60, 1) !important;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
             transform: translateY(-3px);
         }
@@ -439,11 +448,11 @@
             right: 0.75rem;
             width: 15px;
             height: 15px;
-            background-color: #FFD700;
+            background-color: #ffd45a; /* تم التحديث */
             border-radius: 50%;
             border: 3px solid #0a1d3c;
             z-index: 1;
-            box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+            box-shadow: 0 0 8px rgba(255, 212, 90, 0.6); /* تم التحديث */
         }
         .timeline-item span.bg-yellow-400 {
              /* تغيير موقع التاريخ ليكون على اليمين فوق الخط */
@@ -468,7 +477,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
-            border: 1px solid #FFD70033;
+            border: 1px solid rgba(255, 212, 90, 0.2); /* تم التحديث */
         }
         .achievement-card-v2:hover {
             transform: translateY(-5px);
@@ -492,16 +501,17 @@
         }
 
         .card-content-details {
-            background-color: #12213d; /* خلفية داكنة للجزء النصي */
+            /* إلغاء الشفافية - إعادة لون الخلفية الداكنة الأصلية */
+            background-color: #12213d; 
             padding: 1.5rem;
             text-align: right;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
-            border-top: 3px solid #FFD700; /* خط فاصل ذهبي */
+            border-top: 3px solid #ffd45a; /* تم التحديث */
         }
         .card-title-text {
-            color: #FFD700;
+            color: #ffd45a; /* تم التحديث */
             font-weight: 800;
             margin-bottom: 0.5rem;
             font-size: 1.5rem;
@@ -514,9 +524,9 @@
         }
         .card-action-link {
             display: inline-block;
-            color: #FFD700;
+            color: #ffd45a; /* تم التحديث */
             font-weight: 700;
-            border: 1px solid #FFD700;
+            border: 1px solid #ffd45a; /* تم التحديث */
             padding: 0.5rem 1rem;
             border-radius: 9999px;
             text-align: center;
@@ -524,14 +534,14 @@
             transition: background-color 0.3s;
         }
         .card-action-link:hover {
-            background-color: #FFD700;
+            background-color: #ffd45a; /* تم التحديث */
             color: #12213d;
         }
         .card-year-tag {
              position: absolute;
              top: 1.5rem;
              right: 1.5rem;
-             background-color: rgba(255, 215, 0, 0.85);
+             background-color: rgba(255, 212, 90, 0.85); /* تم التحديث */
              color: #08101a;
              font-family: 'Inter', sans-serif;
              font-weight: 700;
@@ -552,7 +562,7 @@
             background-color: #ffd45a; 
             color: #0a1d3c; /* لون النص يصبح داكناً */
             font-weight: 900; 
-            box-shadow: 0 0 15px rgba(255, 212, 90, 0.9); /* توهج ذهبي فاتح */
+            box-shadow: 0 0 15px rgba(255, 212, 90, 0.9); /* تم التحديث */
             position: relative;
             z-index: 10;
             overflow: hidden;
@@ -570,31 +580,370 @@
         /* -------------------------------------------------------------------------- */
         /* GALLERY SECTION (معرض الصور) */
         /* -------------------------------------------------------------------------- */
-        .photo-card {
-            border-radius: 0.75rem;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s ease;
-            cursor: pointer;
+        /*
+        * START OF VERTICAL CAROUSEL STYLES
+        */
+
+        .main-container {
+            display: flex;
+            width: 100%;
+            max-width: 1000px; 
+            height: 70vh; 
+            gap: 40px; 
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
         }
-        .photo-card img {
+
+        .carousel-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100%;
+        }
+
+        .controls-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end; /* محاذاة لليمين في RTL */
+            gap: 30px;
+            padding-right: 40px; /* RTL padding */
+        }
+
+        .carousel-container {
+            width: 100%;
+            max-width: 500px;
+            height: 100%;
+            position: relative;
+            perspective: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .carousel-container .nav-arrow {
+            display: none; /* إخفاء أسهم التنقل الداخلية على الديسكتوب */
+        }
+
+        .carousel-track {
+            width: 450px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .card {
+            position: absolute;
+            width: 400px;
+            height: 400px; /* جعل البطاقة مربعة كبيرة */
+            background: rgba(10, 29, 60, 0.85);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            border: 2px solid #ffd45a80; /* حدود ذهبية خفيفة */
+        }
+
+        .card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        .photo-card:hover {
-            transform: scale(1.05) rotate(1deg);
+        
+        /* حالة البطاقة النشطة - مظهر محسن */
+        .card.center {
+            z-index: 10;
+            transform: scale(1.05) translateZ(0);
+            /* زيادة شدة الظل والوهج للبطاقة المركزية */
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 30px #ffd45a;
+            border-color: #ffd45a; /* حدود ذهبية واضحة */
         }
-        .photo-card:hover img {
+
+        .card.center img {
+            filter: none;
+        }
+        
+        /* حالات البطاقات غير النشطة - مظهر محسّن للعمق */
+        .card.up-2 { 
+            z-index: 1; 
+            transform: translateY(-400px) scale(0.7) translateZ(-400px); 
+            opacity: 0.3; /* تقليل الشفافية */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+        .card.up-1 { 
+            z-index: 5; 
+            transform: translateY(-200px) scale(0.85) translateZ(-150px); 
+            opacity: 0.6; /* تقليل الشفافية قليلاً */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+        .card.down-1 { 
+            z-index: 5; 
+            transform: translateY(200px) scale(0.85) translateZ(-150px); 
+            opacity: 0.6; 
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+        .card.down-2 { 
+            z-index: 1; 
+            transform: translateY(400px) scale(0.7) translateZ(-400px); 
+            opacity: 0.3; 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .card.up-2 img, .card.up-1 img, .card.down-1 img, .card.down-2 img {
+             filter: grayscale(80%) brightness(0.5); /* تأثير داكن ومجرد أقوى عند الابتعاد */
+        }
+
+        .card.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* محتوى البطاقة الإضافي (العنوان والزر) */
+        .card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            text-align: right;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0)); /* تدرج أغمق للنص */
+            z-index: 15;
+            transition: opacity 0.5s ease;
+        }
+
+        .card.center .card-content {
+            opacity: 1;
+        }
+        .card:not(.center) .card-content {
+            opacity: 0;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffd45a;
+            margin-bottom: 5px;
+        }
+        .card-kicker {
+            font-size: 0.9rem;
+            color: #ddd;
+        }
+        
+        /* ========================================================================= */
+        /* NEW STYLE FOR GALLERY BUTTON (.card-btn) */
+        /* ========================================================================= */
+        .card-btn {
+            background-image: linear-gradient(45deg, #ffd45a, #ffe8a3, #ffd45a); /* تدرج ذهبي */
+            color: #0a1d3c; /* نص داكن */
+            font-family: 'Cairo', sans-serif;
+            font-weight: 800;
+            padding: 10px 24px; /* زيادة البادينغ */
+            border-radius: 9999px;
+            font-size: 1rem; /* حجم خط مناسب */
+            margin-top: 15px; /* زيادة المسافة العلوية */
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(255, 212, 90, 0.6); /* ظل ذهبي بارز */
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .card-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 212, 90, 0.8); /* ظل أقوى عند التحويم */
+        }
+        /* ========================================================================= */
+        
+        /* قسم التحكم الجانبي */
+        .member-info {
+            text-align: right; /* محاذاة لليمين */
+            margin-top: 20px;
+            transition: all 0.5s ease-out;
+            align-self: flex-end; /* محاذاة كل المجموعة لليمين */
+        }
+
+        .member-name {
+            color: #ffd45a; /* تغيير لون الاسم */
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .member-name::before, .member-name::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            width: 80px;
+            height: 2px;
+            background: #ffd45a; /* تغيير لون الخطوط الجانبية */
+        }
+        
+        /* عكس مواضع الخطوط الجانبية لـ RTL */
+        .member-name::before {
+            right: -100px;
+            left: auto;
+        }
+
+        .member-name::after {
+            left: -100px;
+            right: auto;
+        }
+
+        .member-role {
+            color: #a0a0a0; /* لون رمادي مناسب */
+            font-size: 1.1rem;
+            font-weight: 500;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 5px 0;
+            margin-top: 0px;
+            position: relative;
+        }
+        
+        /* نقاط التنقل - مظهر محسن */
+        .dots {
+            display: flex;
+            justify-content: flex-end; /* محاذاة لليمين */
+            gap: 10px;
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 212, 90, 0.1); /* خلفية أكثر شفافية */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #ffd45a; /* حد أسمك */
+            box-shadow: 0 0 5px rgba(255, 212, 90, 0.4);
+        }
+
+        .dot.active {
+            background: #ffd45a;
+            transform: scale(1.3); /* تكبير أكبر */
+            box-shadow: 0 0 10px #ffd45a; /* وهج أكبر */
+        }
+
+        /* أسهم التنقل الخارجية والداخلية - تصميم جديد */
+        .nav-arrow {
+            position: relative;
+            background: rgba(255, 212, 90, 0.1); /* خلفية ذهبية شفافة عند الراحة */
+            width: 55px; /* حجم موحد أكبر قليلاً */
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+            transition: all 0.3s ease;
+            border: 3px solid #ffd45a; /* حدود ذهبية سميكة */
+            box-shadow: 0 0 15px rgba(255, 212, 90, 0.5); /* ظل ذهبي واضح */
+        }
+
+        .nav-arrow:hover {
+            background: #ffd45a; /* خلفية صلبة عند التحويم */
             transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 212, 90, 0.8);
+        }
+        
+        /* أيقونة السهم داخل الزر */
+        .nav-arrow svg {
+             width: 30px;
+             height: 30px;
+             color: #ffd45a; /* لون السهم الافتراضي ذهبي */
+             transition: color 0.3s ease;
+        }
+
+        .nav-arrow:hover svg {
+             color: #0a1d3c; /* لون السهم داكن عند التحويم */
+        }
+        
+        /* تذييل أسهم التحكم - عكس اتجاه الأيقونات لتعكس منطق التمرير */
+        .nav-arrow.up svg {
+             /* هذا السهم يُستخدم للذهاب إلى العنصر السابق (الأعلى في القائمة/الأسفل في العرض) */
+             /* لذا نجعله يشير للأسفل ليعني "انزل للأسفل لرؤية السابق" */
+             transform: rotate(180deg);
+        }
+        .nav-arrow.down svg {
+             /* هذا السهم يُستخدم للذهاب إلى العنصر التالي (الأسفل في القائمة/الأعلى في العرض) */
+             /* لذا نجعله يشير للأعلى ليعني "اصعد للأعلى لرؤية التالي" */
+             transform: rotate(0deg); 
+        }
+
+        .nav-controls {
+            display: flex;
+            flex-direction: row; /* عرض الأسهم جنباً إلى جنب */
+            gap: 30px;
+            align-items: center;
+            justify-content: flex-end; /* محاذاة لليمين */
+            width: 100%;
+        }
+        
+        /* ----------------------------------------------------
+        // Responsive Adjustments
+        // ---------------------------------------------------- */
+        @media (max-width: 1000px) {
+            .main-container {
+                max-width: 90%;
+            }
+            .controls-section {
+                 padding-right: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* ... (تعديلات الموبايل الأخرى بقيت كما هي) ... */
+            .carousel-container .nav-arrow {
+                display: flex; /* إظهار أسهم التنقل الداخلية */
+                position: absolute;
+                left: auto;
+                right: 10px;
+                transform: none;
+                width: 45px;
+                height: 45px;
+                margin: 0;
+            }
+
+            .carousel-container .nav-arrow.up {
+                top: 50px;
+            }
+
+            .carousel-container .nav-arrow.down {
+                bottom: 50px;
+            }
+            
+            .carousel-track { 
+                width: 320px; 
+            }
+            
+            .card {
+                width: 280px;
+                height: 280px; /* الحجم المربع على الموبايل */
+                border-radius: 15px;
+            }
+            /* ... (بقية أنماط الموبايل) ... */
         }
 
         /* -------------------------------------------------------------------------- */
         /* OFFICE & CONTACT (المكتب والتواصل) */
         /* -------------------------------------------------------------------------- */
         .office-card {
-             background-color: #213042 !important; /* لون أزرق داكن محدد ليتطابق تماما مع الصورة */
+             /* إلغاء الشفافية - إعادة لون الخلفية الداكنة المعتمة */
+             background-color: #213042 !important; 
              border-radius: 1rem;
              padding: 2.5rem;
              display: flex;
@@ -602,13 +951,13 @@
              justify-content: center;
              
              /* تطبيق إطار ذهبي لامع مماثل لبطاقة التصويت */
-             border: 3px solid #FFD700; /* حدود ذهبية */
-             box-shadow: 0 0 25px rgba(255, 215, 0, 0.3), 0 15px 40px rgba(0, 0, 0, 0.8);
+             border: 3px solid #ffd45a; /* تم التحديث */
+             box-shadow: 0 0 25px rgba(255, 212, 90, 0.3), 0 15px 40px rgba(0, 0, 0, 0.8); /* تم التحديث */
              transition: all 0.3s ease;
              height: 400px; /* ليتساوى ارتفاعها مع الخريطة */
         }
         .office-card:hover {
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5), 0 20px 50px rgba(0, 0, 0, 0.9);
+            box-shadow: 0 0 30px rgba(255, 212, 90, 0.5), 0 20px 50px rgba(0, 0, 0, 0.9); /* تم التحديث */
             transform: translateY(-2px);
         }
         /* تصميم أيقونات ومعلومات المكتب */
@@ -621,29 +970,29 @@
             color: #d1d5db; /* لون نص رمادي فاتح */
         }
         .office-info-item span.icon {
-            color: #FFD700; /* أيقونة ذهبية */
+            color: #ffd45a; /* تم التحديث */
             margin-right: 0.75rem; /* ml-3 في RTL */
             font-size: 1.5rem;
         }
         /* تلوين النص الرئيسي في البطاقة ليصبح ذهبياً */
         .office-card h3.card-title {
-            color: #FFD700;
+            color: #ffd45a; /* تم التحديث */
             font-weight: 800;
             font-size: 2rem;
             margin-bottom: 1.5rem;
-            text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+            /* text-shadow: 0 0 8px rgba(255, 212, 90, 0.5); */ /* تم حذف الوهج من العنوان */
             text-align: center;
         }
         .office-card .main-icon-container {
              width: 80px; /* حجم الأيقونة الكبيرة */
              height: 80px;
-             background-color: #FFD700; /* خلفية ذهبية */
+             background-color: #ffd45a; /* تم التحديث */
              border-radius: 0.5rem; /* زوايا دائرية */
              display: flex;
              align-items: center;
              justify-content: center;
              margin: 0 auto 1.5rem; /* توسيط و مسافة سفلية */
-             box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+             box-shadow: 0 0 15px rgba(255, 212, 90, 0.7); /* تم التحديث */
         }
         .office-card .main-icon-container svg {
              color: #213042; /* لون الأيقونة الداخلي الأزرق الغامق */
@@ -660,7 +1009,7 @@
             color: #d1d5db;
         }
         .contact-details li svg {
-            color: #FFD700;
+            color: #ffd45a; /* تم التحديث */
             width: 24px;
             height: 24px;
             margin-right: 0.75rem;
@@ -668,16 +1017,16 @@
 
         /* لتصميم البطاقة اليسرى كخريطة */
         .map-card-container {
-            border: 3px solid #FFD700;
+            border: 3px solid #ffd45a; /* تم التحديث */
             border-radius: 1rem;
             overflow: hidden;
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.3), 0 15px 40px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 25px rgba(255, 212, 90, 0.3), 0 15px 40px rgba(0, 0, 0, 0.8); /* تم التحديث */
             height: 400px;
             transition: all 0.3s ease;
         }
         .map-card-container:hover {
+            box-shadow: 0 0 30px rgba(255, 212, 90, 0.5), 0 20px 50px rgba(0, 0, 0, 0.9); /* تم التحديث */
             transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5), 0 20px 50px rgba(0, 0, 0, 0.9);
         }
         /* تعديل تصميم الخريطة لتتطابق تماماً مع الصورة */
         .map-card-container .map-content {
@@ -718,7 +1067,7 @@
         .map-card-container .map-text-overlay h4 {
             font-size: 1.2rem;
             font-weight: 700;
-            color: #FFD700; 
+            color: #ffd45a; /* تم التحديث */
             margin-bottom: 0.25rem;
             align-self: flex-start;
         }
@@ -747,18 +1096,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: rgba(255, 215, 0, 0.1);
-            border: 2px solid #FFD700;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+            background-color: rgba(255, 212, 90, 0.1); /* تم التحديث */
+            border: 2px solid #ffd45a; /* تم التحديث */
+            box-shadow: 0 0 10px rgba(255, 212, 90, 0.4); /* تم التحديث */
             transition: all 0.3s ease;
         }
         .social-icon-wrapper:hover {
-            background-color: #FFD700;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            background-color: #ffd45a; /* تم التحديث */
+            box-shadow: 0 0 20px rgba(255, 212, 90, 0.8); /* تم التحديث */
             transform: translateY(-2px) scale(1.1);
         }
         .social-icon-wrapper .social-icon {
-            color: #FFD700;
+            color: #ffd45a; /* تم التحديث */
             width: 20px;
             height: 20px;
             filter: none; /* إزالة الظل الزائد داخل الدائرة */
@@ -773,7 +1122,8 @@
         /* CONTACT FORM (نموذج الاتصال) */
         /* -------------------------------------------------------------------------- */
         .form-card {
-             background-color: rgba(10, 29, 60, 0.6) !important;
+             /* إلغاء الشفافية - إعادة لون الخلفية الداكنة شبه المعتمة */
+             background-color: rgba(10, 29, 60, 0.9) !important;
              border: 1px solid rgba(255, 255, 255, 0.1);
              border-radius: 1.5rem;
              box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
@@ -792,65 +1142,24 @@
         }
         .form-input:focus {
             outline: none;
-            border-color: #FFD700;
-            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
+            border-color: #ffd45a; /* تم التحديث */
+            box-shadow: 0 0 0 3px rgba(255, 212, 90, 0.3); /* تم التحديث */
         }
         .form-submit-btn {
-            background-image: linear-gradient(45deg, #FFD700, #FFE8A3, #FFD700);
+            background-image: linear-gradient(45deg, #ffd45a, #ffe8a3, #ffd45a); /* تم التحديث */
             color: #0a1d3c;
             font-family: 'Cairo', sans-serif;
             font-weight: 800;
             border-radius: 9999px;
             padding: 1rem 2.5rem;
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 8px 20px rgba(255, 212, 90, 0.5); /* تم التحديث */
             transition: all 0.3s ease;
             width: 100%;
             font-size: 1.25rem;
         }
         .form-submit-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(255, 215, 0, 0.7);
-        }
-
-
-        /* -------------------------------------------------------------------------- */
-        /* RESPONSIVENESS (تجاوبية) */
-        /* -------------------------------------------------------------------------- */
-        @media (max-width: 768px) {
-            /* على الموبايل، تصبح العناصر عمودية وموسّطة */
-            .hero-section-gap {
-                gap: 30px;
-                flex-direction: column;
-            }
-            .profile-text-content {
-                text-align: center;
-                align-items: center;
-                width: 100%;
-            }
-            .profile-text-content > * {
-                margin-left: auto;
-                margin-right: auto;
-            }
-            .profile-image-container {
-                width: 300px; /* تم تكبير الحجم إلى 300px للموبايل */
-                height: 300px; /* تم تكبير الحجم إلى 300px للموبايل */
-            }
-            /* تعديل موقع زر 333 على الموبايل ليكون مدمجاً */
-             .header-icons-group {
-                /* إخفاء الأيقونات في البطاقة لتبسيط المظهر على شاشات الموبايل الصغيرة */
-                display: none;
-            }
-            .separator-glow {
-                margin-top: -30px;
-                margin-bottom: 30px;
-                width: 90%;
-            }
-        }
-        @media (max-width: 1024px) {
-            /* على الموبايل والتابلت، محاذاة معلومات المكتب للوسط */
-            .office-info-item {
-                justify-content: center;
-            }
+            box-shadow: 0 12px 30px rgba(255, 212, 90, 0.7); /* تم التحديث */
         }
     </style>
     
@@ -858,8 +1167,8 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- حاوية الفقاعات الذهبية المتحركة --><div class="golden-particles-container"></div>
-
+    <!-- حاوية الفقاعات الذهبية المتحركة --><div id="voting-particles-container" class="golden-particles-container"></div>
+    
     <!-- الشريط العلوي (Navigation Bar) --><header class="p-4 sm:p-6 sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center max-w-7xl">
             
@@ -913,9 +1222,10 @@
     <main class="flex-grow">
         
         <!-- قسم النائبة (Hero Section) --><section id="hero" class="py-16 md:py-24 overflow-hidden">
+            
             <div class="container mx-auto max-w-7xl flex flex-col-reverse md:flex-row items-center md:items-start justify-center hero-section-gap">
-                        
-                <!-- النصوص (اليمين في الديسكتوب) --><div class="profile-text-content w-full md:w-1/2 flex flex-col md:items-end text-center md:text-right space-y-2">
+                
+                <!-- النصوص (اليمين في الديسكتوب) --><div class="profile-text-content w-full md:w-1/2 flex flex-col md:items-end text-center md:text-right space-y-2 relative z-10">
                                         
                     <!-- العنوان الرئيسي (هبة القس) --><h1 class="text-6xl sm:text-7xl lg:text-8xl font-black font-cairo text-neon-gold">
                         هبة القاس
@@ -930,7 +1240,7 @@
                     </p>
                                         
                     <!-- الاقتباس البارز --><p class="text-2xl md:text-3xl font-extrabold font-cairo text-neon-gold-quote max-w-lg mt-4">
-                        "من أجل عراق يليق بأبنائه"
+                        "من أجل عراق يليق بأبنائه" 
                     </p>
                                         
                     <!-- الأزرار السفلية --><div class="flex flex-col sm:flex-row justify-center md:justify-end gap-4 pt-6" style="margin-top: 25px;">
@@ -943,13 +1253,13 @@
                     </div>
                 </div>
 
-                <!-- الصورة (اليسار في الديسكتوب) --><div class="w-full md:w-1/2 flex flex-col items-center">
+                <!-- الصورة (اليسار في الديسكتوب) --><div class="w-full md:w-1/2 flex flex-col items-center relative z-10">
                     <div class="profile-image-container mb-6">
                         <img 
                             src="https://i.postimg.cc/yd96qz0h/516394864-1061649522741174-3179346494123271060-n.jpg" 
                             alt="صورة النائبة هبة القاس"
                             class="w-full h-full object-cover"
-                            onerror="this.onerror=null;this.src='https://placehold.co/350x350/FFD700/0b0c10?text=Hiba+Al-Qass'"
+                            onerror="this.onerror=null;this.src='https://placehold.co/350x350/ffd45a/0b0c10?text=Hiba+Al-Qass'"
                         >
                     </div>
                     <!-- زر النائبة المستقلة أسفل الصورة --><button class="btn-independent text-lg font-cairo">
@@ -964,8 +1274,8 @@
         </section>
 
         <!-- بطاقة التذكير بمعلومات التصويت (الموقع الجديد: في الوسط بين Hero و About) --><section id="voting-info" class="py-16">
-            <div class="max-w-7xl mx-auto flex justify-center">
-                <div class="voting-card">
+            <div class="max-w-7xl mx-auto flex justify-center relative">
+                <!-- بطاقة التصويت --><div class="voting-card relative z-10">
                     
                     <!-- مجموعة العلم والأيقونة --><div class="header-icons-group">
                         
@@ -1158,7 +1468,7 @@
             </div>
         </section>
         
-        <!-- قسم معرض الصور --><section id="gallery" class="py-16 md:py-24 border-t border-gray-900">
+        <!-- قسم معرض الصور (تمت استعادة شكله الأصلي) --><section id="gallery" class="py-16 md:py-24 border-t border-gray-900">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
                 <!-- عنوان القسم (تم التعديل) --><div class="text-center mb-16">
@@ -1170,41 +1480,111 @@
                     <!-- هذا العنصر تم إخفاؤه بـ CSS --><div class="w-24 h-1 bg-yellow-500 mx-auto mt-2 rounded-full"></div>
                 </div>
 
-                <!-- شبكة الصور --><div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                <!-- شبكة الصور الأصلية (تمت استعادتها) -->
+                <div class="main-container">
+                    <div class="carousel-section">
+                        <div class="carousel-container">
+                            <!-- الأسهم الداخلية مخفية على الديسكتوب وتظهر على الموبايل -->
+                            <button class="nav-arrow up">
+                                <!-- أيقونة سهم للأعلى (مُعدلة) -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up">
+                                    <path d="m5 12 7-7 7 7"></path>
+                                    <path d="M12 19V5"></path>
+                                </svg>
+                            </button>
+                            <div class="carousel-track">
+                                <!-- الشرائح -->
+                                <div class="card" data-index="0">
+                                    <img src="https://placehold.co/600x600/374151/ffffff?text=Parliament+Session" alt="صورة جلسة برلمانية">
+                                    <div class="card-content">
+                                        <h3 class="card-title">جلسة برلمانية حاسمة</h3>
+                                        <p class="card-kicker">داخل مجلس النواب العراقي</p>
+                                        <a href="#" class="card-btn">عرض التفاصيل</a>
+                                    </div>
+                                </div>
+                                <div class="card" data-index="1">
+                                    <img src="https://placehold.co/600x600/1E3A8A/ffffff?text=Meeting+with+Constituents" alt="صورة لقاء مع ناخبين">
+                                    <div class="card-content">
+                                        <h3 class="card-title">لقاء الجماهير والمواطنين</h3>
+                                        <p class="card-kicker">الاستماع إلى مطالب الشعب</p>
+                                        <a href="#" class="card-btn">قراءة الملخص</a>
+                                    </div>
+                                </div>
+                                <div class="card" data-index="2">
+                                    <img src="https://placehold.co/600x600/34D399/1F2937?text=Conference" alt="صورة من مؤتمر">
+                                    <div class="card-content">
+                                        <h3 class="card-title">مؤتمر صحفي وإعلان</h3>
+                                        <p class="card-kicker">حول مبادرة التعليم الجديدة</p>
+                                        <a href="#" class="card-btn">مشاهدة الفيديو</a>
+                                    </div>
+                                </div>
+                                <div class="card" data-index="3">
+                                    <img src="https://placehold.co/600x600/FDBA74/0A0A0A?text=Official+Visit" alt="صورة لزيارة رسمية">
+                                    <div class="card-content">
+                                        <h3 class="card-title">زيارة رسمية لمحافظة البصرة</h3>
+                                        <p class="card-kicker">متابعة المشاريع المتوقفة</p>
+                                        <a href="#" class="card-btn">تقرير الزيارة</a>
+                                    </div>
+                                </div>
+                                <div class="card" data-index="4">
+                                    <img src="https://placehold.co/600x600/6B7280/F9FAFB?text=Speaking+on+Platform" alt="صورة أثناء إلقاء خطاب">
+                                    <div class="card-content">
+                                        <h3 class="card-title">خطاب حول تمكين المرأة</h3>
+                                        <p class="card-kicker">في منتدى سيدات الأعمال</p>
+                                        <a href="#" class="card-btn">نص الخطاب</a>
+                                    </div>
+                                </div>
+                                <div class="card" data-index="5">
+                                    <img src="https://placehold.co/600x600/10B981/0A0A0A?text=Field+Work" alt="صورة لعمل ميداني">
+                                    <div class="card-content">
+                                        <h3 class="card-title">عمل ميداني في الأحياء</h3>
+                                        <p class="card-kicker">تقييم الوضع الخدمي على الأرض</p>
+                                        <a href="#" class="card-btn">اكتشف جهودنا</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="nav-arrow down">
+                                <!-- أيقونة سهم للأسفل (مُعدلة) -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down">
+                                    <path d="M12 5v14"></path>
+                                    <path d="m19 12-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     
-                    <!-- صورة 1 --><div class="photo-card aspect-square">
-                        <img src="https://placehold.co/600x600/374151/ffffff?text=Parliament+Session" alt="صورة من جلسة برلمانية" loading="lazy">
+                    <div class="controls-section">
+                        <div class="nav-controls">
+                            <!-- أسهم التنقل الخارجية -->
+                            <button class="nav-arrow up" id="nav-arrow-up-desk">
+                                <!-- أيقونة سهم للأسفل (معكوسة الآن لتعكس العنصر السابق) -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down">
+                                    <path d="M12 5v14"></path>
+                                    <path d="m19 12-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <button class="nav-arrow down" id="nav-arrow-down-desk">
+                                <!-- أيقونة سهم للأعلى (معكوسة الآن لتعكس العنصر التالي) -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up">
+                                    <path d="m5 12 7-7 7 7"></path>
+                                    <path d="M12 19V5"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="member-info">
+                            <h2 class="member-name" id="member-name">هبة القاس</h2>
+                            <p class="member-role" id="member-role">النائبة المستقلة</p>
+                        </div>
+                        
+                        <div class="dots" id="carousel-dots">
+                            <!-- نقاط التنقل يتم توليدها بواسطة JS -->
+                        </div>
                     </div>
-
-                    <!-- صورة 2 --><div class="photo-card aspect-square">
-                        <img src="https://placehold.co/600x600/374151/ffffff?text=Meeting+with+Constituents" alt="صورة للقاء مع ناخبين" loading="lazy">
-                    </div>
-
-                    <!-- صورة 3 --><div class="photo-card aspect-square">
-                        <img src="https://placehold.co/600x600/374151/ffffff?text=Conference" alt="صورة من مؤتمر" loading="lazy">
-                    </div>
-
-                    <!-- صورة 4 --><div class="photo-card aspect-square hidden sm:block">
-                        <img src="https://placehold.co/600x600/374151/ffffff?text=Official+Visit" alt="صورة لزيارة رسمية" loading="lazy">
-                    </div>
-                    
-                    <!-- صورة 5 --><div class="photo-card aspect-square hidden lg:block">
-                        <img src="https://placehold.co/600x600/374151/ffffff?text=Speaking+on+Platform" alt="صورة أثناء إلقاء خطاب" loading="lazy">
-                    </div>
-                    
-                    <!-- صورة 6 --><div class="photo-card aspect-square hidden lg:block">
-                        <img src="https://placehold.co/600x600/374151/ffffff?text=Field+Work" alt="صورة لعمل ميداني" loading="lazy">
-                    </div>
-                     <!-- صورة 7 --><div class="photo-card aspect-square hidden xl:block">
-                         <img src="https://placehold.co/600x600/374151/ffffff?text=Community+Event" alt="صورة لحدث مجتمعي" loading="lazy">
-                     </div>
-                     <!-- صورة 8 --><div class="photo-card aspect-square hidden xl:block">
-                         <img src="https://placehold.co/600x600/374151/ffffff?text=Working+at+Desk" alt="صورة أثناء العمل" loading="lazy">
-                     </div>
-
                 </div>
-                
-                <!-- زر عرض المزيد --><div class="text-center mt-12">
+
+
+                <div class="text-center mt-12">
                     <button class="font-semibold py-3 px-8 rounded-full text-lg w-full sm:w-auto whitespace-nowrap btn-language">
                         عرض جميع الصور
                     </button>
@@ -1229,26 +1609,23 @@
                         
                         
                         <div class="_officeInfoCard_1yghw_821">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building2 _locationIcon_1yghw_847 mx-auto mb-4" style="color: #FFD700;">
-                                <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path>
-                                <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path>
-                                <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path>
-                                <path d="M10 6h4"></path>
-                                <path d="M10 10h4"></path>
-                                <path d="M10 14h4"></path>
-                                <path d="M10 18h4"></path>
-                            </svg>
+                            <div class="main-icon-container">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building2 _locationIcon_1yghw_847">
+                                    <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path>
+                                    <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path>
+                                    <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path>
+                                    <path d="M10 6h4"></path>
+                                    <path d="M10 10h4"></path>
+                                    <path d="M10 14h4"></path>
+                                    <path d="M10 18h4"></path>
+                                </svg>
+                            </div>
                             <h3 class="card-title text-center text-3xl mb-6">مكتب النائبة</h3>
                             <ul class="contact-details space-y-4">
                                 <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building2 ml-3">
-                                        <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path>
-                                        <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path>
-                                        <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path>
-                                        <path d="M10 6h4"></path>
-                                        <path d="M10 10h4"></path>
-                                        <path d="M10 14h4"></path>
-                                        <path d="M10 18h4"></path>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin ml-3">
+                                        <path d="M12 21.7c-2.3 0-4.2-1.9-4.2-4.2s4.2-7.5 4.2-7.5 4.2 5.2 4.2 7.5c0 2.3-1.9 4.2-4.2 4.2z"></path>
+                                        <circle cx="12" cy="12" r="2.5"></circle>
                                     </svg> بغداد – شارع فلسطين – قرب مجلس النواب
                                 </li>
                                 <li>
@@ -1294,7 +1671,7 @@
                             </div>
                              <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
                                  <!-- Gold Map Pin -->
-                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#FFD700" stroke="#0a1d3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#ffd45a" stroke="#0a1d3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin">
                                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                                      <circle cx="12" cy="10" r="3"></circle>
                                  </svg>
@@ -1355,7 +1732,7 @@
                 </div>
 
                 <!-- بطاقة النموذج الفعلية (الخلفية الداكنة) --><div class="form-card">
-                    <form action="#" method="POST" class="space-y-8">
+                    <form id="contact-form-id" action="#" method="POST" class="space-y-8">
                         
                         <!-- رسالة ترحيبية --><p class="welcome-message text-center flex items-center justify-center text-gray-300">
                             <span class="text-2xl ml-2">📣</span>
@@ -1395,7 +1772,27 @@
     </main>
 
     
-    <!-- تذييل الصفحة --><footer class="py-10 border-t border-gray-800 text-center text-gray-400 text-sm mt-12">
+    <!-- Custom Modal for Confirmation/Error Messages -->
+    <div id="confirmation-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-[2000] hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
+        <div class="bg-gray-800 p-8 rounded-xl shadow-2xl max-w-sm w-full text-center border-2 border-yellow-400 transform scale-95 transition-transform duration-300">
+            <div id="modal-icon" class="mb-4">
+                <!-- Icon will be injected here -->
+            </div>
+            <h3 id="modal-title" class="text-2xl font-bold mb-3 text-yellow-400"></h3>
+            <p id="modal-message" class="text-gray-300 mb-6"></p>
+            <button id="close-modal-btn" class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-2 px-6 rounded-full transition duration-300 shadow-md">
+                إغلاق
+            </button>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-[2000] hidden flex items-center justify-center">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-yellow-400"></div>
+    </div>
+
+
+    <!-- تذييل الصفحة --><footer class="py-10 border-t border-gray-800 text-center text-gray-400 text-sm mt-12 w-full">
         <p>&copy; 2024 النائبة هبة القس. جميع الحقوق محفوظة. <span class="text-yellow-500 font-medium">تصميم: صوت الشعب.</span></p>
     </footer>
 
@@ -1435,37 +1832,281 @@
             });
         });
 
+        // ===============================================
+        // Form Submission Handling (Simulated)
+        // ===============================================
+        const contactForm = document.getElementById('contact-form-id');
+        const modal = document.getElementById('confirmation-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalMessage = document.getElementById('modal-message');
+        const modalIcon = document.getElementById('modal-icon');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const loadingSpinner = document.getElementById('loading-spinner');
 
+        function showModal(isSuccess, title, message) {
+            if (isSuccess) {
+                modalTitle.textContent = title;
+                modalMessage.textContent = message;
+                modalIcon.innerHTML = `
+                    <svg class="w-12 h-12 text-yellow-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.618A7.95 7.95 0 0112 21c-4.418 0-8-3.582-8-8s3.582-8 8-8c1.55 0 3.01.442 4.254 1.22l-.174.174z"></path>
+                    </svg>`;
+                modalTitle.classList.remove('text-red-500');
+                modalTitle.classList.add('text-yellow-400');
+            } else {
+                modalTitle.textContent = 'خطأ في الإرسال';
+                modalMessage.textContent = 'حدث خطأ ما أثناء محاولة إرسال رسالتك. يرجى المحاولة مرة أخرى.';
+                modalIcon.innerHTML = `
+                    <svg class="w-12 h-12 text-red-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.3 16c-.77 1.333.192 3 1.732 3z"></path>
+                    </svg>`;
+                modalTitle.classList.remove('text-yellow-400');
+                modalTitle.classList.add('text-red-500');
+            }
+            // Animate in
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('opacity-100');
+                modal.querySelector('div').classList.remove('scale-95');
+            }, 50);
+        }
+
+        closeModalBtn.addEventListener('click', () => {
+            // Animate out
+            modal.classList.remove('opacity-100');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        });
+
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                loadingSpinner.classList.remove('hidden');
+
+                // Simulate Network Request with exponential backoff
+                const MAX_RETRIES = 3;
+                let attempt = 0;
+
+                function simulateSubmission() {
+                    attempt++;
+                    // Simulate high success rate
+                    const isSuccessful = Math.random() < 0.9; 
+
+                    setTimeout(() => {
+                        loadingSpinner.classList.add('hidden');
+
+                        if (isSuccessful || attempt >= MAX_RETRIES) {
+                            // Success or Max retries reached
+                            if (isSuccessful) {
+                                showModal(true, 'تم الإرسال بنجاح', 'شكراً لرسالتك. سيقوم فريقنا بمراجعتها والرد عليك في أقرب وقت ممكن.');
+                                contactForm.reset(); // Clear form inputs
+                            } else {
+                                // Fallback error after max retries
+                                showModal(false, 'خطأ في الإرسال', 'حدث خطأ غير متوقع بعد عدة محاولات. يرجى محاولة التواصل عبر الهاتف أو البريد الإلكتروني الموضحين في الأعلى.');
+                            }
+                        } else {
+                            // Retry with exponential delay
+                            const delay = Math.pow(2, attempt) * 1000;
+                            setTimeout(simulateSubmission, delay);
+                        }
+                    }, 1500); // Simulate 1.5 second API call latency
+                }
+
+                simulateSubmission();
+            });
+        }
+        // ===============================================
+        
         // Generate Golden Particles
         window.onload = function() {
-            const container = document.querySelector('.golden-particles-container');
-            const particleCount = 25; 
+            // الحصول على حاوية الفقاعات الشاملة و بطاقة التصويت
+            const container = document.getElementById('voting-particles-container'); 
+            const votingCardElement = document.querySelector('.voting-card');
 
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('golden-particle');
+            if (container && votingCardElement) { 
+                // الحصول على موقع البطاقة بالنسبة للنافذة (Viewport)
+                const rect = votingCardElement.getBoundingClientRect(); 
+                const cardBottomY = rect.top + rect.height; // أسفل البطاقة
 
-                // عشوائية الحجم (من 4px إلى 18px)
-                const size = Math.random() * 14 + 4; 
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
+                const particleCount = 40; 
 
-                // عشوائية الموقع الأفقي (من 0% إلى 100%)
-                const left = Math.random() * 100;
-                particle.style.left = `${left}%`;
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('golden-particle');
 
-                // عشوائية مدة التأخير في بدء الحركة (لتجنب التزامن)
-                const delay = Math.random() * 8; 
-                particle.style.animationDelay = `${delay}s`;
+                    // عشوائية الحجم (من 2px إلى 16px) 
+                    const size = Math.random() * 14 + 2; 
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
 
-                // عشوائية مدة الحركة (لتجنب التزامن)
-                const duration = Math.random() * 10 + 15; // بين 15s و 25s (بطيء جداً)
-                particle.style.animationDuration = `${duration}s`;
+                    // تعيين نقطة البداية (position: fixed) - أسفل البطاقة مباشرة
+                    const startX = rect.left + (Math.random() * rect.width);
+                    
+                    // تعيين الـ top ليكون عند أسفل البطاقة (نقطة الصفر في keyframes)
+                    particle.style.left = `${startX}px`;
+                    particle.style.top = `${cardBottomY}px`; 
 
-                container.appendChild(particle);
+                    // عشوائية مدة التأخير في بدء الحركة
+                    const delay = Math.random() * 8; 
+                    particle.style.animationDelay = `${delay}s`;
+
+                    // زيادة المدة لجعل الحركة أبطأ وتصل إلى الأعلى
+                    const duration = Math.random() * 15 + 20; // بين 20s و 35s (بطيء جداً)
+                    particle.style.animationDuration = `${duration}s`;
+
+                    container.appendChild(particle);
+                }
             }
-        };
+            
+            // ===============================================
+            // Vertical Carousel Initialization Logic
+            // ===============================================
 
+            const teamMembers = [
+                { name: "جلسة برلمانية حاسمة", role: "داخل مجلس النواب العراقي" }, 
+                { name: "لقاء الجماهير والمواطنين", role: "الاستماع إلى مطالب الشعب" }, 
+                { name: "مؤتمر صحفي وإعلان", role: "حول مبادرة التعليم الجديدة" }, 
+                { name: "زيارة رسمية لمحافظة البصرة", role: "متابعة المشاريع المتوقفة" }, 
+                { name: "خطاب حول تمكين المرأة", role: "في منتدى سيدات الأعمال" }, 
+                { name: "عمل ميداني في الأحياء", role: "تقييم الوضع الخدمي على الأرض" }
+            ];
+
+            const carouselContainer = document.querySelector('.carousel-container');
+            if (!carouselContainer) return;
+            
+            const cards = document.querySelectorAll(".carousel-track .card");
+            const dotsContainer = document.getElementById("carousel-dots");
+            const memberName = document.getElementById("member-name");
+            const memberRole = document.getElementById("member-role");
+            const upArrows = document.querySelectorAll(".nav-arrow.up");
+            const downArrows = document.querySelectorAll(".nav-arrow.down");
+            let currentIndex = 0;
+            let isAnimating = false;
+            let dots = [];
+
+            // 1. Setup Dots
+            for(let i = 0; i < cards.length; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                dot.setAttribute('data-index', i);
+                dot.addEventListener('click', () => updateCarousel(i));
+                dotsContainer.appendChild(dot);
+                dots.push(dot);
+            }
+
+            function updateCarousel(newIndex) {
+                if (isAnimating) return;
+                isAnimating = true;
+
+                currentIndex = (newIndex + cards.length) % cards.length;
+
+                cards.forEach((card, i) => {
+                    const offset = (i - currentIndex + cards.length) % cards.length;
+
+                    card.classList.remove( 
+                        "center", 
+                        "up-1", 
+                        "up-2", 
+                        "down-1", 
+                        "down-2", 
+                        "hidden" 
+                    );
+
+                    // Logic for vertical stacking
+                    if (offset === 0) {
+                        card.classList.add("center");
+                    } else if (offset === 1) {
+                        card.classList.add("down-1");
+                    } else if (offset === 2) {
+                        card.classList.add("down-2");
+                    } else if (offset === cards.length - 1) {
+                        card.classList.add("up-1");
+                    } else if (offset === cards.length - 2) {
+                        card.classList.add("up-2");
+                    } else {
+                        card.classList.add("hidden");
+                    }
+                });
+
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle("active", i === currentIndex);
+                });
+
+                // Animate info change
+                if(memberName && memberRole) {
+                    memberName.style.opacity = "0";
+                    memberRole.style.opacity = "0";
+
+                    setTimeout(() => {
+                        memberName.textContent = teamMembers[currentIndex].name;
+                        memberRole.textContent = teamMembers[currentIndex].role;
+                        memberName.style.opacity = "1";
+                        memberRole.style.opacity = "1";
+                    }, 300);
+                }
+
+                setTimeout(() => {
+                    isAnimating = false;
+                }, 800);
+            }
+
+            // 2. Bind Navigation
+            upArrows.forEach(arrow => {
+                arrow.addEventListener("click", () => {
+                    updateCarousel(currentIndex - 1);
+                });
+            });
+
+            downArrows.forEach(arrow => {
+                arrow.addEventListener("click", () => {
+                    updateCarousel(currentIndex + 1);
+                });
+            });
+
+            cards.forEach((card, i) => {
+                card.addEventListener("click", () => {
+                    updateCarousel(i);
+                });
+            });
+
+            // 3. Bind Keyboard and Swipe (Up/Down)
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "ArrowUp") {
+                    updateCarousel(currentIndex - 1);
+                } else if (e.key === "ArrowDown") {
+                    updateCarousel(currentIndex + 1);
+                }
+            });
+
+            let touchStartX = 0; 
+            let touchEndX = 0; 
+
+            carouselContainer.addEventListener("touchstart", (e) => {
+                touchStartX = e.changedTouches[0].screenY;
+            });
+
+            carouselContainer.addEventListener("touchend", (e) => {
+                touchEndX = e.changedTouches[0].screenY;
+                
+                const swipeThreshold = 50; 
+                const diff = touchStartX - touchEndX; // positive diff means swipe up
+
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) { // Swipe Up (move to next image/index++)
+                        updateCarousel(currentIndex + 1);
+                    } else { // Swipe Down (move to previous image/index--)
+                        updateCarousel(currentIndex - 1);
+                    }
+                }
+            });
+
+            // Initial load
+            updateCarousel(0);
+        };
     </script>
 
 </body>
