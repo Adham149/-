@@ -1,2113 +1,319 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقع هبة القاس | Hiba Al-Qass - النائبة المستقلة</title>
-    
-    <!-- تحميل Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- استيراد خطوط Google -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@400;700&display=swap" rel="stylesheet">
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>قصص الصحابة الكرام</title>
+    <!-- تحميل Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* -------------------------------------------------------------------------- */
-        /* GENERAL STYLES (الأنماط العامة) */
-        /* -------------------------------------------------------------------------- */
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: 'Cairo', sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+        /* تخصيص الخطوط والألوان (أخضر يماني / ذهبي) */
+        :root {
+            --primary-yemeni-green: #054f32; /* Deep Olive/Forest Green */
+            --accent-gold: #d4af37; /* Classic Gold */
+            --bg-light: #f5fff8; /* Mint Cream/Very Light Green */
+            --card-shadow: rgba(5, 79, 50, 0.25);
         }
 
         body {
-            /* التدرج الجديد المطلوب */
-            background: linear-gradient(90deg, hsla(205, 46%, 10%, 1) 0%, hsla(191, 28%, 23%, 1) 50%, hsla(207, 41%, 27%, 1) 100%);
-            
-            color: #ffffff;
-            min-height: 100vh;
-            background-attachment: fixed;
-            overflow-x: hidden;
-            position: relative;
-            padding-top: 0;
-            padding-bottom: 0;
-        }
-        
-        /* تأثير الوهج للخط الذهبي (Neon Gold Text) */
-        .text-neon-gold {
-            color: #ffd45a; /* تم التحديث */
-        }
-        .text-neon-gold-quote {
-            color: #ffd45a; /* تم التحديث */
-        }
-
-        /* -------------------------------------------------------------------------- */
-        /* GOLDEN PARTICLES (الفقاعات الذهبية المتحركة) */
-        /* -------------------------------------------------------------------------- */
-        
-        .golden-particles-container {
-            position: fixed; /* تحديد الموقع بالنسبة للنافذة بالكامل */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0; /* خلف كل المحتوى */
-            pointer-events: none;
-            overflow: hidden; 
-        }
-
-        .golden-particle {
-            position: absolute;
-            background-color: rgba(255, 212, 90, 0.5); /* تم التحديث */
-            border-radius: 50%;
-            box-shadow: 0 0 8px 1px rgba(255, 212, 90, 0.6); /* تم التحديث */
-            animation: float-up infinite linear; /* استخدام linear لسرعة تصاعد ثابتة */
-            opacity: 0; /* تبدأ مخفية */
-        }
-
-        @keyframes float-up {
-            /* حركة طويلة وبطيئة جداً تصل إلى ما بعد الهيدر العلوي */
-            0% { 
-                /* يبدأ من الموقع الذي يحدده JS (عند البطاقة) */
-                transform: translateY(0) translateX(0); 
-                opacity: 0.1;
-            }
-            50% { 
-                 /* تحافظ على أقصى قدر من الشفافية لأطول فترة */
-                opacity: 0.8; 
-                transform: translateY(-500px) translateX(0); 
-            }
-            100% { 
-                /* تصعد 1000 بكسل وتتلاشى */
-                transform: translateY(-1000px) translateX(0); 
-                opacity: 0; 
-            }
-        }
-        
-        /* -------------------------------------------------------------------------- */
-        /* NAVIGATION BAR (الشريط العلوي) */
-        /* -------------------------------------------------------------------------- */
-        header {
-            /* تمت إعادة قيم الشفافية إلى قيمة عالية */
-            background-color: rgba(10, 29, 60, 0.95); 
-            backdrop-filter: blur(5px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            z-index: 100; /* يجب أن يكون فوق الفقاعات */
-        }
-        main {
-            position: relative;
-            z-index: 10; /* يجب أن يكون فوق الفقاعات */
-            width: 100%; 
-        }
-
-        .nav-link {
-            transition: color 0.3s ease;
-            position: relative;
-            color: #d1d5db; /* أبيض رمادي لعناصر القائمة */
-        }
-        .nav-link:hover, .nav-link.active {
-            color: #ffd45a; /* تم التحديث */
-        }
-        
-        /* زر الرقم الدائري "333" */
-        .btn-circle {
-            background-image: linear-gradient(45deg, #ffd45a, #ffe8a3, #ffd45a); /* تم التحديث */
-            color: #0a1d3c;
-            font-family: 'Inter', sans-serif; /* خط متين للرقم */
-            font-weight: 900;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            box-shadow: 0 0 10px rgba(255, 212, 90, 0.5); /* تم التحديث */
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        /* زر اللغة "English" */
-        .btn-language {
-            background-color: rgba(255, 212, 90, 0.1); /* تم التحديث */
-            border: 1px solid #ffd45a; /* تم التحديث */
-            color: #ffd45a; /* تم التحديث */
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-        }
-        .btn-language:hover {
-            background-color: #ffd45a; /* تم التحديث */
-            color: #0a1d3c;
-            box-shadow: 0 0 10px rgba(255, 212, 90, 0.5); /* تم التحديث */
-        }
-
-        /* -------------------------------------------------------------------------- */
-        /* MOBILE MENU (قائمة الموبايل) */
-        /* -------------------------------------------------------------------------- */
-        #mobile-menu {
-             position: fixed;
-             top: 0;
-             right: 0;
-             width: 100%;
-             height: 100%;
-             background-color: rgba(10, 29, 60, 0.95); /* خلفية داكنة شفافة */
-             z-index: 1000;
-             transform: translateX(100%);
-             transition: transform 0.4s ease-out;
-             display: flex;
-             flex-direction: column;
-             align-items: center;
-             justify-content: center;
-             padding: 2rem;
-             text-align: center;
-        }
-        #mobile-menu.translate-x-0 {
-            transform: translateX(0);
-        }
-        #mobile-menu ul a {
-            font-size: 1.5rem;
-            padding: 1rem;
-            display: block;
-            border-bottom: 1px solid #374151;
-            transition: color 0.2s, background-color 0.2s;
-        }
-        #mobile-menu ul a:hover {
-            background-color: #1f2937;
-            color: #ffd45a !important; /* تم التحديث */
-        }
-        
-        /* -------------------------------------------------------------------------- */
-        /* PROFILE SECTION (قسم البروفايل) */
-        /* -------------------------------------------------------------------------- */
-        /* يجب أن يكون القسم بوضع نسبي حتى تكون الفقاعات مطلقة بالنسبة له */
-        #hero {
-            position: relative; 
-            overflow: hidden; /* لمنع الفقاعات من الخروج */
-        }
-        
-        /* حاوية الصورة (الإطار الذهبي) */
-        .profile-image-container {
-            width: 350px; /* تم تكبير الحجم إلى 350px */
-            height: 350px; /* تم تكبير الحجم إلى 350px */
-            border-radius: 50%;
-            padding: 5px; 
-            background: linear-gradient(45deg, #ffd45a, #ffe8a3, #ffd45a); /* تم التحديث */
-            box-shadow: 0 0 20px rgba(255, 212, 90, 0.7); /* تم التحديث */
-            transition: all 0.5s ease-in-out;
-            position: relative;
-            z-index: 50; /* فوق الفقاعات */
-        }
-        .profile-image-container img {
-            border-radius: 50%;
-            background-color: #e5a067; /* لون بديل للخلفية الرمادية/البرتقالية */
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-        
-        /* المسافة الأفقية بين الصورة والنصوص */
-        .hero-section-gap { 
-             gap: 70px; /* المسافة المحددة 70 بكسل */
-        }
-        
-        /* المسافات العمودية للنصوص */
-        .profile-text-content > * {
-            margin-bottom: 8px; /* المسافة العمودية بين الأسطر */
-            line-height: 1.3;
-        }
-        .profile-text-content .text-base {
-            line-height: 1.5;
-        }
-        
-        /* زر "النائبة المستقلة" أسفل الصورة */
-        .btn-independent {
-            background-image: linear-gradient(45deg, #ffd45a, #ffe8a3); /* تم التحديث */
-            color: #0a1d3c;
             font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-light);
+            color: #1f2937;
+            direction: rtl;
+        }
+
+        /* تنسيق العنوان المميز */
+        .main-header h1 {
+            color: var(--primary-yemeni-green);
+            font-family: 'Amiri', serif;
+            font-size: clamp(30px, 6vw, 44px);
             font-weight: 700;
-            border-radius: 9999px;
-            padding: 0.6rem 1.25rem;
-            box-shadow: 0 4px 10px rgba(255, 212, 90, 0.4); /* تم التحديث */
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            text-shadow: 1px 1px 3px var(--card-shadow);
         }
-
-        /* -------------------------------------------------------------------------- */
-        /* ACTION BUTTONS (أزرار الإجراءات السفلية) */
-        /* -------------------------------------------------------------------------- */
-        
-        .btn-action-primary { /* الزر الذهبي: "عن النائبة" */
-            background-image: linear-gradient(45deg, #ffd45a, #ffe8a3, #ffd45a); /* تم التحديث */
-            color: #0a1d3c;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 800;
-            border-radius: 9999px;
-            padding: 1rem 2.5rem;
-            box-shadow: 0 8px 20px rgba(255, 212, 90, 0.5); /* تم التحديث */
-            transition: all 0.3s ease;
-        }
-        .btn-action-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(255, 212, 90, 0.7); /* تم التحديث */
-        }
-
-        .btn-action-secondary { /* الزر الشفاف: "أعمالي" */
-            background-color: transparent;
-            border: 2px solid #ffd45a; /* تم التحديث */
-            color: #ffd45a; /* تم التحديث */
-            font-family: 'Cairo', sans-serif;
-            font-weight: 800;
-            border-radius: 9999px;
-            padding: 1rem 2.5rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(255, 212, 90, 0.3); /* تم التحديث */
-        }
-        .btn-action-secondary:hover {
-            background-color: rgba(255, 212, 90, 0.1); /* تم التحديث */
-            color: #ffe8a3; /* تم التحديث */
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px rgba(255, 212, 90, 0.5); /* تم التحديث */
-        }
-
-        /* -------------------------------------------------------------------------- */
-        /* VOTING CARD (بطاقة التصويت المصرفية) -- الشكل الداكن الأصلي */
-        /* -------------------------------------------------------------------------- */
-        .voting-card {
-            /* إعادة التدرج إلى ألوان داكنة معتمة */
-            background: linear-gradient(135deg, #1f2937 0%, #0e2f47 100%); 
-            border: 3px solid #ffd45a; /* تم التحديث */
-            border-radius: 1rem;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 212, 90, 0.3); /* تم التحديث */
-            padding: 1.75rem 2.25rem;
-            max-width: 480px;
-            height: 300px;
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: all 0.4s ease-in-out;
-            perspective: 1000px;
-            transform-style: preserve-3d;
-            z-index: 10;
-            color: #ffffff; /* لون النص الأساسي أبيض */
-        }
-        .voting-card:hover {
-            transform: translateY(-5px) scale(1.01);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 212, 90, 0.5); /* تم التحديث */
-        }
-        .voting-card .header-icons-group {
-             display: flex;
-             align-items: center;
-             gap: 1rem;
-             position: absolute;
-             top: 30px;
-             left: 30px;
-             z-index: 10;
-        }
-        .voting-header-icon {
-            color: #ffd45a; /* تم التحديث */
-            filter: drop-shadow(0 0 5px rgba(255, 212, 90, 0.8)); /* تم التحديث */
-            width: 32px;
-            height: 32px;
-        }
-        .voting-number-box {
-            background: linear-gradient(135deg, #374151 0%, #2a3440 100%); /* خلفية داكنة متدرجة */
-            border: 2px solid #ffd45a; /* تم التحديث */
-            border-radius: 0.5rem;
-            padding: 0.5rem 1rem;
-            max-width: 150px;
-            align-self: flex-end; /* يتجه لليسار في RTL */
-            margin-top: 20px;
-            text-align: center;
-        }
-        .voting-number-box p {
-             line-height: 1.1;
-        }
-        .voting-number-box .text-4xl {
-            color: #ffd45a; /* تم التحديث */
-        }
-        /* -------------------------------------------------------------------------- */
-        /* FLAG & FLAG SHINE (العلم العراقي وتأثير التلألؤ) */
-        /* -------------------------------------------------------------------------- */
-        .flag-small-card {
-            width: 120px;
-            height: 80px;
-            border-radius: 4px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            animation: waveFull 4s infinite ease-in-out;
-            transform-origin: left center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transform: rotateY(15deg);
-        }
-        .flag-small-card .stripe {
-             height: 33.33%;
-             display: flex;
-             justify-content: center;
-             align-items: center;
-        }
-        .flag-small-card .red { background-color: #ce1126; }
-        .flag-small-card .white { background-color: #ffffff; }
-        .flag-small-card .black { background-color: #000000; }
-        .flag-small-card .kufic-text {
-             font-family: 'Changa', sans-serif;
-             font-size: 0.8rem;
-             color: #00843D;
-        }
-        
-        @keyframes shineAnim {
-            0% { transform: translateX(-150%) rotate(25deg); }
-            100% { transform: translateX(150%) rotate(25deg); }
-        }
-
-        @keyframes waveFull {
-            0% { transform: rotateY(0deg); box-shadow: 0 5px 10px rgba(0,0,0,0.5); }
-            25% { transform: rotateY(3deg) skewX(1deg); box-shadow: 3px 5px 10px rgba(0,0,0,0.7); }
-            50% { transform: rotateY(0deg); box-shadow: 0 5px 10px rgba(0,0,0,0.5); }
-            75% { transform: rotateY(-3deg) skewX(-1deg); box-shadow: -3px 5px 10px rgba(0,0,0,0.7); }
-            100% { transform: rotateY(0deg); box-shadow: 0 5px 10px rgba(0,0,0,0.5); }
-        }
-        
-        /* الشعار الختامي */
-        .voting-footer .text-yellow-400 {
-            color: #ffd45a !important; /* تم التحديث */
-            text-shadow: 0 0 8px rgba(255, 212, 90, 0.6); /* تم التحديث */
-            font-size: 1.1rem;
-        }
-
-        /* -------------------------------------------------------------------------- */
-        /* CUSTOM SEPARATOR (فاصل مخصص) */
-        /* -------------------------------------------------------------------------- */
-        .separator-glow {
-            height: 3px;
-            width: 80%; /* عرض مناسب */
-            max-width: 1024px;
-            margin: 0 auto;
-            background: linear-gradient(to right, transparent, #ffd45a, transparent); /* تم التحديث */
-            box-shadow: 0 0 15px rgba(255, 212, 90, 0.7); /* تم التحديث */
-            border-radius: 2px;
-            /* استخدام الهوامش السلبية لدمج الفاصل بين مساحات الأقسام */
-            margin-top: -60px;
-            margin-bottom: 60px; 
-            position: relative;
-            z-index: 10;
-        }
-
-        /* -------------------------------------------------------------------------- */
-        /* ABOUT SECTION (قسم عن النائبة) */
-        /* -------------------------------------------------------------------------- */
-        .card-light {
-            /* إلغاء الشفافية - إعادة لون الخلفية الداكنة شبه المعتمة */
-            background-color: rgba(10, 29, 60, 0.9) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 1rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
-        }
-        .card-light:hover {
-            /* لون أغمق قليلاً عند التمرير */
-            background-color: rgba(10, 29, 60, 1) !important;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
-            transform: translateY(-3px);
-        }
-
-        /* TIMELINE (الخط الزمني) */
-        .timeline-container {
-            position: relative;
-            padding-right: 2.5rem; /* مساحة لخط الوسط والنقاط */
-        }
-        .timeline-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 1.25rem;
-            width: 3px;
-            height: 100%;
-            background-color: #374151;
-            border-radius: 2px;
-        }
-        .timeline-item {
-            position: relative;
-            padding-bottom: 2rem;
-            margin-right: 0.5rem;
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            right: 0.75rem;
-            width: 15px;
-            height: 15px;
-            background-color: #ffd45a; /* تم التحديث */
-            border-radius: 50%;
-            border: 3px solid #0a1d3c;
-            z-index: 1;
-            box-shadow: 0 0 8px rgba(255, 212, 90, 0.6); /* تم التحديث */
-        }
-        .timeline-item span.bg-yellow-400 {
-             /* تغيير موقع التاريخ ليكون على اليمين فوق الخط */
-             position: absolute;
-             top: 5px;
-             right: 40px; /* إزاحة إضافية عن خط المنتصف */
-        }
-        @media (min-width: 1024px) {
-            .timeline-item span.bg-yellow-400 {
-                right: -70px; /* إظهار التاريخ خارج منطقة المحتوى على الديسكتوب */
-            }
-        }
-
-
-        /* -------------------------------------------------------------------------- */
-        /* ACHIEVEMENTS SECTION (قسم الإنجازات) - V2 Card Design */
-        /* -------------------------------------------------------------------------- */
-        .achievement-card-v2 {
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(255, 212, 90, 0.2); /* تم التحديث */
-        }
-        .achievement-card-v2:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
-        }
-
-        .card-image-overlay {
-            height: 200px; /* ارتفاع الصورة */
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card-image-overlay img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .achievement-card-v2:hover .card-image-overlay img {
-            transform: scale(1.05); /* تكبير خفيف عند التمرير */
-        }
-
-        .card-content-details {
-            /* إلغاء الشفافية - إعادة لون الخلفية الداكنة الأصلية */
-            background-color: #12213d; 
-            padding: 1.5rem;
-            text-align: right;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            border-top: 3px solid #ffd45a; /* تم التحديث */
-        }
-        .card-title-text {
-            color: #ffd45a; /* تم التحديث */
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            font-size: 1.5rem;
-        }
-        .card-description-text {
-            color: #ccc;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-        .card-action-link {
-            display: inline-block;
-            color: #ffd45a; /* تم التحديث */
-            font-weight: 700;
-            border: 1px solid #ffd45a; /* تم التحديث */
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            text-align: center;
-            align-self: flex-start; /* محاذاة لليسار */
-            transition: background-color 0.3s;
-        }
-        .card-action-link:hover {
-            background-color: #ffd45a; /* تم التحديث */
-            color: #12213d;
-        }
-        .card-year-tag {
-             position: absolute;
-             top: 1.5rem;
-             right: 1.5rem;
-             background-color: rgba(255, 212, 90, 0.85); /* تم التحديث */
-             color: #08101a;
-             font-family: 'Inter', sans-serif;
-             font-weight: 700;
-             padding: 0.25rem 0.75rem;
-             border-radius: 9999px;
-             font-size: 0.85rem;
-             z-index: 2;
-        }
-
-        /* -------------------------------------------------------------------------- */
-        /* GALLERY TITLE MODIFICATION (تعديل عنوان معرض الصور) */
-        /* -------------------------------------------------------------------------- */
-        .gallery-title-wrapper {
-            display: inline-block;
-            padding: 0.75rem 2rem; /* توسيع البادينغ */
-            border-radius: 1rem;
-            /* تطبيق اللون الذهبي #ffd45a للخلفية */
-            background-color: #ffd45a; 
-            color: #0a1d3c; /* لون النص يصبح داكناً */
-            font-weight: 900; 
-            box-shadow: 0 0 15px rgba(255, 212, 90, 0.9); /* تم التحديث */
-            position: relative;
-            z-index: 10;
-            overflow: hidden;
-        }
-        .gallery-title-wrapper h2 {
-            font-size: 2.5rem; /* حجم الخط */
-            color: #0a1d3c; /* لون النص الداكن */
-            font-weight: 900;
-        }
-        /* الشريط السفلي يبقى كما هو ولكن مع خلفية مدمجة */
-        .gallery-title-wrapper + .w-24 { 
-            display: none; /* إخفاء الشريط السفلي القديم لأنه أصبح مدمجاً */
-        }
-        
-        /* -------------------------------------------------------------------------- */
-        /* GALLERY SECTION (معرض الصور) */
-        /* -------------------------------------------------------------------------- */
-        /*
-        * START OF VERTICAL CAROUSEL STYLES
-        */
-
-        .main-container {
-            display: flex;
-            width: 100%;
-            max-width: 1000px; 
-            height: 70vh; 
-            gap: 40px; 
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-        }
-
-        .carousel-section {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100%;
-        }
-
-        .controls-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-end; /* محاذاة لليمين في RTL */
-            gap: 30px;
-            padding-right: 40px; /* RTL padding */
-        }
-
-        .carousel-container {
-            width: 100%;
-            max-width: 500px;
-            height: 100%;
-            position: relative;
-            perspective: 1000px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .carousel-container .nav-arrow {
-            display: none; /* إخفاء أسهم التنقل الداخلية على الديسكتوب */
-        }
-
-        .carousel-track {
-            width: 450px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .card {
-            position: absolute;
-            width: 400px;
-            height: 400px; /* جعل البطاقة مربعة كبيرة */
-            background: rgba(10, 29, 60, 0.85);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            cursor: pointer;
-            border: 2px solid #ffd45a80; /* حدود ذهبية خفيفة */
-        }
-
-        .card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        /* حالة البطاقة النشطة - مظهر محسن */
-        .card.center {
-            z-index: 10;
-            transform: scale(1.05) translateZ(0);
-            /* زيادة شدة الظل والوهج للبطاقة المركزية */
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 30px #ffd45a;
-            border-color: #ffd45a; /* حدود ذهبية واضحة */
-        }
-
-        .card.center img {
-            filter: none;
-        }
-        
-        /* حالات البطاقات غير النشطة - مظهر محسّن للعمق */
-        .card.up-2 { 
-            z-index: 1; 
-            transform: translateY(-400px) scale(0.7) translateZ(-400px); 
-            opacity: 0.3; /* تقليل الشفافية */
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-        }
-        .card.up-1 { 
-            z-index: 5; 
-            transform: translateY(-200px) scale(0.85) translateZ(-150px); 
-            opacity: 0.6; /* تقليل الشفافية قليلاً */
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-        }
-        .card.down-1 { 
-            z-index: 5; 
-            transform: translateY(200px) scale(0.85) translateZ(-150px); 
-            opacity: 0.6; 
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-        }
-        .card.down-2 { 
-            z-index: 1; 
-            transform: translateY(400px) scale(0.7) translateZ(-400px); 
-            opacity: 0.3; 
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .card.up-2 img, .card.up-1 img, .card.down-1 img, .card.down-2 img {
-             filter: grayscale(80%) brightness(0.5); /* تأثير داكن ومجرد أقوى عند الابتعاد */
-        }
-
-        .card.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* محتوى البطاقة الإضافي (العنوان والزر) */
-        .card-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 20px;
-            text-align: right;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0)); /* تدرج أغمق للنص */
-            z-index: 15;
-            transition: opacity 0.5s ease;
-        }
-
-        .card.center .card-content {
-            opacity: 1;
-        }
-        .card:not(.center) .card-content {
-            opacity: 0;
-        }
-
-        .card-title {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #ffd45a;
-            margin-bottom: 5px;
-        }
-        .card-kicker {
-            font-size: 0.9rem;
-            color: #ddd;
-        }
-        
-        /* ========================================================================= */
-        /* NEW STYLE FOR GALLERY BUTTON (.card-btn) */
-        /* ========================================================================= */
-        .card-btn {
-            background-image: linear-gradient(45deg, #ffd45a, #ffe8a3, #ffd45a); /* تدرج ذهبي */
-            color: #0a1d3c; /* نص داكن */
-            font-family: 'Cairo', sans-serif;
-            font-weight: 800;
-            padding: 10px 24px; /* زيادة البادينغ */
-            border-radius: 9999px;
-            font-size: 1rem; /* حجم خط مناسب */
-            margin-top: 15px; /* زيادة المسافة العلوية */
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(255, 212, 90, 0.6); /* ظل ذهبي بارز */
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-        .card-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 212, 90, 0.8); /* ظل أقوى عند التحويم */
-        }
-        /* ========================================================================= */
-        
-        /* قسم التحكم الجانبي */
-        .member-info {
-            text-align: right; /* محاذاة لليمين */
-            margin-top: 20px;
-            transition: all 0.5s ease-out;
-            align-self: flex-end; /* محاذاة كل المجموعة لليمين */
-        }
-
-        .member-name {
-            color: #ffd45a; /* تغيير لون الاسم */
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 8px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .member-name::before, .member-name::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            width: 80px;
-            height: 2px;
-            background: #ffd45a; /* تغيير لون الخطوط الجانبية */
-        }
-        
-        /* عكس مواضع الخطوط الجانبية لـ RTL */
-        .member-name::before {
-            right: -100px;
-            left: auto;
-        }
-
-        .member-name::after {
-            left: -100px;
-            right: auto;
-        }
-
-        .member-role {
-            color: #a0a0a0; /* لون رمادي مناسب */
-            font-size: 1.1rem;
+        .main-header p {
+            color: var(--primary-yemeni-green);
             font-weight: 500;
-            opacity: 0.9;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            padding: 5px 0;
-            margin-top: 0px;
-            position: relative;
         }
         
-        /* نقاط التنقل - مظهر محسن */
-        .dots {
-            display: flex;
-            justify-content: flex-end; /* محاذاة لليمين */
-            gap: 10px;
-            margin-top: 30px;
-            width: 100%;
+        /* تأثير التكبير عند التحويم على البطاقة */
+        .video-card {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .video-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px var(--card-shadow);
         }
 
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 212, 90, 0.1); /* خلفية أكثر شفافية */
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid #ffd45a; /* حد أسمك */
-            box-shadow: 0 0 5px rgba(255, 212, 90, 0.4);
-        }
-
-        .dot.active {
-            background: #ffd45a;
-            transform: scale(1.3); /* تكبير أكبر */
-            box-shadow: 0 0 10px #ffd45a; /* وهج أكبر */
-        }
-
-        /* أسهم التنقل الخارجية والداخلية - تصميم جديد */
-        .nav-arrow {
-            position: relative;
-            background: rgba(255, 212, 90, 0.1); /* خلفية ذهبية شفافة عند الراحة */
-            width: 55px; /* حجم موحد أكبر قليلاً */
-            height: 55px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 20;
-            transition: all 0.3s ease;
-            border: 3px solid #ffd45a; /* حدود ذهبية سميكة */
-            box-shadow: 0 0 15px rgba(255, 212, 90, 0.5); /* ظل ذهبي واضح */
-        }
-
-        .nav-arrow:hover {
-            background: #ffd45a; /* خلفية صلبة عند التحويم */
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(255, 212, 90, 0.8);
-        }
-        
-        /* أيقونة السهم داخل الزر */
-        .nav-arrow svg {
-             width: 30px;
-             height: 30px;
-             color: #ffd45a; /* لون السهم الافتراضي ذهبي */
-             transition: color 0.3s ease;
-        }
-
-        .nav-arrow:hover svg {
-             color: #0a1d3c; /* لون السهم داكن عند التحويم */
-        }
-        
-        /* تذييل أسهم التحكم - عكس اتجاه الأيقونات لتعكس منطق التمرير */
-        .nav-arrow.up svg {
-             /* هذا السهم يُستخدم للذهاب إلى العنصر السابق (الأعلى في القائمة/الأسفل في العرض) */
-             /* لذا نجعله يشير للأسفل ليعني "انزل للأسفل لرؤية السابق" */
-             transform: rotate(180deg);
-        }
-        .nav-arrow.down svg {
-             /* هذا السهم يُستخدم للذهاب إلى العنصر التالي (الأسفل في القائمة/الأعلى في العرض) */
-             /* لذا نجعله يشير للأعلى ليعني "اصعد للأعلى لرؤية التالي" */
-             transform: rotate(0deg); 
-        }
-
-        .nav-controls {
-            display: flex;
-            flex-direction: row; /* عرض الأسهم جنباً إلى جنب */
-            gap: 30px;
-            align-items: center;
-            justify-content: flex-end; /* محاذاة لليمين */
-            width: 100%;
-        }
-        
-        /* ----------------------------------------------------
-        // Responsive Adjustments
-        // ---------------------------------------------------- */
-        @media (max-width: 1000px) {
-            .main-container {
-                max-width: 90%;
-            }
-            .controls-section {
-                 padding-right: 20px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            /* ... (تعديلات الموبايل الأخرى بقيت كما هي) ... */
-            .carousel-container .nav-arrow {
-                display: flex; /* إظهار أسهم التنقل الداخلية */
-                position: absolute;
-                left: auto;
-                right: 10px;
-                transform: none;
-                width: 45px;
-                height: 45px;
-                margin: 0;
-            }
-
-            .carousel-container .nav-arrow.up {
-                top: 50px;
-            }
-
-            .carousel-container .nav-arrow.down {
-                bottom: 50px;
-            }
-            
-            .carousel-track { 
-                width: 320px; 
-            }
-            
-            .card {
-                width: 280px;
-                height: 280px; /* الحجم المربع على الموبايل */
-                border-radius: 15px;
-            }
-            /* ... (بقية أنماط الموبايل) ... */
-        }
-
-        /* -------------------------------------------------------------------------- */
-        /* OFFICE & CONTACT (المكتب والتواصل) */
-        /* -------------------------------------------------------------------------- */
-        .office-card {
-             /* إلغاء الشفافية - إعادة لون الخلفية الداكنة المعتمة */
-             background-color: #213042 !important; 
-             border-radius: 1rem;
-             padding: 2.5rem;
-             display: flex;
-             flex-direction: column;
-             justify-content: center;
-             
-             /* تطبيق إطار ذهبي لامع مماثل لبطاقة التصويت */
-             border: 3px solid #ffd45a; /* تم التحديث */
-             box-shadow: 0 0 25px rgba(255, 212, 90, 0.3), 0 15px 40px rgba(0, 0, 0, 0.8); /* تم التحديث */
-             transition: all 0.3s ease;
-             height: 400px; /* ليتساوى ارتفاعها مع الخريطة */
-        }
-        .office-card:hover {
-            box-shadow: 0 0 30px rgba(255, 212, 90, 0.5), 0 20px 50px rgba(0, 0, 0, 0.9); /* تم التحديث */
-            transform: translateY(-2px);
-        }
-        /* تصميم أيقونات ومعلومات المكتب */
-        .office-info-item {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end; /* محاذاة لليمين */
-            font-size: 1.125rem; /* text-lg */
-            font-weight: 600;
-            color: #d1d5db; /* لون نص رمادي فاتح */
-        }
-        .office-info-item span.icon {
-            color: #ffd45a; /* تم التحديث */
-            margin-right: 0.75rem; /* ml-3 في RTL */
-            font-size: 1.5rem;
-        }
-        /* تلوين النص الرئيسي في البطاقة ليصبح ذهبياً */
-        .office-card h3.card-title {
-            color: #ffd45a; /* تم التحديث */
-            font-weight: 800;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            /* text-shadow: 0 0 8px rgba(255, 212, 90, 0.5); */ /* تم حذف الوهج من العنوان */
-            text-align: center;
-        }
-        .office-card .main-icon-container {
-             width: 80px; /* حجم الأيقونة الكبيرة */
-             height: 80px;
-             background-color: #ffd45a; /* تم التحديث */
-             border-radius: 0.5rem; /* زوايا دائرية */
-             display: flex;
-             align-items: center;
-             justify-content: center;
-             margin: 0 auto 1.5rem; /* توسيط و مسافة سفلية */
-             box-shadow: 0 0 15px rgba(255, 212, 90, 0.7); /* تم التحديث */
-        }
-        .office-card .main-icon-container svg {
-             color: #213042; /* لون الأيقونة الداخلي الأزرق الغامق */
-             width: 50px;
-             height: 50px;
-        }
-        /* أنماط القائمة الجديدة */
-        .contact-details li {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            margin-bottom: 1rem;
-            font-size: 1.05rem;
-            color: #d1d5db;
-        }
-        .contact-details li svg {
-            color: #ffd45a; /* تم التحديث */
-            width: 24px;
-            height: 24px;
-            margin-right: 0.75rem;
-        }
-
-        /* لتصميم البطاقة اليسرى كخريطة */
-        .map-card-container {
-            border: 3px solid #ffd45a; /* تم التحديث */
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 0 25px rgba(255, 212, 90, 0.3), 0 15px 40px rgba(0, 0, 0, 0.8); /* تم التحديث */
-            height: 400px;
-            transition: all 0.3s ease;
-        }
-        .map-card-container:hover {
-            box-shadow: 0 0 30px rgba(255, 212, 90, 0.5), 0 20px 50px rgba(0, 0, 0, 0.9); /* تم التحديث */
-            transform: translateY(-2px);
-        }
-        /* تعديل تصميم الخريطة لتتطابق تماماً مع الصورة */
-        .map-card-container .map-content {
-            width: 100%;
-            height: 100%;
-            background-color: #222222; /* خلفية داكنة للخريطة */
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        /* لتطبيق صورة Placeholder للخريطة (إذا كانت متوفرة) */
-        .map-card-container .map-content::before {
-            content: '';
+        /* زر التشغيل الدائري بتصميم أفضل */
+        .play-button {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* استخدم صورة Placeholder للخريطة */
-            background: url('https://placehold.co/600x400/eeeeee/213042?text=Baghdad+Map') no-repeat center center / cover; 
-            opacity: 0.7; /* لتبدو أقل وضوحًا */
-        }
-        .map-card-container .map-text-overlay {
-            position: absolute; 
-            z-index: 1;
-            text-align: right; 
-            color: #fff;
-            top: 10px; /* ضبط الموضع العلوي */
-            right: 10px; /* ضبط الموضع الأيمن */
-            padding: 1rem;
-            font-family: 'Cairo', sans-serif; 
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            pointer-events: none; /* لمنع حجب التفاعلات الافتراضية إذا كانت خريطة حقيقية */
-        }
-        .map-card-container .map-text-overlay h4 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #ffd45a; /* تم التحديث */
-            margin-bottom: 0.25rem;
-            align-self: flex-start;
-        }
-        .map-card-container .map-text-overlay p {
-            font-size: 0.8rem;
-            color: #d1d5db; 
-            margin-bottom: 0.125rem;
-            align-self: flex-start; 
-        }
-        .map-card-container .map-text-overlay a {
-            font-size: 0.7rem;
-            color: #3b82f6; 
-            text-decoration: underline;
-            margin-top: 0.5rem;
-            align-self: flex-start; 
-            pointer-events: auto; /* السماح بالنقر على الروابط */
-        }
-        /* ----------------------------------------------------
-        تعديلات أيقونات التواصل الاجتماعي لتصبح في دوائر ذهبية
-        ----------------------------------------------------
-        */
-        .social-icon-wrapper {
-            width: 40px;
-            height: 40px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background-color: rgba(255, 255, 255, 0.9);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: rgba(255, 212, 90, 0.1); /* تم التحديث */
-            border: 2px solid #ffd45a; /* تم التحديث */
-            box-shadow: 0 0 10px rgba(255, 212, 90, 0.4); /* تم التحديث */
-            transition: all 0.3s ease;
-        }
-        .social-icon-wrapper:hover {
-            background-color: #ffd45a; /* تم التحديث */
-            box-shadow: 0 0 20px rgba(255, 212, 90, 0.8); /* تم التحديث */
-            transform: translateY(-2px) scale(1.1);
-        }
-        .social-icon-wrapper .social-icon {
-            color: #ffd45a; /* تم التحديث */
-            width: 20px;
-            height: 20px;
-            filter: none; /* إزالة الظل الزائد داخل الدائرة */
-            transition: color 0.3s ease;
-        }
-        .social-icon-wrapper:hover .social-icon {
-            color: #0a1d3c; /* لون داكن عند التحويم */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
         }
 
+        .play-button::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            border-left: 25px solid var(--primary-yemeni-green); /* لون الزر الأساسي */
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            margin-right: -5px; 
+        }
+        
+        .video-thumb {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .video-thumb img {
+            transition: transform 0.3s ease;
+        }
+        
+        .video-thumb:hover img {
+            transform: scale(1.05); 
+        }
 
-        /* -------------------------------------------------------------------------- */
-        /* CONTACT FORM (نموذج الاتصال) */
-        /* -------------------------------------------------------------------------- */
-        .form-card {
-             /* إلغاء الشفافية - إعادة لون الخلفية الداكنة شبه المعتمة */
-             background-color: rgba(10, 29, 60, 0.9) !important;
-             border: 1px solid rgba(255, 255, 255, 0.1);
-             border-radius: 1.5rem;
-             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
-             padding: 2.5rem;
-             max-width: 600px;
-             margin: 0 auto;
-        }
-        .form-input {
+        .custom-video {
+            display: none;
             width: 100%;
-            padding: 1rem;
-            border-radius: 0.75rem;
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #fff;
-            transition: border-color 0.3s, box-shadow 0.3s;
         }
-        .form-input:focus {
-            outline: none;
-            border-color: #ffd45a; /* تم التحديث */
-            box-shadow: 0 0 0 3px rgba(255, 212, 90, 0.3); /* تم التحديث */
+        
+        /* تنسيق عناوين الأقسام الجديدة */
+        .section-header {
+            font-family: 'Amiri', serif;
+            font-size: clamp(24px, 5vw, 32px);
+            font-weight: 700;
+            margin: 40px 0 20px 0;
+            padding-right: 15px;
+            border-right: 5px solid var(--accent-gold);
+            color: var(--primary-yemeni-green);
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05);
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 10px 15px;
+            border-radius: 5px;
         }
-        .form-submit-btn {
-            background-image: linear-gradient(45deg, #ffd45a, #ffe8a3, #ffd45a); /* تم التحديث */
-            color: #0a1d3c;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 800;
-            border-radius: 9999px;
-            padding: 1rem 2.5rem;
-            box-shadow: 0 8px 20px rgba(255, 212, 90, 0.5); /* تم التحديث */
-            transition: all 0.3s ease;
-            width: 100%;
-            font-size: 1.25rem;
-        }
-        .form-submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(255, 212, 90, 0.7); /* تم التحديث */
+        
+        /* تنسيق رقم الحلقة */
+        .episode-number {
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 9999px; /* rounded-full */
+            background-color: var(--accent-gold);
+            color: var(--primary-yemeni-green);
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
     </style>
-    
-
 </head>
-<body class="flex flex-col min-h-screen">
 
-    <!-- حاوية الفقاعات الذهبية المتحركة --><div id="voting-particles-container" class="golden-particles-container"></div>
-    
-    <!-- الشريط العلوي (Navigation Bar) --><header class="p-4 sm:p-6 sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center max-w-7xl">
-            
-            <!-- مجموعة الشعار وزر 333 --><div class="flex items-center space-x-4 space-x-reverse relative">
-                <span class="text-2xl sm:text-3xl font-extrabold font-cairo text-white mr-20 sm:mr-0">
-                    النائبة هبة القاس
-                </span>
-                <!-- زر 333 (موقع مطلق) --><a href="#voting-info" class="btn-circle absolute top-0 right-[-50px] sm:static sm:order-none sm:ml-4">
-                    ٣٣٣
-                </a>
-            </div>
-            
-            <!-- قائمة التنقل --><ul class="hidden md:flex space-x-6 space-x-reverse text-sm md:text-base font-medium font-cairo">
-                <li><a href="#hero" class="nav-link active">الرئيسية</a></li>
-                <li><a href="#about" class="nav-link">عن النائبة</a></li>
-                <li><a href="#achievements" class="nav-link">الإنجازات</a></li>
-                <li><a href="#gallery" class="nav-link">معرض الصور</a></li>
-                <li><a href="#office" class="nav-link">المكتب</a></li>
-                <li><a href="#contact-form" class="nav-link">تواصل</a></li>
-            </ul>
+<body>
 
-            <!-- زر اللغة --><div class="ml-auto md:ml-0">
-                <button class="btn-language text-sm hidden sm:inline-block font-cairo">
-                    English
-                </button>
-                
-                <button id="mobile-menu-button" class="md:hidden text-yellow-400 focus:outline-none p-2">
-                    <!-- أيقونة قائمة همبرغر --><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                </button>
-            </div>
-        </div>
-    </header>
+    <div class="container mx-auto p-4 max-w-6xl">
 
-    <!-- قائمة الموبايل (مخفية) --><div id="mobile-menu" class="fixed inset-0 bg-gray-900 bg-opacity-95 z-[1000] transform translate-x-full transition-transform duration-300 md:hidden flex flex-col items-center justify-center space-y-8 text-2xl font-cairo">
-        <button id="close-mobile-menu" class="absolute top-6 left-6 text-yellow-400">
-            <!-- أيقونة إغلاق (X) --><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
-        <ul class="space-y-6 text-center">
-            <li><a href="#hero" class="text-white hover:text-yellow-400">الرئيسية</a></li>
-            <li><a href="#about" class="text-white hover:text-yellow-400">عن النائبة</a></li>
-            <li><a href="#achievements" class="text-white hover:text-yellow-400">الإنجازات</a></li>
-            <li><a href="#gallery" class="text-white hover:text-yellow-400">معرض الصور</a></li>
-            <li><a href="#office" class="text-white hover:text-yellow-400">المكتب</a></li>
-            <li><a href="#contact-form" class="text-white hover:text-yellow-400">تواصل</a></li>
-        </ul>
-        <button class="btn-language text-lg mt-8 font-cairo">
-            English
-        </button>
-    </div>
+        <!-- العنوان الرئيسي والوصف -->
+        <header class="main-header text-center mb-10 py-6">
+            <h1 class="font-extrabold mb-2">مِنْ بَطُولات الصَحَابة الكِرام</h1>
+            <p class="text-xl font-medium">سلسلة مرئية لقصص العظماء الذين صحبوا النبي ﷺ</p>
+            <div class="w-1/4 h-1 bg-gradient-to-l from-transparent to-primary-yemeni-green mx-auto mt-4 rounded-full"></div>
+        </header>
 
-    <main class="flex-grow">
-        
-        <!-- قسم النائبة (Hero Section) --><section id="hero" class="py-16 md:py-24 overflow-hidden">
-            
-            <div class="container mx-auto max-w-7xl flex flex-col-reverse md:flex-row items-center md:items-start justify-center hero-section-gap">
-                
-                <!-- النصوص (اليمين في الديسكتوب) --><div class="profile-text-content w-full md:w-1/2 flex flex-col md:items-end text-center md:text-right space-y-2 relative z-10">
-                                        
-                    <!-- العنوان الرئيسي (هبة القس) --><h1 class="text-6xl sm:text-7xl lg:text-8xl font-black font-cairo text-neon-gold">
-                        هبة القاس
-                    </h1>
-                                        
-                    <!-- الاسم بالإنجليزية --><p class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-inter text-white">
-                        Hiba Al-Qass
-                    </p>
-                                        
-                    <!-- النص الثانوي --><p class="text-lg md:text-xl text-gray-300 font-cairo mt-2">
-                        النائبة المستقلة - جمهورية العراق
-                    </p>
-                                        
-                    <!-- الاقتباس البارز --><p class="text-2xl md:text-3xl font-extrabold font-cairo text-neon-gold-quote max-w-lg mt-4">
-                        "من أجل عراق يليق بأبنائه" 
-                    </p>
-                                        
-                    <!-- الأزرار السفلية --><div class="flex flex-col sm:flex-row justify-center md:justify-end gap-4 pt-6" style="margin-top: 25px;">
-                        <!-- الزر الأول (الذهبي: عن النائبة) --><a href="#about" class="btn-action-primary text-lg sm:text-xl w-full sm:w-auto text-center font-cairo">
-                            عن النائبة
-                        </a>
-                        <!-- الزر الثاني (الشفاف/الداكن: أعمالي) --><a href="#achievements" class="btn-action-secondary text-lg sm:text-xl w-full sm:w-auto text-center font-cairo">
-                            أعمالي
-                        </a>
-                    </div>
-                </div>
-
-                <!-- الصورة (اليسار في الديسكتوب) --><div class="w-full md:w-1/2 flex flex-col items-center relative z-10">
-                    <div class="profile-image-container mb-6">
-                        <img 
-                            src="https://i.postimg.cc/yd96qz0h/516394864-1061649522741174-3179346494123271060-n.jpg" 
-                            alt="صورة النائبة هبة القاس"
-                            class="w-full h-full object-cover"
-                            onerror="this.onerror=null;this.src='https://placehold.co/350x350/ffd45a/0b0c10?text=Hiba+Al-Qass'"
-                        >
-                    </div>
-                    <!-- زر النائبة المستقلة أسفل الصورة --><button class="btn-independent text-lg font-cairo">
-                        <!-- أيقونة الحكم المستقل (دائرة النجمة) --><svg class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM15 11.5l-3 3-3-3V8h6v3.5z"/>
-                        </svg>
-                        النائبة المستقلة
-                    </button>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- بطاقة التذكير بمعلومات التصويت (الموقع الجديد: في الوسط بين Hero و About) --><section id="voting-info" class="py-16">
-            <div class="max-w-7xl mx-auto flex justify-center relative">
-                <!-- بطاقة التصويت --><div class="voting-card relative z-10">
-                    
-                    <!-- مجموعة العلم والأيقونة --><div class="header-icons-group">
-                        
-                        <!-- أيقونة الشيك في العنوان - اللون أصبح ذهبياً مجدداً --><svg class="w-8 h-8 voting-header-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.618a.997.997 0 011.026.517l.07.29a4 4 0 01-1.002 4.132l-7.8 7.8a4 4 0 01-5.657 0L4.5 16.5m14-6L14 11m-1 7l-5.6-5.6"></path></svg>
-                        
-                    </div>
-                    
-                    <!-- العنوان - اللون أصبح أبيض (موروث من .voting-card) --><div class="flex justify-start items-center text-2xl font-extrabold text-white mb-6">
-                        معلومات التصويت
-                    </div>
-                    
-                    <!-- حاوية المحتوى الرئيسي (التسلسل والعلم في المركز) --><div class="flex justify-between items-center w-full">
-
-                        <!-- العلم العراقي المصغر (في المركز - اليسار) --><div class="flag-small-card">
-                            <div class="stripe red"></div>
-                            <div class="stripe white">
-                                <div class="kufic-text">الله أكبر</div>
-                            </div>
-                            <div class="stripe black"></div>
-                            <div class="shine"></div>
-                        </div>
-
-                        <!-- مربع التسلسل الانتخابي (اليمين) --><div class="voting-number-box">
-                            <p class="text-sm text-gray-300">التسلسل الانتخابي:</p>
-                            <p class="text-4xl font-black text-yellow-300">٣٣٣</p>
-                        </div>
-                        
-                    </div>
-                    
-                    <!-- رمز البلد - تم تعديل اللون ليصبح ذهبياً فاتحاً --><p class="text-yellow-300 font-semibold text-xl text-right mt-auto">IQ</p>
-                    
-                    <!-- رسالة المحافظات - تم تعديل اللون ليصبح أبيض --><p class="text-white text-md leading-relaxed text-left">
-                        جميع المحافظات العراقية - من زاخو إلى الفاو يمكنك التصويت
-                    </p>
-
-                    <!-- الشعار الختامي - تم تعديل الألوان لتكون ذهبية ورمادية --><div class="voting-footer">
-                        <p class="text-lg font-bold text-yellow-400">هبة القس - معاً لعراق أرقى</p>
-                        <p class="text-sm text-gray-400">Hiba Al-Qass – Together for a Noble Iraq</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- الفاصل الذهبي اللامع بين الأقسام (تم الإبقاء عليه) --><div class="separator-glow"></div>
-
-        <!-- قسم عن النائبة هبة القاس --><section id="about" class="py-16 md:py-24">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <!-- عنوان القسم --><div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-neon-gold inline-block pb-2">
-                        عن النائبة هبة القاس
-                    </h2>
-                    <div class="w-24 h-1 bg-yellow-500 mx-auto mt-2 rounded-full"></div>
-                </div>
-
-                <!-- محتوى القسم مقسوم إلى بطاقتين --><div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-                    
-                    <!-- البطاقة اليمنى: السيرة الذاتية والنص الرئيسي --><div class="card-light p-8 lg:p-12 space-y-6">
-                        <h3 class="text-3xl font-bold border-b border-gray-700 pb-3 mb-6">النائبة المستقلة: صوت كل العراقيين</h3>
-                        <p class="text-lg leading-loose text-gray-300">
-                            محامية مستقلة في البرلمان العراقي، أكرّس نفسي لخدمة جميع المواطنين العراقيين بنزاهة وشفافية والتزام راسخ. مع سنوات من الخبرة في المناصرة والخدمة العامة، مهمتي هي ضمان سماع كل صوت، وحصول كل مجتمع على التمثيل الذي يستحقه. 
-                        </p>
-                        <p class="text-lg leading-loose font-semibold text-yellow-400">
-                            وإن جميع المحافظات من زاخو إلى الفاو لديها دعم متساوي في بناء مستقبل مزدهر.
-                        </p>
-                        <p class="text-lg leading-loose text-gray-300">
-                            أعمل بكل دأب للدفاع عن التشريعات التي تعزز الرعاية الصحية والتعليم وتمكين المرأة والتنمية الاقتصادية المستدامة لجميع العراقيين.
-                        </p>
-                        
-                        <!-- عبارة الوحدة الوطنية --><p class="text-lg leading-loose font-semibold text-yellow-500 mt-4 border-t border-gray-700 pt-4 flex items-center justify-center">
-                            <span class="text-2xl ml-2">💖</span>
-                            من زاخو إلى الفاو، معاً نبني مستقبلنا
-                        </p>
-
-                        <!-- زر تواصل --><div class="pt-4 text-center">
-                            <a href="#contact-form" class="btn-action-primary font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transition duration-300 flex items-center justify-center text-lg w-full lg:w-3/4 mx-auto">
-                                <span class="text-2xl ml-2">🇮🇶</span>
-                                تواصل الآن
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <!-- البطاقة اليسرى: الخط الزمني (Timeline) --><div class="card-light p-8 lg:p-12">
-                        <h3 class="text-3xl font-bold border-b border-gray-700 pb-3 mb-8">أبرز المحطات الزمنية</h3>
-                        
-                        <div class="timeline-container space-y-8">
-                            
-                            <!-- عنصر الخط الزمني 1 --><div class="timeline-item">
-                                <span class="bg-yellow-400 text-gray-900 text-xs font-bold py-1 px-3 rounded-full">2012</span>
-                                <div class="mr-12">
-                                    <h4 class="text-xl font-semibold mb-1 text-yellow-400">النشاط المجتمعي والدفاع عن حقوق المرأة</h4>
-                                    <p class="text-gray-400">بدأت بالدفاع الشغوف عن الرعاية الاجتماعية وحقوق المرأة في المجتمعات المحلية العراقية. </p>
-                                </div>
-                            </div>
-
-                            <!-- عنصر الخط الزمني 2 --><div class="timeline-item">
-                                <span class="bg-yellow-400 text-gray-900 text-xs font-bold py-1 px-3 rounded-full">2016</span>
-                                <div class="mr-12">
-                                    <h4 class="text-xl font-semibold mb-1 text-yellow-400">قيادة مبادرات التنمية الاقتصادية</h4>
-                                    <p class="text-gray-400">أسست وقادت مبادرات كبرى تدعم تعليم الشباب وتوفير فرص العمل والاستقلال الاقتصادي.</p>
-                                </div>
-                            </div>
-                            
-                            <!-- عنصر الخط الزمني 3 --><div class="timeline-item">
-                                <span class="bg-yellow-400 text-gray-900 text-xs font-bold py-1 px-3 rounded-full">2019</span>
-                                <div class="mr-12">
-                                    <h4 class="text-xl font-semibold mb-1 text-yellow-400">المشاركة الفعالة في منظمات المجتمع المدني</h4>
-                                    <p class="text-gray-400">تولت أدواراً بارزة في منظمات المجتمع المدني التي تعالج قضايا النزاهة ومكافحة الفساد والقضايا الوطنية.</p>
-                                </div>
-                            </div>
-                            
-                            <!-- عنصر الخط الزمني 4 --><div class="timeline-item pb-0">
-                                <span class="bg-yellow-400 text-gray-900 text-xs font-bold py-1 px-3 rounded-full">2021</span>
-                                <div class="mr-12">
-                                    <h4 class="text-xl font-semibold mb-1 text-yellow-400">الفوز في الانتخابات البرلمانية</h4>
-                                    <p class="text-gray-400">نجحت في الانتخابات كمرشحة مستقلة ممثلة لقيم النزاهة والتغيير والإصلاح.</p>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- قسم الأعمال البرلمانية والإنجازات --><section id="achievements" class="py-16 md:py-24 border-t border-gray-900">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <!-- عنوان القسم --><div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-neon-gold inline-block pb-2">
-                        الأعمال البرلمانية والإنجازات
-                    </h2>
-                    <div class="w-32 h-1 bg-yellow-500 mx-auto mt-2 rounded-full"></div>
-                </div>
-
-                <!-- شبكة بطاقات الإنجازات --><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    
-                    <!-- البطاقة 1: إصلاح التعليم --><div class="achievement-card-v2">
-                        <!-- حاوية الصورة --><div class="card-image-overlay relative">
-                            <img src="https://placehold.co/600x400/1e293b/ffffff?text=Quality+Education" alt="صورة إصلاح التعليم" loading="lazy">
-                            <span class="card-year-tag">2024</span>
-                        </div>
-                        
-                        <!-- المحتوى النصي --><div class="card-content-details">
-                            <h3 class="card-title-text">إصلاح التعليم</h3>
-                            <p class="card-description-text">
-                                تأمين التمويل لتجديد المدارس العامة وبرامج تدريب المعلمين لتحسين جودة التعليم.
-                            </p>
-                            <a href="#" class="card-action-link">
-                                اعرف المزيد
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- البطاقة 2: تشريعات تمكين المرأة --><div class="achievement-card-v2">
-                        <!-- حاوية الصورة --><div class="card-image-overlay relative">
-                            <img src="https://placehold.co/600x400/1e293b/ffffff?text=Economic+Empowerment" alt="صورة تمكين المرأة" loading="lazy">
-                            <span class="card-year-tag">2023</span>
-                        </div>
-                        
-                        <!-- المحتوى النصي --><div class="card-content-details">
-                            <h3 class="card-title-text">تشريعات تمكين المرأة</h3>
-                            <p class="card-description-text">
-                                دافعت عن القوانين التي تحمي حقوق المرأة وتضمن تكافؤ الفرص في التعليم والعمل.
-                            </p>
-                            <a href="#" class="card-action-link">
-                                اعرف المزيد
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- البطاقة 3: البنية التحتية للرعاية الصحية --><div class="achievement-card-v2">
-                        <!-- حاوية الصورة --><div class="card-image-overlay relative">
-                            <img src="https://placehold.co/600x400/1e293b/ffffff?text=Healthcare+Access" alt="صورة البنية التحتية للرعاية الصحية" loading="lazy">
-                            <span class="card-year-tag">2022-2024</span>
-                        </div>
-                        
-                        <!-- المحتوى النصي --><div class="card-content-details">
-                            <h3 class="card-title-text">البنية التحتية للرعاية الصحية</h3>
-                            <p class="card-description-text">
-                                قيادة المبادرات لتحديث المرافق الصحية وضمان الوصول إلى خدمات طبية عالية الجودة في جميع المحافظات.
-                            </p>
-                            <a href="#" class="card-action-link">
-                                اعرف المزيد
-                            </a>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-        </section>
-        
-        <!-- قسم معرض الصور (تمت استعادة شكله الأصلي) --><section id="gallery" class="py-16 md:py-24 border-t border-gray-900">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <!-- عنوان القسم (تم التعديل) --><div class="text-center mb-16">
-                    <div class="gallery-title-wrapper">
-                        <h2 class="text-4xl md:text-5xl font-extrabold font-cairo">
-                            معرض الصور
-                        </h2>
-                    </div>
-                    <!-- هذا العنصر تم إخفاؤه بـ CSS --><div class="w-24 h-1 bg-yellow-500 mx-auto mt-2 rounded-full"></div>
-                </div>
-
-                <!-- شبكة الصور الأصلية (تمت استعادتها) -->
-                <div class="main-container">
-                    <div class="carousel-section">
-                        <div class="carousel-container">
-                            <!-- الأسهم الداخلية مخفية على الديسكتوب وتظهر على الموبايل -->
-                            <button class="nav-arrow up">
-                                <!-- أيقونة سهم للأعلى (مُعدلة) -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up">
-                                    <path d="m5 12 7-7 7 7"></path>
-                                    <path d="M12 19V5"></path>
-                                </svg>
-                            </button>
-                            <div class="carousel-track">
-                                <!-- الشرائح -->
-                                <div class="card" data-index="0">
-                                    <img src="https://placehold.co/600x600/374151/ffffff?text=Parliament+Session" alt="صورة جلسة برلمانية">
-                                    <div class="card-content">
-                                        <h3 class="card-title">جلسة برلمانية حاسمة</h3>
-                                        <p class="card-kicker">داخل مجلس النواب العراقي</p>
-                                        <a href="#" class="card-btn">عرض التفاصيل</a>
-                                    </div>
-                                </div>
-                                <div class="card" data-index="1">
-                                    <img src="https://placehold.co/600x600/1E3A8A/ffffff?text=Meeting+with+Constituents" alt="صورة لقاء مع ناخبين">
-                                    <div class="card-content">
-                                        <h3 class="card-title">لقاء الجماهير والمواطنين</h3>
-                                        <p class="card-kicker">الاستماع إلى مطالب الشعب</p>
-                                        <a href="#" class="card-btn">قراءة الملخص</a>
-                                    </div>
-                                </div>
-                                <div class="card" data-index="2">
-                                    <img src="https://placehold.co/600x600/34D399/1F2937?text=Conference" alt="صورة من مؤتمر">
-                                    <div class="card-content">
-                                        <h3 class="card-title">مؤتمر صحفي وإعلان</h3>
-                                        <p class="card-kicker">حول مبادرة التعليم الجديدة</p>
-                                        <a href="#" class="card-btn">مشاهدة الفيديو</a>
-                                    </div>
-                                </div>
-                                <div class="card" data-index="3">
-                                    <img src="https://placehold.co/600x600/FDBA74/0A0A0A?text=Official+Visit" alt="صورة لزيارة رسمية">
-                                    <div class="card-content">
-                                        <h3 class="card-title">زيارة رسمية لمحافظة البصرة</h3>
-                                        <p class="card-kicker">متابعة المشاريع المتوقفة</p>
-                                        <a href="#" class="card-btn">تقرير الزيارة</a>
-                                    </div>
-                                </div>
-                                <div class="card" data-index="4">
-                                    <img src="https://placehold.co/600x600/6B7280/F9FAFB?text=Speaking+on+Platform" alt="صورة أثناء إلقاء خطاب">
-                                    <div class="card-content">
-                                        <h3 class="card-title">خطاب حول تمكين المرأة</h3>
-                                        <p class="card-kicker">في منتدى سيدات الأعمال</p>
-                                        <a href="#" class="card-btn">نص الخطاب</a>
-                                    </div>
-                                </div>
-                                <div class="card" data-index="5">
-                                    <img src="https://placehold.co/600x600/10B981/0A0A0A?text=Field+Work" alt="صورة لعمل ميداني">
-                                    <div class="card-content">
-                                        <h3 class="card-title">عمل ميداني في الأحياء</h3>
-                                        <p class="card-kicker">تقييم الوضع الخدمي على الأرض</p>
-                                        <a href="#" class="card-btn">اكتشف جهودنا</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="nav-arrow down">
-                                <!-- أيقونة سهم للأسفل (مُعدلة) -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down">
-                                    <path d="M12 5v14"></path>
-                                    <path d="m19 12-7 7-7-7"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="controls-section">
-                        <div class="nav-controls">
-                            <!-- أسهم التنقل الخارجية -->
-                            <button class="nav-arrow up" id="nav-arrow-up-desk">
-                                <!-- أيقونة سهم للأسفل (معكوسة الآن لتعكس العنصر السابق) -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down">
-                                    <path d="M12 5v14"></path>
-                                    <path d="m19 12-7 7-7-7"></path>
-                                </svg>
-                            </button>
-                            <button class="nav-arrow down" id="nav-arrow-down-desk">
-                                <!-- أيقونة سهم للأعلى (معكوسة الآن لتعكس العنصر التالي) -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up">
-                                    <path d="m5 12 7-7 7 7"></path>
-                                    <path d="M12 19V5"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        
-                        <div class="member-info">
-                            <h2 class="member-name" id="member-name">هبة القاس</h2>
-                            <p class="member-role" id="member-role">النائبة المستقلة</p>
-                        </div>
-                        
-                        <div class="dots" id="carousel-dots">
-                            <!-- نقاط التنقل يتم توليدها بواسطة JS -->
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- تم حذف هذا الجزء: زر "عرض جميع الصور" -->
-                <!-- <div class="text-center mt-12">
-                    <button class="font-semibold py-3 px-8 rounded-full text-lg w-full sm:w-auto whitespace-nowrap btn-language">
-                        عرض جميع الصور
-                    </button>
-                </div> -->
-
-            </div>
-        </section>
-        
-        <!-- قسم المكتب والتواصل --><section id="office" class="py-16 md:py-24">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <!-- العنوان الرئيسي للقسم --><div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-neon-gold inline-block pb-2">
-                        مكتب النائبة ومعلومات الاتصال
-                    </h2>
-                    <div class="w-32 h-1 bg-yellow-500 mx-auto mt-2 rounded-full"></div>
-                </div>
-
-                <!-- محتوى المكتب والخريطة (بتصميم مطابق للصورة المرفقة) --><div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-                    
-                    <!-- البطاقة اليمنى: تفاصيل المكتب (مطابقة للصورة) --><div class="office-card p-8 lg:p-10 flex flex-col justify-center space-y-6">
-                        
-                        
-                        <div class="_officeInfoCard_1yghw_821">
-                            <div class="main-icon-container">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building2 _locationIcon_1yghw_847">
-                                    <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path>
-                                    <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path>
-                                    <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path>
-                                    <path d="M10 6h4"></path>
-                                    <path d="M10 10h4"></path>
-                                    <path d="M10 14h4"></path>
-                                    <path d="M10 18h4"></path>
-                                </svg>
-                            </div>
-                            <h3 class="card-title text-center text-3xl mb-6">مكتب النائبة</h3>
-                            <ul class="contact-details space-y-4">
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin ml-3">
-                                        <path d="M12 21.7c-2.3 0-4.2-1.9-4.2-4.2s4.2-7.5 4.2-7.5 4.2 5.2 4.2 7.5c0 2.3-1.9 4.2-4.2 4.2z"></path>
-                                        <circle cx="12" cy="12" r="2.5"></circle>
-                                    </svg> بغداد – شارع فلسطين – قرب مجلس النواب
-                                </li>
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone ml-3">
-                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                                    </svg> +964 780 123 4567
-                                </li>
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail ml-3">
-                                        <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                                    </svg> office@hibaalqass.iq
-                                </li>
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock ml-3">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <polyline points="12 6 12 12 16 14"></polyline>
-                                    </svg> الأحد - الخميس، 9:00 صباحًا - 6:00 مساءً
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- البطاقة اليسرى: الخريطة (بتصميم مطابق تمامًا للصورة) --><div class="map-card-container">
-                        <div class="map-content">
-                            <div class="map-text-overlay">
-                                <h4 class="font-cairo">Baghdad</h4>
-                                <p class="font-cairo text-gray-400">Baghdad Governorate, Iraq</p>
-                                <p class="font-cairo text-gray-400">Directions</p>
-                                <p class="font-cairo text-gray-400 mt-2">View larger map</p>
-
-                                <div class="mt-4 w-full h-[1px] bg-gray-600/50"></div>
-                                <p class="font-cairo text-gray-400 mt-4">اسواق مينة</p>
-                                <p class="font-cairo text-gray-400">Mansour Mall</p>
-                                <p class="font-cairo text-gray-400">Baghdadi Museum</p>
-                                <p class="font-cairo text-gray-400">Baghdadi Railway</p>
-                                <p class="font-cairo text-gray-400 mt-4">Green Zone</p>
-                                <p class="font-cairo text-gray-400">Babylon Rotana</p>
-                                <p class="font-cairo text-gray-400 mt-4">Jadriya Bridge</p>
-                            </div>
-                            <div class="absolute bottom-4 left-4 bg-white p-1 rounded shadow-lg text-xs text-gray-700">
-                                Google
-                            </div>
-                             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                                 <!-- Gold Map Pin -->
-                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#ffd45a" stroke="#0a1d3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin">
-                                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                     <circle cx="12" cy="10" r="3"></circle>
-                                 </svg>
-                             </div>
-                             <div class="absolute top-[calc(50%-25px)] left-[calc(50%-15px)] z-20 text-center font-cairo">
-                                 <span class="text-sm font-bold text-[#0a1d3c]">بغداد</span>
-                             </div>
-                        </div>
-                    </div>
-
-                </div>
-                
-                <!-- عنوان التواصل الاجتماعي --><div class="text-center space-y-8 pt-8 mt-16">
-                    <h3 id="contact" class="text-3xl font-extrabold text-neon-gold inline-block pb-2">
-                        تواصل معنا
-                    </h3>
-                    <div class="w-16 h-1 bg-yellow-500 mx-auto mt-2 rounded-full"></div>
-                </div>
-
-                <!-- أيقونات التواصل الاجتماعي --><div class="text-center space-y-8 pt-8">
-                    <div class="flex justify-center gap-6">
-                        
-                        <!-- تويتر/X --><a href="#" class="social-icon-wrapper" aria-label="Twitter">
-                             <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.684l-8.683 9.471 9.412 11.235h-8.827l-6.12-7.514-6.86 7.514h-3.682l8.777-9.584-9.537-11.236h8.868l5.808 7.378 6.574-7.378zm-1.161 18.068l-7.945-9.613-5.32 6.784h-2.083l8.604-10.378-8.807-9.764h2.054l6.096 6.757 5.09-6.757h2.083l-8.604 10.378 8.807 9.764h-2.054z"/></svg>
-                        </a>
-                        
-                        <!-- يوتيوب --><a href="#" class="social-icon-wrapper" aria-label="YouTube">
-                            <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.183c.357-.154.747-.23 1.147-.24h.02c1.711.01 3.102 1.411 3.102 3.125v12.375c0 1.714-1.391 3.115-3.102 3.125h-.02c-.4.01-.79-.066-1.147-.24-.954-.413-1.631-1.143-2.031-2.093l-.478-1.168h-11.415l-.478 1.168c-.4.95-1.077 1.68-2.031 2.093-.357.154-.747.23-1.147.24h-.02c-1.711-.01-3.102-1.411-3.102-3.125v-12.375c0-1.714 1.391-3.115 3.102-3.125h.02c.4-.01.79.066 1.147.24.954.413 1.631 1.143 2.031 2.093l.478 1.168h11.415l.478-1.168c.4-.95 1.077-1.68 2.031-2.093zm-5.615 10.317l4-3.5-4-3.5v7z"/></svg>
-                        </a>
-
-                        <!-- فيسبوك --><a href="#" class="social-icon-wrapper" aria-label="Facebook">
-                            <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.542-1.333h2.458v-4h-3.992c-3.132 0-4.008 1.488-4.008 4v1.667z"/></svg>
-                        </a>
-                        
-                        <!-- تيليجرام --><a href="#" class="social-icon-wrapper" aria-label="Telegram">
-                            <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.384 5.768c.245.21.372.51.365.817l-2.9 13.626c-.053.25-.19.467-.394.62c-.204.153-.456.241-.718.241-.21 0-.42-.05-.607-.152l-5.642-4.305c-.172-.132-.37-.197-.57-.197-.22 0-.43.07-.6.2l-3.266 2.378c-.182.133-.404.2-.627.2-.38 0-.74-.184-.96-.51a1.006 1.006 0 01-.06-.827l1.792-7.854 8.783-6.533c.176-.13.38-.194.582-.194.214 0 .42.06.608.172.2.115.36.27.46.46zm-2.827 7.02l3.228-10.158-12.77 9.873 2.193 1.621 5.923-4.526c.21-.16.48-.24.75-.24.22 0 .44.06.63.16.2.1.37.26.47.45l2.427 4.145z"/></svg>
-                        </a>
-                        
-                        <!-- إنستغرام --><a href="#" class="social-icon-wrapper" aria-label="Instagram">
-                             <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07c3.252.148 4.77 1.624 4.908 4.908.058 1.267.07 1.647.07 4.85s-.012 3.584-.07 4.85c-.148 3.252-1.624 4.77-4.908 4.908-.95.056-1.21.066-4.792.066s-3.84-.01-4.792-.066c-3.264-.148-4.77-1.624-4.908-4.908-.058-1.267-.07-1.647-.07-4.85s.012-3.584.07-4.85c.148-3.252 1.624-4.77 4.908-4.908 1.267-.058 1.647-.07 4.85-.07zm0-2.163c-3.259 0-3.668.014-4.944.072-4.148.188-5.968 2.008-6.156 6.156-.058 1.276-.072 1.685-.072 4.944s.014 3.668.072 4.944c.188 4.148 2.008 5.968 6.156 6.156 1.276.058 1.685.072 4.944.072s3.668-.014 4.944-.072c4.148-.188 5.968-2.008 6.156-6.156.058-1.276.072-1.685.072-4.944s-.014-3.668-.072-4.944c-.188-4.148-2.008-5.968-6.156-6.156-1.276-.058-1.685-.072-4.944-.072zM12 8.835c-1.674 0-3.149 1.348-3.149 3.015s1.475 3.015 3.149 3.015c1.673 0 3.149-1.348 3.149-3.015s-1.476-3.015-3.149-3.015zm0 8.015c-2.762 0-5-2.238-5-5s2.238-5 5-5 5 2.238 5 5-2.238 5-5 5zm5.176-13.67c-.649 0-1.176.526-1.176 1.175s.527 1.176 1.176 1.176 1.176-.526 1.176-1.176c0-.649-.527-1.175-1.176-1.175z"/></svg>
-                        </a>
-                        
-                        
-                    </div>
-                </div>
-
-            </div>
-        </section>
-        
-        <!-- قسم نموذج الاتصال --><section id="contact-form" class="py-16 md:py-24 bg-gray-900">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 form-container">
-                
-                <!-- عنوان النموذج --><div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-neon-gold inline-block pb-2">
-                        نموذج الاتصال بنا
-                    </h2>
-                    <div class="w-24 h-1 bg-yellow-500 mx-auto mt-2 rounded-full"></div>
-                </div>
-
-                <!-- بطاقة النموذج الفعلية (الخلفية الداكنة) --><div class="form-card">
-                    <form id="contact-form-id" action="#" method="POST" class="space-y-8">
-                        
-                        <!-- رسالة ترحيبية --><p class="welcome-message text-center flex items-center justify-center text-gray-300">
-                            <span class="text-2xl ml-2">📣</span>
-                            نرحب بجميع استفساراتكم ومقترحاتكم واحتياجاتكم. مكتبنا هنا لخدمتكم.
-                        </p>
-
-                        <!-- حقل الاسم الكامل --><div>
-                            <label for="full_name" class="block text-sm font-semibold mb-2 text-gray-400">الاسم الكامل</label>
-                            <input type="text" id="full_name" name="full_name" class="form-input" placeholder="أدخل اسمك الكامل" required>
-                        </div>
-                        
-                        <!-- حقل البريد الإلكتروني --><div>
-                            <label for="email" class="block text-sm font-semibold mb-2 text-gray-400">البريد الإلكتروني</label>
-                            <input type="email" id="email" name="email" class="form-input" placeholder="example@domain.com" required>
-                        </div>
-                        
-                        <!-- حقل الموضوع --><div>
-                            <label for="subject" class="block text-sm font-semibold mb-2 text-gray-400">الموضوع (مثل: اقتراح قانون، استفسار، لقاء شخصي)</label>
-                            <input type="text" id="subject" name="subject" class="form-input" placeholder="حدد موضوع رسالتك" required>
-                        </div>
-                        
-                        <!-- حقل الرسالة --><div>
-                            <label for="message" class="block text-sm font-semibold mb-2 text-gray-400">رسالتك</label>
-                            <textarea id="message" name="message" rows="6" class="form-input" placeholder="اكتب رسالتك بالتفصيل هنا..." required></textarea>
-                        </div>
-                        
-                        <!-- زر الإرسال الذهبي --><button type="submit" class="form-submit-btn">
-                            إرسال الرسالة الآن
-                        </button>
-                    </form>
-                </div>
-
-            </div>
-        </section>
-        
-
-    </main>
-
-    
-    <!-- Custom Modal for Confirmation/Error Messages -->
-    <div id="confirmation-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-[2000] hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
-        <div class="bg-gray-800 p-8 rounded-xl shadow-2xl max-w-sm w-full text-center border-2 border-yellow-400 transform scale-95 transition-transform duration-300">
-            <div id="modal-icon" class="mb-4">
-                <!-- Icon will be injected here -->
-            </div>
-            <h3 id="modal-title" class="text-2xl font-bold mb-3 text-yellow-400"></h3>
-            <p id="modal-message" class="text-gray-300 mb-6"></p>
-            <button id="close-modal-btn" class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-2 px-6 rounded-full transition duration-300 shadow-md">
-                إغلاق
-            </button>
+        <!-- شبكة الفيديوهات يتم توليدها بواسطة JavaScript -->
+        <div id="videos-container">
+            <!-- يتم إضافة العناوين والبطاقات هنا بواسطة JS -->
         </div>
     </div>
-
-    <!-- Loading Spinner -->
-    <div id="loading-spinner" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-[2000] hidden flex items-center justify-center">
-        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-yellow-400"></div>
-    </div>
-
-
-    <!-- تذييل الصفحة --><footer class="py-10 border-t border-gray-800 text-center text-gray-400 text-sm mt-12 w-full">
-        <p>&copy; 2024 النائبة هبة القس. جميع الحقوق محفوظة. <span class="text-yellow-500 font-medium">تصميم: صوت الشعب.</span></p>
-    </footer>
 
     <script>
-        // JavaScript for mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.remove('translate-x-full');
-            document.getElementById('mobile-menu').classList.add('translate-x-0');
-        });
-
-        document.getElementById('close-mobile-menu').addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.remove('translate-x-0');
-            document.getElementById('mobile-menu').classList.add('translate-x-full');
-        });
-
-        // Close menu when a link is clicked
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', function() {
-                document.getElementById('mobile-menu').classList.remove('translate-x-0');
-                document.getElementById('mobile-menu').classList.add('translate-x-full');
-            });
-        });
-        
-        // Add smooth scrolling to navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-                
-                // Update active link class
-                document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-                if (e.target.classList.contains('nav-link')) {
-                    e.target.classList.add('active');
-                }
-            });
-        });
-
-        // ===============================================
-        // Form Submission Handling (Simulated)
-        // ===============================================
-        const contactForm = document.getElementById('contact-form-id');
-        const modal = document.getElementById('confirmation-modal');
-        const modalTitle = document.getElementById('modal-title');
-        const modalMessage = document.getElementById('modal-message');
-        const modalIcon = document.getElementById('modal-icon');
-        const closeModalBtn = document.getElementById('close-modal-btn');
-        const loadingSpinner = document.getElementById('loading-spinner');
-
-        function showModal(isSuccess, title, message) {
-            if (isSuccess) {
-                modalTitle.textContent = title;
-                modalMessage.textContent = message;
-                modalIcon.innerHTML = `
-                    <svg class="w-12 h-12 text-yellow-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.618A7.95 7.95 0 0112 21c-4.418 0-8-3.582-8-8s3.582-8 8-8c1.55 0 3.01.442 4.254 1.22l-.174.174z"></path>
-                    </svg>`;
-                modalTitle.classList.remove('text-red-500');
-                modalTitle.classList.add('text-yellow-400');
-            } else {
-                modalTitle.textContent = 'خطأ في الإرسال';
-                modalMessage.textContent = 'حدث خطأ ما أثناء محاولة إرسال رسالتك. يرجى المحاولة مرة أخرى.';
-                modalIcon.innerHTML = `
-                    <svg class="w-12 h-12 text-red-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.3 16c-.77 1.333.192 3 1.732 3z"></path>
-                    </svg>`;
-                modalTitle.classList.remove('text-yellow-400');
-                modalTitle.classList.add('text-red-500');
+        /**
+         * بيانات القصص مجمعة حسب الموضوع/الدرس المستفاد (Theme-based).
+         * تم حذف قسمي "الحكمة" و "الجهاد".
+         * المجموع الكلي: 59 حلقة.
+         */
+        const storiesData = [
+            {
+                prophet: "قصص الصحابة - 29 حلقة",
+                color: "#1f4068", // Deep Blue
+                videos: [
+                    { id: 1, title: 'الصحابة في مدرسة النبوة', src: 'https://media.islamway.net/videos/492/15729/452_Hoseny_QesasSahaba_01.mp4', img: 'https://i.ytimg.com/vi/gRqRRYEkHxo/maxresdefault.jpg' },
+                    { id: 2, title: 'كافر يدافع عن أبو بكر الصديق', src: 'https://media.islamway.net/videos/492/15729/452_Hoseny_QesasSahaba_02.mp4', img: 'https://static.cdn.asset.aparat.com/avt/14829340-4429-b__7497.jpg' },
+                    { id: 3, title: ' يهودي يسلم ويواجه اليهود', src: 'https://media.islamway.net/videos/492/15729/452_Hoseny_QesasSahaba_03.mp4', img: 'https://i.ytimg.com/vi/SFCsBWJjXGc/maxresdefault.jpg' },
+                    { id: 4, title: 'أعظم عنقود في التاريخ !', src: 'https://media.islamway.net/videos/492/15729/452_Hoseny_QesasSahaba_04.mp4', img: 'https://tse2.mm.bing.net/th/id/OIP.oRn0sW9yUhcqIntL0lGinwHaEK?rs=1&pid=ImgDetMain&o=7&rm=3' },
+                    { id: 5, title: ' أعرج يطأ بعرجته الجنة', src: 'https://media.islamway.net/videos/492/15729/452_Hoseny_QesasSahaba_05.mp4', img: 'https://i.ytimg.com/vi/sCdjCe5q_5Q/maxresdefault.jpg' },
+                    { id: 6, title: 'ملك عربي في قبضته رسول الله', src: 'https://media.islamway.net/videos/492/15729/452_Hoseny_QesasSahaba_06.mp4', img: 'https://tse4.mm.bing.net/th/id/OIP.M66b3sm-qbYxVXzJv0tTYwHaE8?rs=1&pid=ImgDetMain&o=7&rm=3' },
+                    { id: 7, title: 'أعظم ليلة في حياة سيدنا علي !', src: 'https://media.islamway.net/videos/492/15729/452_Hoseny_QesasSahaba_07.mp4', img: 'https://nurmuhammad.com/wp-content/uploads/Imam-Mahdi-Soldiers-Elite-Khawas-768x432.jpg' },
+                    { id: 8, title: ' صحابية تحايلت على زوجها', src: 'https://media.islamway.net/videos/492/15729/452_Hoseny_QesasSahaba_08.mp4', img: 'https://i.pinimg.com/736x/00/85/d2/0085d2ca1556178d93592f7355a92dc6.jpg' },
+                    { id: 9, title: 'صحابي يشرب زمزم 30 يوماً !!', src: 'https://media.islamway.net/videos/492/15729/452_Hoseny_QesasSahaba_09.mp4', img: 'https://i.pinimg.com/736x/80/15/9b/80159bab9c04b1b7db513a0c366d51a3.jpg' },
+                    { id: 10, title: 'لماذا بكى أنس بن مالك ؟', src: 'https://media.islamway.net/videos/492/15729/452_Hoseny_QesasSahaba_10.mp4', img: 'https://tse4.mm.bing.net/th/id/OIP.115A77TZSEeGVmacVxds5gHaEK?rs=1&pid=ImgDetMain&o=7&rm=3' },
+                    { id: 11, title: 'عبد الله بن حذافة السهمي وثباته على الدين', src: 'https://mock.islamway.net/sahaba/abdullah-huth.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=عبد+الله+بن+حذافة' },
+                    { id: 12, title: 'ثبات الأنصار يوم بيعة العقبة', src: 'https://mock.islamway.net/sahaba/aqaba-bayah.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=بيعة+العقبة' },
+                    { id: 13, title: 'قصة حبشية كانت تخدم المسجد', src: 'https://mock.islamway.net/sahaba/habashiyya.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=قصة+الحبشية' },
+                    // حلقات إضافية للوصول إلى 29 حلقة
+                    { id: 14, title: 'حمزة بن عبد المطلب وإسلامه', src: 'https://mock.islamway.net/sahaba/hamza-islam.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=حمزة+أسد+الله' },
+                    { id: 15, title: 'الطفيل بن عمرو الدوسي وإسلام قومه', src: 'https://mock.islamway.net/sahaba/tufayl-daws.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=الطفيل+الدوسي' },
+                    { id: 16, title: 'أبو سفيان بن حرب وإسلامه متأخراً', src: 'https://mock.islamway.net/sahaba/abusufyan-islam.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=أبو+سفيان' },
+                    { id: 17, title: 'إسلام النجاشي ملك الحبشة', src: 'https://mock.islamway.net/sahaba/najashi-islam.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=النجاشي+ملك+الحبشة' },
+                    { id: 18, title: 'قصة عمار بن ياسر ونزول آية العذر', src: 'https://mock.islamway.net/sahaba/ammar-excuse.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=عمار+بن+ياسر' },
+                    { id: 19, title: 'إسلام مصعب بن عمير (ثبات الشباب)', src: 'https://mock.islamway.net/sahaba/musaab-islam.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=مصعب+بن+عمير' },
+                    { id: 20, title: 'إسلام أبي هريرة وحب القطط', src: 'https://mock.islamway.net/sahaba/abuhrera-cats.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=أبو+هريرة' },
+                    { id: 21, title: 'أبو جندل بن سهيل وثباته في صلح الحديبية', src: 'https://mock.islamway.net/sahaba/abujandal.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=أبو+جندل' },
+                    { id: 22, title: 'إسلام خالد بن الوليد وعمرو بن العاص', src: 'https://mock.islamway.net/sahaba/khalid-amr-islam.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=خالد+وعمرو' },
+                    { id: 23, title: 'قصة أم الفضل بنت الحارث (ثبات المرأة)', src: 'https://mock.islamway.net/sahaba/umfadle.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=أم+الفضل' },
+                    { id: 24, title: 'العباس بن عبد المطلب وإسلامه', src: 'https://mock.islamway.net/sahaba/abbas-islam.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=العباس+عم+النبي' },
+                    { id: 25, title: 'قصة وفد بني حنيفة وعظيم ثباتهم', src: 'https://mock.islamway.net/sahaba/banu-hanifa.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=وفد+بني+حنيفة' },
+                    { id: 26, title: 'ثبات أبي بكر يوم وفاة النبي', src: 'https://mock.islamway.net/sahaba/siddiq-death-2.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=أبو+بكر+والثبات' },
+                    { id: 27, title: 'إسلام عدي بن حاتم الطائي (المناظرة)', src: 'https://mock.islamway.net/sahaba/addi-hatem.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=عدي+بن+حاتم' },
+                    { id: 28, title: 'إسلام زيد بن الدثنة وقولته', src: 'https://mock.islamway.net/sahaba/zayd-dathna.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=زيد+بن+الدثنة' },
+                    { id: 29, title: 'موقف هند بنت عتبة يوم الفتح', src: 'https://mock.islamway.net/sahaba/hind-islam.mp4', img: 'https://placehold.co/360x200/1f4068/ffffff?text=هند+بنت+عتبة' }
+                ]
+            },
+            {
+                prophet: "في الكرم والإنفاق (الصدقة) - 30 حلقة",
+                color: "#2e7d32", // Darker Olive/Green
+                videos: [
+                    { id: 30, title: 'عثمان ذو النورين في جيش العسرة', src: 'https://mock.islamway.net/sahaba/othman-tabouk.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=كرم+عثمان+في+تبوك' },
+                    { id: 31, title: 'عبد الرحمن بن عوف ومباركته في التجارة', src: 'https://mock.islamway.net/sahaba/abdulrahman-sadaqa.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=تجارة+عبد+الرحمن+بن+عوف' },
+                    { id: 32, title: 'قصة بئر رومة', src: 'https://mock.islamway.net/sahaba/roma-well.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=بئر+رومة' },
+                    { id: 33, title: 'إيثار أبي طلحة الأنصاري وحديقته', src: 'https://mock.islamway.net/sahaba/abutalah-garden.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=حديقة+أبو+طلحة' },
+                    { id: 34, title: 'أبو بكر الصديق وماله كله', src: 'https://mock.islamway.net/sahaba/siddiq-money.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=أبو+بكر+وماله' },
+                    { id: 35, title: 'كعب بن مالك وتوبته وقصة صدقته', src: 'https://mock.islamway.net/sahaba/kab-sadaqa.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=كعب+بن+مالك' },
+                    { id: 36, title: 'جابر بن عبد الله وكرمه مع النبي', src: 'https://mock.islamway.net/sahaba/jabir-karam.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=جابر+بن+عبد+الله' },
+                    // 23 حلقة إضافية لهذا القسم
+                    { id: 37, title: 'كرم أم سلمة رضي الله عنها', src: 'https://mock.islamway.net/sahaba/umsalama-karam.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=كرم+أم+سلمة' },
+                    { id: 38, title: 'تصدق عائشة بمال كثير', src: 'https://mock.islamway.net/sahaba/aisha-sadaqa.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=صدقة+عائشة' },
+                    { id: 39, title: 'الأنصار وتوزيع الغنائم', src: 'https://mock.islamway.net/sahaba/ansar-gahnem.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=كرم+الأنصار' },
+                    { id: 40, title: 'قصة الإيثار (رجل من الأنصار)', src: 'https://mock.islamway.net/sahaba/athar-ansar.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=الإيثار' },
+                    { id: 41, title: 'طلحة بن عبيد الله ولقب "طلحة الجود"', src: 'https://mock.islamway.net/sahaba/talha-jood.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=طلحة+الجود' },
+                    { id: 42, title: 'حكيم بن حزام وشرائه للنفس المعذبة', src: 'https://mock.islamway.net/sahaba/hakim-buying-2.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=حكيم+بن+حزام' },
+                    { id: 43, title: 'زينب بنت جحش وكرمها', src: 'https://mock.islamway.net/sahaba/zainab-karam.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=زينب+بنت+جحش' },
+                    { id: 44, title: 'الزبير بن العوام وتفريقه لماله', src: 'https://mock.islamway.net/sahaba/zubair-money.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=الزبير+بن+العوام+والمال' },
+                    { id: 45, title: 'سعد بن عبادة وإطعامه الطعام', src: 'https://mock.islamway.net/sahaba/saad-ibadah.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=سعد+بن+عبادة' },
+                    { id: 46, title: 'أبو الدرداء وماله', src: 'https://mock.islamway.net/sahaba/abudardaa-money.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=أبو+الدرداء' },
+                    { id: 47, title: 'قصة إيثار علي بن أبي طالب وزوجته', src: 'https://mock.islamway.net/sahaba/ali-athar.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=إيثار+علي+وفاطمة' },
+                    { id: 48, title: 'البراء بن مالك وكرمه', src: 'https://mock.islamway.net/sahaba/baraa-karam.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=البراء+بن+مالك+كرم' },
+                    { id: 49, title: 'قصة أبي هريرة وضيفه الجائع', src: 'https://mock.islamway.net/sahaba/abuhrera-host.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=أبو+هريرة+والضيف' },
+                    { id: 50, title: 'من مواقف عمر في الصدقة', src: 'https://mock.islamway.net/sahaba/omar-sadaqa.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=عمر+والصدقة' },
+                    { id: 51, title: 'قصة امرأة عجوز وعمر بن الخطاب', src: 'https://mock.islamway.net/sahaba/omar-old-woman.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=عمر+والعجوز' },
+                    { id: 52, title: 'عمارة بنت حزم وكرمها', src: 'https://mock.islamway.net/sahaba/ammara-karam.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=عمارة+بنت+حزم' },
+                    { id: 53, title: 'العباس بن عبد المطلب وكرمه', src: 'https://mock.islamway.net/sahaba/abbas-karam.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=العباس+والكرم' },
+                    { id: 54, title: 'عطاء الزبير بن العوام لأبنائه', src: 'https://mock.islamway.net/sahaba/zubair-sons.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=الزبير+لأبنائه' },
+                    { id: 55, title: 'مواقف خالد بن الوليد في الإنفاق', src: 'https://mock.islamway.net/sahaba/khalid-infaq.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=خالد+والإنفاق' },
+                    { id: 56, title: 'المقداد بن الأسود وكرمه', src: 'https://mock.islamway.net/sahaba/miqdad-karam.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=المقداد+بن+الأسود' },
+                    { id: 57, title: 'قصة عروة بن مسعود الثقفي (طلب العلم والإنفاق)', src: 'https://mock.islamway.net/sahaba/urwa-infaq.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=عروة+بن+مسعود' },
+                    { id: 58, title: 'أبو سفيان بن الحارث وكرمه بعد الإسلام', src: 'https://mock.islamway.net/sahaba/abusufyan-karam.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=أبو+سفيان+والكرم' },
+                    { id: 59, title: 'أبو طلحة الأنصاري وتصدقه ببستانه', src: 'https://mock.islamway.net/sahaba/abutalah-sadaqa-2.mp4', img: 'https://placehold.co/360x200/2e7d32/ffffff?text=بستان+أبو+طلحة' }
+                ]
             }
-            // Animate in
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.add('opacity-100');
-                modal.querySelector('div').classList.remove('scale-95');
-            }, 50);
-        }
-
-        closeModalBtn.addEventListener('click', () => {
-            // Animate out
-            modal.classList.remove('opacity-100');
-            modal.querySelector('div').classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
-        });
-
-
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                loadingSpinner.classList.remove('hidden');
-
-                // Simulate Network Request with exponential backoff
-                const MAX_RETRIES = 3;
-                let attempt = 0;
-
-                function simulateSubmission() {
-                    attempt++;
-                    // Simulate high success rate
-                    const isSuccessful = Math.random() < 0.9; 
-
-                    setTimeout(() => {
-                        loadingSpinner.classList.add('hidden');
-
-                        if (isSuccessful || attempt >= MAX_RETRIES) {
-                            // Success or Max retries reached
-                            if (isSuccessful) {
-                                showModal(true, 'تم الإرسال بنجاح', 'شكراً لرسالتك. سيقوم فريقنا بمراجعتها والرد عليك في أقرب وقت ممكن.');
-                                contactForm.reset(); // Clear form inputs
-                            } else {
-                                // Fallback error after max retries
-                                showModal(false, 'خطأ في الإرسال', 'حدث خطأ غير متوقع بعد عدة محاولات. يرجى محاولة التواصل عبر الهاتف أو البريد الإلكتروني الموضحين في الأعلى.');
-                            }
-                        } else {
-                            // Retry with exponential delay
-                            const delay = Math.pow(2, attempt) * 1000;
-                            setTimeout(simulateSubmission, delay);
-                        }
-                    }, 1500); // Simulate 1.5 second API call latency
-                }
-
-                simulateSubmission();
-            });
-        }
-        // ===============================================
+        ];
         
-        // Generate Golden Particles
-        window.onload = function() {
-            // الحصول على حاوية الفقاعات الشاملة و بطاقة التصويت
-            const container = document.getElementById('voting-particles-container'); 
-            const votingCardElement = document.querySelector('.voting-card');
+        const videosContainer = document.getElementById('videos-container');
+        
+        /**
+         * يشغل الفيديو ويخفي الصورة المصغرة وزر التشغيل.
+         * يقوم بإيقاف أي فيديو آخر قيد التشغيل.
+         */
+        function playCustomVideo(thumbDiv) {
+            const card = thumbDiv.parentElement;
+            const video = card.querySelector('.custom-video');
+            
+            // 1. إيقاف أي فيديو آخر قيد التشغيل
+            const allVideos = document.querySelectorAll('.custom-video');
+            allVideos.forEach(v => {
+                if (v !== video && !v.paused) {
+                    v.pause();
+                    v.style.display = 'none';
+                    const parentCard = v.closest('.video-card');
+                    if(parentCard) {
+                        const thumb = parentCard.querySelector('.video-thumb');
+                        if(thumb) thumb.style.display = 'block';
+                    }
+                }
+            });
 
-            if (container && votingCardElement) { 
-                // الحصول على موقع البطاقة بالنسبة للنافذة (Viewport)
-                const rect = votingCardElement.getBoundingClientRect(); 
-                const cardBottomY = rect.top + rect.height; // أسفل البطاقة
+            // 2. إظهار الفيديو وتشغيله
+            thumbDiv.style.display = 'none';
+            video.style.display = 'block';
+            video.play();
+            
+            // 3. عند انتهاء الفيديو، إعادة عرض الصورة المصغرة
+            video.onended = function() {
+                video.style.display = 'none';
+                thumbDiv.style.display = 'block';
+                video.load(); // لإعادة تحميله للتشغيل التالي
+            };
+        }
 
-                const particleCount = 40; 
+        /**
+         * يقوم بإنشاء وعرض جميع بطاقات الفيديوهات مصنفة حسب فئة الصحابي.
+         */
+        function renderStories() {
+            videosContainer.innerHTML = '';
+            let globalEpisodeCount = 0;
 
-                for (let i = 0; i < particleCount; i++) {
-                    const particle = document.createElement('div');
-                    particle.classList.add('golden-particle');
+            storiesData.forEach(group => {
+                // 1. إضافة عنوان القسم (اسم الفئة)
+                const header = document.createElement('h2');
+                header.className = 'section-header';
+                header.textContent = group.prophet;
+                header.style.borderColor = group.color; // استخدام لون المجموعة للتمييز
+                header.style.color = group.color;
+                videosContainer.appendChild(header);
 
-                    // عشوائية الحجم (من 2px إلى 16px) 
-                    const size = Math.random() * 14 + 2; 
-                    particle.style.width = `${size}px`;
-                    particle.style.height = `${size}px`;
+                // 2. إنشاء شبكة الفيديوهات للمجموعة
+                const grid = document.createElement('div');
+                grid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6';
 
-                    // تعيين نقطة البداية (position: fixed) - أسفل البطاقة مباشرة
-                    const startX = rect.left + (Math.random() * rect.width);
+                group.videos.forEach((video, index) => {
+                    globalEpisodeCount++; // عداد عالمي للحلقات
+                    // Mock progress calculation based on index
+                    const progressPercentage = (index + 1) / group.videos.length * 100;
                     
-                    // تعيين الـ top ليكون عند أسفل البطاقة (نقطة الصفر في keyframes)
-                    particle.style.left = `${startX}px`;
-                    particle.style.top = `${cardBottomY}px`; 
-
-                    // عشوائية مدة التأخير في بدء الحركة
-                    const delay = Math.random() * 8; 
-                    particle.style.animationDelay = `${delay}s`;
-
-                    // زيادة المدة لجعل الحركة أبطأ وتصل إلى الأعلى
-                    const duration = Math.random() * 15 + 20; // بين 20s و 35s (بطيء جداً)
-                    particle.style.animationDuration = `${duration}s`;
-
-                    container.appendChild(particle);
-                }
-            }
-            
-            // ===============================================
-            // Vertical Carousel Initialization Logic
-            // ===============================================
-
-            const teamMembers = [
-                { name: "جلسة برلمانية حاسمة", role: "داخل مجلس النواب العراقي" }, 
-                { name: "لقاء الجماهير والمواطنين", role: "الاستماع إلى مطالب الشعب" }, 
-                { name: "مؤتمر صحفي وإعلان", role: "حول مبادرة التعليم الجديدة" }, 
-                { name: "زيارة رسمية لمحافظة البصرة", role: "متابعة المشاريع المتوقفة" }, 
-                { name: "خطاب حول تمكين المرأة", role: "في منتدى سيدات الأعمال" }, 
-                { name: "عمل ميداني في الأحياء", role: "تقييم الوضع الخدمي على الأرض" }
-            ];
-
-            const carouselContainer = document.querySelector('.carousel-container');
-            if (!carouselContainer) return;
-            
-            const cards = document.querySelectorAll(".carousel-track .card");
-            const dotsContainer = document.getElementById("carousel-dots");
-            const memberName = document.getElementById("member-name");
-            const memberRole = document.getElementById("member-role");
-            const upArrows = document.querySelectorAll(".nav-arrow.up");
-            const downArrows = document.querySelectorAll(".nav-arrow.down");
-            let currentIndex = 0;
-            let isAnimating = false;
-            let dots = [];
-
-            // 1. Setup Dots
-            for(let i = 0; i < cards.length; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'dot';
-                dot.setAttribute('data-index', i);
-                dot.addEventListener('click', () => updateCarousel(i));
-                dotsContainer.appendChild(dot);
-                dots.push(dot);
-            }
-
-            function updateCarousel(newIndex) {
-                if (isAnimating) return;
-                isAnimating = true;
-
-                currentIndex = (newIndex + cards.length) % cards.length;
-
-                cards.forEach((card, i) => {
-                    const offset = (i - currentIndex + cards.length) % cards.length;
-
-                    card.classList.remove( 
-                        "center", 
-                        "up-1", 
-                        "up-2", 
-                        "down-1", 
-                        "down-2", 
-                        "hidden" 
-                    );
-
-                    // Logic for vertical stacking
-                    if (offset === 0) {
-                        card.classList.add("center");
-                    } else if (offset === 1) {
-                        card.classList.add("down-1");
-                    } else if (offset === 2) {
-                        card.classList.add("down-2");
-                    } else if (offset === cards.length - 1) {
-                        card.classList.add("up-1");
-                    } else if (offset === cards.length - 2) {
-                        card.classList.add("up-2");
-                    } else {
-                        card.classList.add("hidden");
-                    }
+                    const cardHTML = `
+                        <!-- البطاقة ${globalEpisodeCount} -->
+                        <div class="video-card bg-white rounded-xl shadow-lg overflow-hidden">
+                            <span class="episode-number">حلقة ${globalEpisodeCount}</span>
+                            <div class="video-thumb relative" onclick="playCustomVideo(this)">
+                                <img src="${video.img}" 
+                                     onerror="this.onerror=null;this.src='https://placehold.co/360x200/${group.color.substring(1)}/ffffff?text=${group.prophet.replace(/\s/g, '+')}'"
+                                     alt="${video.title}" class="w-full h-auto object-cover">
+                                <div class="play-button"></div>
+                            </div>
+                            <video class="custom-video" controls preload="none">
+                                <source src="${video.src}" type="video/mp4">
+                                متصفحك لا يدعم تشغيل الفيديو.
+                            </video>
+                            <div class="video-title p-3 text-lg font-bold text-center">${video.title}</div>
+                            <!-- شريط التقدم يستخدم لون المجموعة -->
+                            <div class="progress-bg w-full">
+                                <div class="progress-bar" style="width: ${progressPercentage}%; background-color: ${group.color};"></div>
+                            </div>
+                        </div>
+                    `;
+                    grid.innerHTML += cardHTML;
                 });
-
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle("active", i === currentIndex);
-                });
-
-                // Animate info change
-                if(memberName && memberRole) {
-                    memberName.style.opacity = "0";
-                    memberRole.style.opacity = "0";
-
-                    setTimeout(() => {
-                        memberName.textContent = teamMembers[currentIndex].name;
-                        memberRole.textContent = teamMembers[currentIndex].role;
-                        memberName.style.opacity = "1";
-                        memberRole.style.opacity = "1";
-                    }, 300);
-                }
-
-                setTimeout(() => {
-                    isAnimating = false;
-                }, 800);
-            }
-
-            // 2. Bind Navigation
-            upArrows.forEach(arrow => {
-                arrow.addEventListener("click", () => {
-                    updateCarousel(currentIndex - 1);
-                });
-            });
-
-            downArrows.forEach(arrow => {
-                arrow.addEventListener("click", () => {
-                    updateCarousel(currentIndex + 1);
-                });
-            });
-
-            cards.forEach((card, i) => {
-                card.addEventListener("click", () => {
-                    updateCarousel(i);
-                });
-            });
-
-            // 3. Bind Keyboard and Swipe (Up/Down)
-            document.addEventListener("keydown", (e) => {
-                if (e.key === "ArrowUp") {
-                    updateCarousel(currentIndex - 1);
-                } else if (e.key === "ArrowDown") {
-                    updateCarousel(currentIndex + 1);
-                }
-            });
-
-            let touchStartX = 0; 
-            let touchEndX = 0; 
-
-            carouselContainer.addEventListener("touchstart", (e) => {
-                touchStartX = e.changedTouches[0].screenY;
-            });
-
-            carouselContainer.addEventListener("touchend", (e) => {
-                touchEndX = e.changedTouches[0].screenY;
                 
-                const swipeThreshold = 50; 
-                const diff = touchStartX - touchEndX; // positive diff means swipe up
-
-                if (Math.abs(diff) > swipeThreshold) {
-                    if (diff > 0) { // Swipe Up (move to next image/index++)
-                        updateCarousel(currentIndex + 1);
-                    } else { // Swipe Down (move to previous image/index--)
-                        updateCarousel(currentIndex - 1);
-                    }
-                }
+                videosContainer.appendChild(grid);
             });
+        }
 
-            // Initial load
-            updateCarousel(0);
-        };
+        document.addEventListener('DOMContentLoaded', renderStories);
     </script>
 
 </body>
