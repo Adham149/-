@@ -1996,11 +1996,9 @@
                 
                 // Update active link class logic (manual scroll observer is better, but this handles clicks)
                 document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-                const parentListItem = this.closest('li');
-                if (parentListItem) {
-                    parentListItem.querySelector('.nav-link').classList.add('active');
-                } else if (this.classList.contains('nav-link')) {
-                    this.classList.add('active');
+                const targetLink = e.currentTarget.classList.contains('nav-link') ? e.currentTarget : e.currentTarget.closest('li')?.querySelector('.nav-link');
+                if (targetLink) {
+                    targetLink.classList.add('active');
                 }
             });
         });
@@ -2334,6 +2332,28 @@
         
         // التحقق عند التحميل الأولي للصفحة
         document.addEventListener('DOMContentLoaded', checkScrollReveal);
+        
+        // ===============================================
+        // Anti-Inspection Script (سكربت منع الفحص)
+        // ===============================================
+        document.addEventListener('contextmenu', event => {
+            event.preventDefault();
+            // يمكن إضافة رسالة تنبيه هنا إذا كنت تريد
+            // showModal(false, 'تنبيه', 'النقر بالزر الأيمن غير مسموح به لحماية المحتوى.');
+        });
+        
+        document.onkeydown = function(e) {
+            // تعطيل مفاتيح Ctrl+Shift+I, F12, Ctrl+U
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 73) { // Ctrl+Shift+I
+                return false;
+            }
+            if (e.keyCode === 123) { // F12
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode === 85) { // Ctrl+U (View Source)
+                return false;
+            }
+        };
 
     </script>
 
