@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>موقع هبة القاس | Hiba Al-Qass - النائبة المستقلة</title>
     
+    <!-- رمز الموقع (Favicon) - أيقونة تظهر في علامة تبويب المتصفح -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='90' font-size='90' fill='%23ffd45a'%3E⭐%3C/text%3E%3C/svg%3E">
+    
     <!-- تحميل Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- استيراد خطوط Google -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <!-- استيراد خطوط Google --><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@400;700&display=swap" rel-stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
         /* -------------------------------------------------------------------------- */
@@ -108,10 +110,32 @@
             transition: color 0.3s ease;
             position: relative;
             color: #d1d5db; /* أبيض رمادي لعناصر القائمة */
+            padding-bottom: 5px; /* مساحة للخط السفلي */
         }
+        
+        /* إضافة خط سفلي ذهبي متوهج عند التمرير أو الاختيار */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0; /* يبدأ بعرض صفر */
+            height: 3px;
+            background: #ffd45a;
+            border-radius: 1px;
+            transition: width 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 5px rgba(255, 212, 90, 0); /* يبدأ بدون ظل */
+        }
+
         .nav-link:hover, .nav-link.active {
-            color: #ffd45a; /* تم التحديث */
+            color: #ffd45a; /* اللون الذهبي عند التمرير أو التحديد */
         }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%; /* الخط يمتد بالكامل */
+            box-shadow: 0 0 8px rgba(255, 212, 90, 0.7); /* يظهر الوهج الذهبي */
+        }
+
         
         /* زر الرقم الدائري "333" */
         .btn-circle {
@@ -255,7 +279,7 @@
         }
         .btn-action-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(255, 212, 90, 0.7); /* تم التحديث */
+            box-shadow: 0 12px 30px rgba(255, 212, 90, 0.7);
         }
 
         .btn-action-secondary { /* الزر الشفاف: "أعمالي" */
@@ -609,7 +633,6 @@
             flex-direction: column;
             justify-content: center;
             align-items: flex-end; /* محاذاة لليمين في RTL */
-            gap: 30px;
             padding-right: 40px; /* RTL padding */
         }
 
@@ -937,6 +960,22 @@
         }
 
         /* -------------------------------------------------------------------------- */
+        /* SCROLL REVEAL EFFECT STYLES */
+        /* -------------------------------------------------------------------------- */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+            transition-delay: 0.1s;
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* -------------------------------------------------------------------------- */
         /* OFFICE & CONTACT (المكتب والتواصل) */
         /* -------------------------------------------------------------------------- */
         .office-card {
@@ -1178,35 +1217,21 @@
             text-align: center;
         }
 
-        ._sectionTitle_1yghw_21 {
-            font-size: 2.5rem; /* similar to text-4xl */
-            font-weight: 900;
-            color: #ffd45a;
-            position: relative;
-            padding-bottom: 0.5rem;
-            display: inline-block;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 0 5px rgba(255, 212, 90, 0.4);
-        }
-        ._sectionTitle_1yghw_21::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 50%;
-            transform: translateX(50%);
-            width: 80%;
-            height: 3px;
-            background-color: #ffd45a;
-            border-radius: 2px;
-        }
-
+        /* تم حذف الأنماط الخاصة بالعنوان هنا لاتباع نمط العناوين القياسي */
+        
         ._contactContent_1yghw_1005 {
-            background-color: rgba(10, 29, 60, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            /* تم استعادة الخلفية والحدود والظلال ليكون كبطاقة مستقلة */
+            background-color: rgba(10, 29, 60, 0.95); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
             border-radius: 1.5rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
-            padding: 2.5rem;
-            margin-top: 1rem; /* Adjust spacing */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7); 
+            padding: 2.5rem; 
+            margin-top: 1rem; 
+            /* لضمان التكيف على الهواتف، يتم تعيين أقصى عرض */
+            max-width: 500px; 
+            width: 95%; 
+            margin-left: auto;
+            margin-right: auto;
         }
 
         ._constituentsText_1yghw_1010 {
@@ -1272,6 +1297,61 @@
             transform: translateY(-3px);
             box-shadow: 0 12px 30px rgba(255, 212, 90, 0.7);
         }
+
+        /* -------------------------------------------------------------------------- */
+        /* FOOTER CUSTOM STYLES (التذييل الجديد) */
+        /* -------------------------------------------------------------------------- */
+        .custom-footer {
+            /* لون الخلفية الداكن الثابت الذي طلبته */
+            background-color: rgba(10, 29, 60, 1) !important;
+            padding-top: 0; /* تم نقل البادينغ إلى الداخل */
+            padding-bottom: 2.5rem; /* padding-bottom: 10 (tailwind py-10) equivalent */
+            position: relative;
+            margin-top: auto; /* يدفع التذييل إلى الأسفل */
+        }
+
+        .flag-top-border {
+            height: 10px; /* ارتفاع الشريط */
+            width: 100%;
+            display: flex;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+
+        .flag-top-border .stripe {
+            height: 100%;
+            width: 33.333%;
+        }
+
+        .flag-top-border .red { background-color: #ce1126; } /* أحمر */
+        .flag-top-border .white { background-color: #ffffff; } /* أبيض */
+        .flag-top-border .green { background-color: #00843D; } /* أخضر (تم تصحيح اللون في الكود) */
+        
+        .footer-content {
+            padding-top: 2rem; /* مسافة داخلية تحت الشريط */
+        }
+
+        .footer-content p {
+            color: #d1d5db;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 400;
+            line-height: 1.6;
+            margin: 0; /* إزالة هوامش الفقرات الداخلية */
+        }
+
+        .footer-content .main-text {
+            font-size: 1rem;
+            color: #f3f4f6;
+        }
+
+        .footer-content .sub-text {
+            font-size: 0.9rem;
+            color: #ffd45a; /* لون ذهبي */
+            font-weight: 700;
+        }
+
         /* -------------------------------------------------------------------------- */
         
     </style>
@@ -1339,23 +1419,23 @@
             <div class="container mx-auto max-w-7xl flex flex-col-reverse md:flex-row items-center md:items-start justify-center hero-section-gap">
                 
                 <!-- النصوص (اليمين في الديسكتوب) --><div class="profile-text-content w-full md:w-1/2 flex flex-col md:items-end text-center md:text-right space-y-2 relative z-10">
-                                                
+                                                    
                     <!-- العنوان الرئيسي (هبة القس) --><h1 class="text-6xl sm:text-7xl lg:text-8xl font-black font-cairo text-neon-gold">
                         هبة القاس
                     </h1>
-                                                
+                                                    
                     <!-- الاسم بالإنجليزية --><p class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-inter text-white">
                         Hiba Al-Qass
                     </p>
-                                                
+                                                    
                     <!-- النص الثانوي --><p class="text-lg md:text-xl text-gray-300 font-cairo mt-2">
                         النائبة المستقلة - جمهورية العراق
                     </p>
-                                                
+                                                    
                     <!-- الاقتباس البارز --><p class="text-2xl md:text-3xl font-extrabold font-cairo text-neon-gold-quote max-w-lg mt-4">
                         "من أجل عراق يليق بأبنائه" 
                     </p>
-                                                
+                                                    
                     <!-- الأزرار السفلية --><div class="flex flex-col sm:flex-row justify-center md:justify-end gap-4 pt-6" style="margin-top: 25px;">
                         <!-- الزر الأول (الذهبي: عن النائبة) --><a href="#about" class="btn-action-primary text-lg sm:text-xl w-full sm:w-auto text-center font-cairo">
                             عن النائبة
@@ -1376,7 +1456,7 @@
                         >
                     </div>
                     <!-- زر النائبة المستقلة أسفل الصورة --><button class="btn-independent text-lg font-cairo">
-                        <!-- أيقونة الحكم المستقل (دائرة النجمة) --><svg class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <!-- أيقونة الحكم المستقل (دائرة النجمة) --><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM15 11.5l-3 3-3-3V8h6v3.5z"/>
                         </svg>
                         النائبة المستقلة
@@ -1386,7 +1466,7 @@
             </div>
         </section>
 
-        <!-- بطاقة التذكير بمعلومات التصويت (الموقع الجديد: في الوسط بين Hero و About) --><section id="voting-info" class="py-16">
+        <!-- بطاقة التذكير بمعلومات التصويت (الموقع الجديد: في الوسط بين Hero و About) --><section id="voting-info" class="py-16 scroll-reveal">
             <div class="max-w-7xl mx-auto flex justify-center relative">
                 <!-- بطاقة التصويت --><div class="voting-card relative z-10">
                     
@@ -1432,9 +1512,9 @@
             </div>
         </section>
         
-        <!-- الفاصل الذهبي اللامع بين الأقسام (تم الإبقاء عليه) --><div class="separator-glow"></div>
+        <!-- الفاصل الذهبي اللامع بين الأقسام (تم الإبقاء عليه) --><div class="separator-glow scroll-reveal"></div>
 
-        <!-- قسم عن النائبة هبة القاس --><section id="about" class="py-16 md:py-24">
+        <!-- قسم عن النائبة هبة القاس --><section id="about" class="py-16 md:py-24 scroll-reveal">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
                 <!-- عنوان القسم --><div class="text-center mb-16">
@@ -1514,7 +1594,7 @@
             </div>
         </section>
         
-        <!-- قسم الأعمال البرلمانية والإنجازات --><section id="achievements" class="py-16 md:py-24 border-t border-gray-900">
+        <!-- قسم الأعمال البرلمانية والإنجازات --><section id="achievements" class="py-16 md:py-24 border-t border-gray-900 scroll-reveal">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
                 <!-- عنوان القسم --><div class="text-center mb-16">
@@ -1581,7 +1661,7 @@
             </div>
         </section>
         
-        <!-- قسم معرض الصور (تمت استعادة شكله الأصلي) --><section id="gallery" class="py-16 md:py-24 border-t border-gray-900">
+        <!-- قسم معرض الصور (تمت استعادة شكله الأصلي) --><section id="gallery" class="py-16 md:py-24 border-t border-gray-900 scroll-reveal">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
                 <!-- عنوان القسم (تم التعديل) --><div class="text-center mb-16">
@@ -1593,21 +1673,17 @@
                     <!-- هذا العنصر تم إخفاؤه بـ CSS --><div class="w-24 h-1 bg-yellow-500 mx-auto mt-2 rounded-full"></div>
                 </div>
 
-                <!-- شبكة الصور الأصلية (تمت استعادتها) -->
-                <div class="main-container">
+                <!-- شبكة الصور الأصلية (تمت استعادتها) --><div class="main-container">
                     <div class="carousel-section">
                         <div class="carousel-container">
-                            <!-- الأسهم الداخلية مخفية على الديسكتوب وتظهر على الموبايل -->
-                            <button class="nav-arrow up">
-                                <!-- أيقونة سهم للأعلى (للانتقال للسابق) -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up">
+                            <!-- الأسهم الداخلية مخفية على الديسكتوب وتظهر على الموبايل --><button class="nav-arrow up">
+                                <!-- أيقونة سهم للأعلى (للانتقال للسابق) --><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up">
                                     <path d="m5 12 7-7 7 7"></path>
                                     <path d="M12 19V5"></path>
                                 </svg>
                             </button>
                             <div class="carousel-track">
-                                <!-- الشرائح -->
-                                <div class="card" data-index="0">
+                                <!-- الشرائح --><div class="card" data-index="0">
                                     <img src="https://placehold.co/600x600/374151/ffffff?text=Parliament+Session" alt="صورة جلسة برلمانية">
                                     <div class="card-content">
                                         <h3 class="card-title">جلسة برلمانية حاسمة</h3>
@@ -1657,8 +1733,7 @@
                                 </div>
                             </div>
                             <button class="nav-arrow down">
-                                <!-- أيقونة سهم للأسفل (للانتقال للتالي) -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down">
+                                <!-- أيقونة سهم للأسفل (للانتقال للتالي) --><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down">
                                     <path d="M12 5v14"></path>
                                     <path d="m19 12-7 7-7-7"></path>
                                 </svg>
@@ -1668,17 +1743,14 @@
                     
                     <div class="controls-section">
                         <div class="nav-controls">
-                            <!-- أسهم التنقل الخارجية -->
-                            <button class="nav-arrow up" id="nav-arrow-up-desk">
-                                <!-- أيقونة سهم للأعلى (للانتقال للسابق) -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up">
+                            <!-- أسهم التنقل الخارجية --><button class="nav-arrow up" id="nav-arrow-up-desk">
+                                <!-- أيقونة سهم للأعلى (للانتقال للسابق) --><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up">
                                     <path d="m5 12 7-7 7 7"></path>
                                     <path d="M12 19V5"></path>
                                 </svg>
                             </button>
                             <button class="nav-arrow down" id="nav-arrow-down-desk">
-                                <!-- أيقونة سهم للأسفل (للانتقال للتالي) -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down">
+                                <!-- أيقونة سهم للأسفل (للانتقال للتالي) --><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down">
                                     <path d="M12 5v14"></path>
                                     <path d="m19 12-7 7-7-7"></path>
                                 </svg>
@@ -1691,23 +1763,19 @@
                         </div>
                         
                         <div class="dots" id="carousel-dots">
-                            <!-- نقاط التنقل يتم توليدها بواسطة JS -->
-                        </div>
+                            <!-- نقاط التنقل يتم توليدها بواسطة JS --></div>
                     </div>
                 </div>
 
 
-                <!-- تم حذف هذا الجزء: زر "عرض جميع الصور" -->
-                <!-- <div class="text-center mt-12">
+                <!-- تم حذف هذا الجزء: زر "عرض جميع الصور" --><!-- <div class="text-center mt-12">
                     <button class="font-semibold py-3 px-8 rounded-full text-lg w-full sm:w-auto whitespace-nowrap btn-language">
                         عرض جميع الصور
                     </button>
-                </div> -->
-
-            </div>
+                </div> --></div>
         </section>
         
-        <!-- قسم المكتب والتواصل --><section id="office" class="py-16 md:py-24">
+        <!-- قسم المكتب والتواصل --><section id="office" class="py-16 md:py-24 scroll-reveal">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
                 <!-- العنوان الرئيسي للقسم --><div class="text-center mb-16">
@@ -1727,7 +1795,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building2 _locationIcon_1yghw_847">
                                     <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path>
                                     <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path>
-                                    <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path>
+                                    <path d="M18 9h2a2 2 2 0 0 1 2 2v9a2 2 2 0 0 1-2 2h-2"></path>
                                     <path d="M10 6h4"></path>
                                     <path d="M10 10h4"></path>
                                     <path d="M10 14h4"></path>
@@ -1783,8 +1851,7 @@
                                 Google
                             </div>
                              <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                                 <!-- Gold Map Pin -->
-                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#ffd45a" stroke="#0a1d3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin">
+                                 <!-- Gold Map Pin --><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#ffd45a" stroke="#0a1d3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin">
                                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                                      <circle cx="12" cy="10" r="3"></circle>
                                  </svg>
@@ -1797,7 +1864,7 @@
 
                 </div>
                 
-                <!-- عنوان التواصل الاجتماعي الجديد --><div class="text-center space-y-8 pt-8 mt-16">
+                <!-- عنوان التواصل الاجتماعي الجديد --><div class="text-center space-y-8 pt-8 mt-16 scroll-reveal">
                     <div class="_socialMediaSection_1yghw_900">
                         <h4 class="_socialMediaLabel_1yghw_907">تواصل معنا</h4>
                         <div class="_socialLinksRow_1yghw_920">
@@ -1813,7 +1880,11 @@
                                 </svg>
                             </a>
                             
-                            <!-- YouTube --><a href="#" class="_socialCircle_1yghw_927" aria-label="YouTube"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-youtube"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path><path d="m10 15 5-3-5-3z"></path></svg></a>
+                            <!-- TikTok (تم إضافة الرمز) --><a href="#" class="_socialCircle_1yghw_927" aria-label="TikTok">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                                    <path d="M22.1 6.1a5.6 5.6 0 0 1-3.2-1.2C17.5 4 16.8 3.5 16.1 3.2L16 3.1c-.8-.3-1.6-.2-2.3.2A6.6 6.6 0 0 0 12 4.4v9.9c0 .7-.3 1.3-.8 1.8a2.5 2.5 0 0 1-1.8.8c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5c.2 0 .4 0 .6.1V8.5c-.3 0-.6 0-.8.1a4.5 4.5 0 0 0-3.7 3.5C4.2 14.8 5 18 8 18c3 0 5.4-2.4 5.4-5.4V9.3c.9-.4 1.7-.8 2.5-1.3l.1-.1c.3-.2.7-.4 1.1-.6.7-.4 1.5-.7 2.3-.9A5.6 5.6 0 0 1 22.1 6.1z"/>
+                                </svg>
+                            </a>
                             <!-- Twitter/X --><a href="#" class="_socialCircle_1yghw_927" aria-label="Twitter/X"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg></a>
                         </div>
                         <p class="_socialClosingText_1yghw_977">نتشرّف بتواصلكم عبر مكاتبنا أو صفحاتنا الرسمية</p>
@@ -1823,13 +1894,19 @@
             </div>
         </section>
         
-        <!-- قسم نموذج الاتصال الجديد --><section id="contact-form" class="py-16 md:py-24 bg-gray-900">
+        <!-- قسم نموذج الاتصال الجديد --><section id="contact-form" class="py-16 md:py-24 scroll-reveal"> 
+
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 form-container">
+                
+                <!-- عنوان القسم (مطابق للأقسام الأخرى) --><div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-neon-gold inline-block pb-2">
+                        اتصل بالمكتب
+                    </h2>
+                    <div class="w-24 h-1 bg-yellow-500 mx-auto mt-2 rounded-full"></div>
+                </div>
+                
                 <div class="_sectionContainer_1yghw_15">
-                    <div class="_reveal_kutk6_1 _visible_kutk6_6 _fade_kutk6_11 " style="transition-delay: 0ms;">
-                        <h2 class="_sectionTitle_1yghw_21">اتصل بالمكتب</h2>
-                    </div>
-                    <!-- تمت إزالة فئات الرؤية والـ delay الخاصة بالـ animations لضمان التوافق مع الـ iframes -->
+                    
                     <div class="_contactContent_1yghw_1005"> 
                         <p class="_constituentsText_1yghw_1010">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users _constituentsIcon_1yghw_1027">
@@ -1855,12 +1932,10 @@
     </main>
 
     
-    <!-- Custom Modal for Confirmation/Error Messages -->
-    <div id="confirmation-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-[2000] hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
+    <!-- Custom Modal for Confirmation/Error Messages --><div id="confirmation-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-[2000] hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
         <div class="bg-gray-800 p-8 rounded-xl shadow-2xl max-w-sm w-full text-center border-2 border-yellow-400 transform scale-95 transition-transform duration-300">
             <div id="modal-icon" class="mb-4">
-                <!-- Icon will be injected here -->
-            </div>
+                <!-- Icon will be injected here --></div>
             <h3 id="modal-title" class="text-2xl font-bold mb-3 text-yellow-400"></h3>
             <p id="modal-message" class="text-gray-300 mb-6"></p>
             <button id="close-modal-btn" class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-2 px-6 rounded-full transition duration-300 shadow-md">
@@ -1869,14 +1944,26 @@
         </div>
     </div>
 
-    <!-- Loading Spinner -->
-    <div id="loading-spinner" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-[2000] hidden flex items-center justify-center">
+    <!-- Loading Spinner --><div id="loading-spinner" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-[2000] hidden flex items-center justify-center">
         <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-yellow-400"></div>
     </div>
 
 
-    <!-- تذييل الصفحة --><footer class="py-10 border-t border-gray-800 text-center text-gray-400 text-sm mt-12 w-full">
-        <p>&copy; 2024 النائبة هبة القس. جميع الحقوق محفوظة. <span class="text-yellow-500 font-medium">تصميم: صوت الشعب.</span></p>
+    <!-- تذييل الصفحة الجديد --><footer class="custom-footer w-full">
+        <div class="flag-top-border">
+            <div class="stripe red"></div>
+            <div class="stripe white"></div>
+            <div class="stripe green"></div>
+        </div>
+        <div class="footer-content text-center max-w-7xl mx-auto px-4">
+            <p class="main-text">© 2025 مكتب النائبة هبة القس - معاً لعراق أرقى</p>
+            <!-- تم إضافة رابط TECHNO NANO هنا -->
+            <p class="sub-text mt-1">
+                التسلسل: ٣٣٣
+                <span class="text-gray-400">|</span> 
+                تطوير: <a href="https://techno-nano.com" target="_blank" class="text-yellow-500 hover:text-yellow-400 transition duration-200">TECHNO NANO</a>
+            </p>
+        </div>
     </footer>
 
     <script>
@@ -1898,7 +1985,7 @@
                 document.getElementById('mobile-menu').classList.add('translate-x-full');
             });
         });
-        
+
         // Add smooth scrolling to navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1907,10 +1994,13 @@
                     behavior: 'smooth'
                 });
                 
-                // Update active link class
+                // Update active link class logic (manual scroll observer is better, but this handles clicks)
                 document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-                if (e.target.classList.contains('nav-link')) {
-                    e.target.classList.add('active');
+                const parentListItem = this.closest('li');
+                if (parentListItem) {
+                    parentListItem.querySelector('.nav-link').classList.add('active');
+                } else if (this.classList.contains('nav-link')) {
+                    this.classList.add('active');
                 }
             });
         });
@@ -2075,12 +2165,13 @@
             const memberRole = document.getElementById("member-role");
             const upArrows = document.querySelectorAll(".nav-arrow.up");
             const downArrows = document.querySelectorAll(".nav-arrow.down");
+            const numCards = cards.length; // عدد البطاقات الكلي
             let currentIndex = 0;
             let isAnimating = false;
             let dots = [];
 
             // 1. Setup Dots
-            for(let i = 0; i < cards.length; i++) {
+            for(let i = 0; i < numCards; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'dot';
                 dot.setAttribute('data-index', i);
@@ -2093,11 +2184,26 @@
                 if (isAnimating) return;
                 isAnimating = true;
 
-                currentIndex = (newIndex + cards.length) % cards.length;
+                // ضمان بقاء المؤشر ضمن الحدود [0, numCards - 1]
+                if (newIndex < 0) {
+                    currentIndex = numCards - 1;
+                } else if (newIndex >= numCards) {
+                    currentIndex = 0;
+                } else {
+                    currentIndex = newIndex;
+                }
 
                 cards.forEach((card, i) => {
-                    const offset = (i - currentIndex + cards.length) % cards.length;
-
+                    // حساب المسافة من العنصر المركزي مع مراعاة الدوران
+                    const diff = i - currentIndex;
+                    let offset = diff;
+                    
+                    if (diff > numCards / 2) {
+                        offset = diff - numCards;
+                    } else if (diff < -numCards / 2) {
+                        offset = diff + numCards;
+                    }
+                    
                     card.classList.remove( 
                         "center", 
                         "up-1", 
@@ -2107,16 +2213,16 @@
                         "hidden" 
                     );
 
-                    // Logic for vertical stacking
+                    // تطبيق الفئات بناءً على الإزاحة
                     if (offset === 0) {
                         card.classList.add("center");
                     } else if (offset === 1) {
                         card.classList.add("down-1");
                     } else if (offset === 2) {
                         card.classList.add("down-2");
-                    } else if (offset === cards.length - 1) {
+                    } else if (offset === -1) {
                         card.classList.add("up-1");
-                    } else if (offset === cards.length - 2) {
+                    } else if (offset === -2) {
                         card.classList.add("up-2");
                     } else {
                         card.classList.add("hidden");
@@ -2127,8 +2233,8 @@
                     dot.classList.toggle("active", i === currentIndex);
                 });
 
-                // Animate info change
-                if(memberName && memberRole) {
+                // تحديث معلومات العضو مع التحقق من وجود العنصر
+                if(memberName && memberRole && teamMembers[currentIndex]) {
                     memberName.style.opacity = "0";
                     memberRole.style.opacity = "0";
 
@@ -2177,19 +2283,21 @@
             let touchEndX = 0; 
 
             carouselContainer.addEventListener("touchstart", (e) => {
+                // استخدام `screenY` لتحديد نقطة البداية العمودية
                 touchStartX = e.changedTouches[0].screenY;
             });
 
             carouselContainer.addEventListener("touchend", (e) => {
+                // استخدام `screenY` لتحديد نقطة النهاية العمودية
                 touchEndX = e.changedTouches[0].screenY;
                 
                 const swipeThreshold = 50; 
-                const diff = touchStartX - touchEndX; // positive diff means swipe up
+                const diff = touchStartX - touchEndX; // قيمة موجبة تعني سحب للأعلى
 
                 if (Math.abs(diff) > swipeThreshold) {
-                    if (diff > 0) { // Swipe Up (move to next image/index++)
+                    if (diff > 0) { // سحب للأعلى (انتقال للعنصر التالي)
                         updateCarousel(currentIndex + 1);
-                    } else { // Swipe Down (move to previous image/index--)
+                    } else { // سحب للأسفل (انتقال للعنصر السابق)
                         updateCarousel(currentIndex - 1);
                     }
                 }
@@ -2198,6 +2306,35 @@
             // 4. Initial load
             updateCarousel(0);
         };
+
+        // ===============================================
+        // Scroll Reveal Logic (منطق ظهور الأقسام عند التمرير)
+        // ===============================================
+
+        function checkScrollReveal() {
+            const revealElements = document.querySelectorAll('.scroll-reveal');
+            const viewportHeight = window.innerHeight;
+
+            revealElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const elementTop = rect.top;
+
+                // إذا كان الجزء العلوي من العنصر داخل حدود الثلثين السفليين من النافذة
+                if (elementTop < viewportHeight - (viewportHeight / 5)) {
+                    el.classList.add('visible');
+                } else {
+                    // يمكن إزالة الفئة لإعادة التأثير عند التمرير للأعلى
+                    // el.classList.remove('visible'); 
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkScrollReveal);
+        window.addEventListener('resize', checkScrollReveal);
+        
+        // التحقق عند التحميل الأولي للصفحة
+        document.addEventListener('DOMContentLoaded', checkScrollReveal);
+
     </script>
 
 </body>
